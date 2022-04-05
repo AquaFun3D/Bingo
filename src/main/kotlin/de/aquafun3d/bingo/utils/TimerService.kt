@@ -1,5 +1,6 @@
 package de.aquafun3d.bingo.utils
 
+import de.aquafun3d.bingo.Main
 import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -21,7 +22,7 @@ class TimerService(plugin: Plugin) {
 
 	//initialize the runnable timer
 	init {
-		sec = Main.challengeConfig!!.getInt("time")
+		sec = Main.bingoConfig!!.getInt("time")
 		Bukkit.getScheduler().scheduleSyncRepeatingTask( plugin, {
 			if (state === TimerState.RUNNING && lastSec != LocalDateTime.now().second) {
 				lastSec = LocalDateTime.now().second
@@ -49,13 +50,13 @@ class TimerService(plugin: Plugin) {
 	//toggle timer running
 	fun toggle() {
 		state = if(getState() != TimerState.RUNNING){
-			val cfg = Main.challengeConfig
+			val cfg = Main.bingoConfig
 			if (cfg!!.getInt("time") != 0){
 				setSec(cfg.getInt("time"))
 			}
 			TimerState.RUNNING
 		}else{
-			Main.challengeConfig?.set("time",sec)
+			Main.bingoConfig?.set("time",sec)
 			TimerState.PAUSED
 		}
 	}
@@ -64,7 +65,7 @@ class TimerService(plugin: Plugin) {
 	fun reset() {
 		state = TimerState.PAUSED
 		sec = 0
-		val cfg = Main.challengeConfig
+		val cfg = Main.bingoConfig
 		try {
 			cfg!!["time"] = 0
 		} catch (e: IOException) {
@@ -101,7 +102,7 @@ class TimerService(plugin: Plugin) {
 		Utils.atAll(ChatColor.GOLD.toString() + "Time is up!")
 		Utils.atAll(ChatColor.RED.toString() + "Challenge has stopped")
 		Bukkit.getOnlinePlayers().forEach { p: Player? -> p!!.gameMode = GameMode.SPECTATOR }
-		Main.timerService?.getInstance()?.toggle()
+		Main.timer?.getInstance()?.toggle()
 	}
 
 	//check if timer is reversed

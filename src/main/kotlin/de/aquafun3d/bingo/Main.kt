@@ -1,5 +1,6 @@
 package de.aquafun3d.bingo
 
+import de.aquafun3d.bingo.utils.BingoConfig
 import de.aquafun3d.bingo.utils.TimerService
 import org.bukkit.Bukkit
 import org.bukkit.plugin.PluginManager
@@ -10,6 +11,7 @@ class Main : JavaPlugin() {
 		Bukkit.getLogger().fine("Plugin activated")
 
 		timer = TimerService(this)
+		bingoConfig = BingoConfig()
 
 		commandRegistration()
 		listenerRegistration()
@@ -32,5 +34,6 @@ class Main : JavaPlugin() {
 	companion object {
 		val pluginManager: PluginManager = Bukkit.getPluginManager()
 		var timer: TimerService? = null
+		var bingoConfig: BingoConfig? = null
 	}
 }

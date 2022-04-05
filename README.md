@@ -4,7 +4,6 @@ Minecraft Bingo Plugin in Kotlin
 TODO:
     - Items
     - Teambackpack
-    - Top
     - Bingo/start command
     - Listeners
     - Teamselect

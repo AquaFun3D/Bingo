@@ -24,7 +24,7 @@ class TopCommand:CommandExecutor {
 					x *= 8
 					z *= 8
 				}
-				val location: Location = Location(Bukkit.getWorld("world"),x,y,z,yaw,pitch)
+				val location = Location(Bukkit.getWorld("world"),x,y,z,yaw,pitch)
 				player.teleport(location)
 				Utils.send(player,ChatColor.GREEN.toString() + "Wooooosh!")
 			}else{

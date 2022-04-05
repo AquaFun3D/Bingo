@@ -22,7 +22,9 @@ class TimerService(plugin: Plugin) {
 
 	//initialize the runnable timer
 	init {
-		sec = Main.bingoConfig!!.getInt("time")
+		if(Main.bingoConfig!!.contains("time")) {
+			sec = Main.bingoConfig!!.getInt("time")
+		}
 		Bukkit.getScheduler().scheduleSyncRepeatingTask( plugin, {
 			if (state === TimerState.RUNNING && lastSec != LocalDateTime.now().second) {
 				lastSec = LocalDateTime.now().second

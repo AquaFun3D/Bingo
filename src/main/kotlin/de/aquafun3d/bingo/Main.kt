@@ -1,5 +1,6 @@
 package de.aquafun3d.bingo
 
+import de.aquafun3d.bingo.commands.TopCommand
 import de.aquafun3d.bingo.utils.BingoConfig
 import de.aquafun3d.bingo.utils.TimerService
 import org.bukkit.Bukkit
@@ -23,7 +24,7 @@ class Main : JavaPlugin() {
 	}
 
 	private fun commandRegistration() {
-		//getCommand("timer")!!.setExecutor(TimerCommand())
+		getCommand("top")!!.setExecutor(TopCommand())
 	}
 
 	private fun listenerRegistration() {

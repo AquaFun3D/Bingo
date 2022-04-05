@@ -4,3 +4,7 @@ main: de.aquafun3d.bingo.Main
 api-version: 1.18
 authors: [ AquaFun3D ]
 description: Minecraft Bingo Plugin in Kotlin
+
+commands:
+  top:
+    description: Brings the player to the surface (overworld if in Nether/End)

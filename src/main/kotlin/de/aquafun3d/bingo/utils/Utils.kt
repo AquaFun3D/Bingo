@@ -7,6 +7,8 @@ import org.bukkit.entity.Player
 
 object Utils {
 
+	var isBingoRunning = false
+
 	//Challenge Prefix
 	val PREFIX: String = "" + ChatColor.DARK_GRAY + "[" + ChatColor.DARK_AQUA + "Bingo" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_PURPLE
 

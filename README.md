@@ -1,5 +1,5 @@
 # Bingo
-Minecraft Bingo Plugin in Kotlin
+Minecraft Bingo Plugin
 
 TODO:
     - Items
@@ -12,6 +12,5 @@ TODO:
     - Scoreboard
     - Scores/Teams
     - Settings Inventory
-    - Spawncage
     - Wintask
     - Teaminventory

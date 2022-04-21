@@ -5,7 +5,6 @@ TODO:
     - Items
     - Teambackpack
     - Bingo/start command
-    - Listeners
     - Teamselect
     - New Item Listener
     - Countdown

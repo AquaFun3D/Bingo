@@ -1,12 +1,14 @@
 package de.aquafun3d.bingo;
 
 import de.aquafun3d.bingo.Commands.TopCommand;
+import de.aquafun3d.bingo.Listeners.DefaultListener;
 import de.aquafun3d.bingo.utils.helpers.Helpers;
 import de.aquafun3d.bingo.utils.config.BingoConfig;
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Main extends JavaPlugin {
@@ -19,6 +21,8 @@ public final class Main extends JavaPlugin {
 		var cage = new SpawnCage();
 
 		commandRegistration(helpers);
+		listenerRegistration(helpers);
+
 	}
 
 	@Override
@@ -31,5 +35,10 @@ public final class Main extends JavaPlugin {
 
 	private void commandRegistration(IHelpers helpers){
 		getCommand("top").setExecutor(new TopCommand(helpers));
+	}
+
+	private void listenerRegistration(IHelpers helpers) {
+		PluginManager pluginManager = Bukkit.getPluginManager();
+		pluginManager.registerEvents(new DefaultListener(helpers),this);
 	}
 }

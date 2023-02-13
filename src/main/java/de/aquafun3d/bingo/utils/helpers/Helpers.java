@@ -26,4 +26,8 @@ public class Helpers implements IHelpers{
 		this._isBingoRunning = bool;
 	}
 
+	public String getPrefix() {
+		return _prefix;
+	}
+
 }

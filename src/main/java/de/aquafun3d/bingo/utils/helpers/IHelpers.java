@@ -11,4 +11,6 @@ public interface IHelpers {
 	boolean isBingoRunning();
 
 	void changeBingoRunning(boolean bool);
+
+	String getPrefix();
 }

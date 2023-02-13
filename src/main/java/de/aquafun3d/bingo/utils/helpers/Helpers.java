@@ -1,11 +1,11 @@
-package de.aquafun3d.bingo.utils;
+package de.aquafun3d.bingo.utils.helpers;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Utils {
+public class Helpers implements IHelpers{
 
 	private boolean _isBingoRunning = false;
 	private final String _prefix = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_AQUA + "Bingo" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_PURPLE;

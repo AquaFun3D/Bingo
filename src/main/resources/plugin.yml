@@ -1,0 +1,8 @@
+name: Bingo
+version: '${project.version}'
+main: de.aquafun3d.bingo.Main
+api-version: 1.19
+authors: [ AquaFun3D ]
+description: Minecraft Bingo Plugin
+
+

@@ -6,6 +6,7 @@ import de.aquafun3d.bingo.utils.helpers.Helpers;
 import de.aquafun3d.bingo.utils.config.BingoConfig;
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage;
+import de.aquafun3d.bingo.utils.timer.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
@@ -19,6 +20,7 @@ public final class Main extends JavaPlugin {
 		var helpers = new Helpers();
 		var config = new BingoConfig("BingoConfig");
 		var cage = new SpawnCage();
+		var timer = new Timer(this,helpers);
 
 		commandRegistration(helpers);
 		listenerRegistration(helpers);

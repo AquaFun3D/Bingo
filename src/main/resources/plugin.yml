@@ -8,3 +8,6 @@ description: Minecraft Bingo Plugin
 commands:
   top:
     description: Brings the player to the surface (overworld if in Nether/End)
+  teambackpack:
+    description: Opens the shared team backpack
+    aliases: [tbp, teambp, bp]

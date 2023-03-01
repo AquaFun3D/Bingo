@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class TopCommand implements CommandExecutor {
 
 	private final IHelpers _helpers;
@@ -27,8 +29,8 @@ public class TopCommand implements CommandExecutor {
 				var z = player.getLocation().getZ();
 				var yaw = player.getLocation().getYaw();
 				var pitch = player.getLocation().getPitch();
-				var y = Bukkit.getWorld(world).getHighestBlockYAt((int) x, (int) z) + 1;
-				if(world == "world_nether"){
+				var y = Objects.requireNonNull(Bukkit.getWorld(world)).getHighestBlockYAt((int) x, (int) z) + 1;
+				if(world.equals("world_nether")){
 					x*=8;
 					z*=8;
 				}

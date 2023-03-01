@@ -1,10 +1,11 @@
 package de.aquafun3d.bingo.utils.spawncage;
 
-import de.aquafun3d.bingo.utils.config.IConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.Material;
+
+import java.util.Objects;
 
 public class SpawnCage implements ISpawnCage {
 
@@ -17,12 +18,12 @@ public class SpawnCage implements ISpawnCage {
 			world.setGameRule(GameRule.SPAWN_RADIUS,1);
 		}
 
-		var spawn = Bukkit.getWorld("world").getSpawnLocation();
-		int x = spawn.blockX();
-		int y = spawn.blockY();
-		int z = spawn.blockZ();
+		var spawn = Objects.requireNonNull(Bukkit.getWorld("world")).getSpawnLocation();
+		int x = spawn.getBlockX();
+		int y = spawn.getBlockY();
+		int z = spawn.getBlockZ();
 
-		Bukkit.getWorld("world").setSpawnLocation(x,y+2,z);
+		Objects.requireNonNull(Bukkit.getWorld("world")).setSpawnLocation(x,y+2,z);
 
 		x-=5;
 		z-=5;
@@ -90,7 +91,7 @@ public class SpawnCage implements ISpawnCage {
 	}
 
 	public void removeCage(){
-		Location spawn = Bukkit.getWorld("world").getSpawnLocation();
+		Location spawn = Objects.requireNonNull(Bukkit.getWorld("world")).getSpawnLocation();
 		int x = (int) spawn.getX();
 		int y = (int) spawn.getY();
 		int z = (int) spawn.getZ();

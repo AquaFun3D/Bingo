@@ -13,4 +13,6 @@ public interface IHelpers {
 	void changeBingoRunning(boolean bool);
 
 	String getPrefix();
+
+	void initDefaultBoard();
 }

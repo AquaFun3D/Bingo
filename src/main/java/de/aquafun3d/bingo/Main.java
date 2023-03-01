@@ -1,10 +1,13 @@
 package de.aquafun3d.bingo;
 
+import de.aquafun3d.bingo.Commands.TeamBackpackCommand;
 import de.aquafun3d.bingo.Commands.TopCommand;
 import de.aquafun3d.bingo.Listeners.DefaultListener;
+import de.aquafun3d.bingo.utils.config.IConfig;
 import de.aquafun3d.bingo.utils.helpers.Helpers;
 import de.aquafun3d.bingo.utils.config.BingoConfig;
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
+import de.aquafun3d.bingo.utils.scoreboards.Scoreboards;
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage;
 import de.aquafun3d.bingo.utils.timer.Timer;
 import org.bukkit.Bukkit;
@@ -19,11 +22,12 @@ public final class Main extends JavaPlugin {
 		Bukkit.getLogger().fine("Plugin activated");
 		var helpers = new Helpers();
 		var config = new BingoConfig("BingoConfig");
+		var scoreboards = new Scoreboards(helpers);
 		var cage = new SpawnCage();
 		var timer = new Timer(this,helpers);
 
-		commandRegistration(helpers);
-		listenerRegistration(helpers);
+		commandRegistration(helpers,config);
+		listenerRegistration(helpers,scoreboards);
 
 	}
 
@@ -35,12 +39,13 @@ public final class Main extends JavaPlugin {
 		Bukkit.getWorld("world").setSpawnLocation(location);
 	}
 
-	private void commandRegistration(IHelpers helpers){
+	private void commandRegistration(IHelpers helpers, IConfig config){
 		getCommand("top").setExecutor(new TopCommand(helpers));
+		getCommand("teambackpack").setExecutor(new TeamBackpackCommand(helpers,config));
 	}
 
-	private void listenerRegistration(IHelpers helpers) {
+	private void listenerRegistration(IHelpers helpers, Scoreboards scoreboards) {
 		PluginManager pluginManager = Bukkit.getPluginManager();
-		pluginManager.registerEvents(new DefaultListener(helpers),this);
+		pluginManager.registerEvents(new DefaultListener(helpers, scoreboards),this);
 	}
 }

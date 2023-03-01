@@ -32,7 +32,7 @@ public class TeamBackpackCommand implements CommandExecutor {
                 if(_config.contains("teambackpack")){
                     for (int i = 0; i < 9; i++) {
                         ItemStack item;
-                        if() {//TODO after Scoreboard & Teams
+                        if(true) {//TODO after Scoreboard & Teams
                             item = new ItemStack(Material.AIR);
                             inv.setItem(i,item);
                         }else{

@@ -1,6 +1,5 @@
 package de.aquafun3d.bingo.utils.scoreboards;
 
-import de.aquafun3d.bingo.utils.helpers.IHelpers;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,19 +7,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Criteria;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 public class Scoreboards implements IScoreboards{
 
-    private final IHelpers _helper;
     private final HashMap<UUID, Scoreboard> _playerScoreboards = new HashMap<>();
     private final HashMap<UUID, Objective> _playerObjectives = new HashMap<>();
     private final Scoreboard _defaultBoard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-    public Scoreboards(IHelpers helper){
-        _helper = helper;
+    public Scoreboards(){
         initDefaultBoard();
     }
 
@@ -38,8 +36,23 @@ public class Scoreboards implements IScoreboards{
         board.getTeam(teamname).prefix(Component.text(prefix));
     }
 
-    //TODO Items auf Scoreboard (fillScoreboards)
-    //TODO update Scores
+    private void initScore(String teamname, String value, int score){
+            Objective obj = _defaultBoard.getObjective("bingo");
+            Team team = _defaultBoard.getTeam(teamname);
+            team.prefix(Component.text(value));
+            obj.getScore(value).setScore(score);
+    }
+
+    public void updateScore(Player player, String teamname, String value, int score, boolean remove){
+        UUID uuid = player.getUniqueId();
+        Scoreboard board = _playerScoreboards.get(uuid);
+        Objective obj = _playerObjectives.get(uuid);
+        board.resetScores(board.getTeam(teamname).prefix().toString());
+        if(!remove) {
+            board.getTeam(teamname).prefix(Component.text(value));
+            obj.getScore(value).setScore(score);
+        }
+    }
 
     private void initDefaultBoard() {
         addTeam(_defaultBoard, "spec", ChatColor.GRAY + "[Spec] ");
@@ -59,11 +72,17 @@ public class Scoreboards implements IScoreboards{
         addTeam(_defaultBoard, "green", ChatColor.DARK_GREEN + "[#14] ");
         addTeam(_defaultBoard, "red", ChatColor.DARK_RED + "[#15] ");
         addTeam(_defaultBoard, "black", ChatColor.DARK_GRAY + "[#16] ");
-        addTeam(_defaultBoard,"firstplace", ChatColor.GOLD + "1. Place: ");
-        addTeam(_defaultBoard,"place", ChatColor.GOLD + "Your Team: ");
-        addTeam(_defaultBoard,"blank", " ");
-        addTeam(_defaultBoard,"itemcount", "X items left");
+        addTeam(_defaultBoard, "firstplace", ChatColor.GOLD + "1. Place: ");
+        addTeam(_defaultBoard, "place", ChatColor.GOLD + "Your Team: ");
+        addTeam(_defaultBoard, "blank", " ");
+        addTeam(_defaultBoard, "itemcount", "X items left");
 
         _defaultBoard.registerNewObjective("bingo", Criteria.DUMMY, Component.text("bingo"));
+
+        initScore("firstplace", ChatColor.GOLD + "1. Place: ", 13);
+        initScore("blank", " ", 11);
+        initScore("blank", " ", 14);
+        initScore("place", ChatColor.GOLD + "Your Team: ", 12);
+        initScore("itemcount", "X items left", 10);
     }
 }

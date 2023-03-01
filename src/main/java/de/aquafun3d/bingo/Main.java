@@ -3,6 +3,7 @@ package de.aquafun3d.bingo;
 import de.aquafun3d.bingo.Commands.TeamBackpackCommand;
 import de.aquafun3d.bingo.Commands.TopCommand;
 import de.aquafun3d.bingo.Listeners.DefaultListener;
+import de.aquafun3d.bingo.Listeners.TeamBackpackListener;
 import de.aquafun3d.bingo.utils.config.IConfig;
 import de.aquafun3d.bingo.utils.helpers.Helpers;
 import de.aquafun3d.bingo.utils.config.BingoConfig;
@@ -22,7 +23,7 @@ public final class Main extends JavaPlugin {
 		Bukkit.getLogger().fine("Plugin activated");
 		var helpers = new Helpers();
 		var config = new BingoConfig("BingoConfig");
-		var scoreboards = new Scoreboards(helpers);
+		var scoreboards = new Scoreboards();
 		var cage = new SpawnCage();
 		var timer = new Timer(this,helpers);
 
@@ -47,5 +48,6 @@ public final class Main extends JavaPlugin {
 	private void listenerRegistration(IHelpers helpers, Scoreboards scoreboards) {
 		PluginManager pluginManager = Bukkit.getPluginManager();
 		pluginManager.registerEvents(new DefaultListener(helpers, scoreboards),this);
+		pluginManager.registerEvents(new TeamBackpackListener(),this);
 	}
 }

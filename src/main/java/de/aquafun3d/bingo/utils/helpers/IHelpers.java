@@ -14,5 +14,4 @@ public interface IHelpers {
 
 	String getPrefix();
 
-	void initDefaultBoard();
 }

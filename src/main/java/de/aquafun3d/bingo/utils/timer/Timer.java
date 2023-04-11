@@ -19,7 +19,7 @@ public class Timer implements ITimer{
         _sec = 0;
         _lastSec = 0;
         _helper = helper;
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin,() -> {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin,() -> { //TODO eigener Thread?
             if(_helper.isBingoRunning() && _lastSec != LocalDateTime.now().getSecond()){
                 _lastSec = LocalDateTime.now().getSecond();
                 _sec++;
@@ -30,7 +30,7 @@ public class Timer implements ITimer{
                 }
             }else{
                 for (Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendActionBar(Component.text(ChatColor.GREEN + "" + ChatColor.ITALIC + "Timer paused"));
+                    player.sendActionBar(Component.text(ChatColor.GREEN + String.valueOf(ChatColor.ITALIC) + "Timer paused"));
                 }
             }
         },5L,5L);
@@ -50,7 +50,7 @@ public class Timer implements ITimer{
         }else {
             hms = String.format("%d Days, %02d:%02d:%02d", _sec / 60 / 60 / 24, _sec / 60 / 60 , _sec / 60 % 60, _sec % 60);
         }
-        hms = ChatColor.GOLD + "" + hms;
+        hms = ChatColor.GOLD + hms;
         return hms;
     }
 }

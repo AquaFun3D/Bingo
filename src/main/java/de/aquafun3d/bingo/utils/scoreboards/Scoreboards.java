@@ -54,6 +54,10 @@ public class Scoreboards implements IScoreboards{
         }
     }
 
+    public HashMap<UUID, Scoreboard> getPlayerBoards() {
+        return this._playerScoreboards;
+    }
+
     private void initDefaultBoard() {
         addTeam(_defaultBoard, "spec", ChatColor.GRAY + "[Spec] ");
         addTeam(_defaultBoard, "white", ChatColor.WHITE + "[#1] ");

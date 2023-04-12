@@ -54,7 +54,7 @@ public class Scoreboards implements IScoreboards{
         }
     }
 
-    public HashMap<UUID, Scoreboard> getPlayerBoards() {
+    public final HashMap<UUID, Scoreboard> getPlayerBoards() {
         return this._playerScoreboards;
     }
 
@@ -63,12 +63,12 @@ public class Scoreboards implements IScoreboards{
         addTeam(_defaultBoard, "white", ChatColor.WHITE + "[#1] ");
         addTeam(_defaultBoard, "orange", ChatColor.GOLD + "[#2] ");
         addTeam(_defaultBoard, "magenta", ChatColor.LIGHT_PURPLE + "[#3] ");
-        addTeam(_defaultBoard, "lblue", ChatColor.AQUA + "[#4] ");
+        addTeam(_defaultBoard, "lightblue", ChatColor.AQUA + "[#4] ");
         addTeam(_defaultBoard, "yellow", ChatColor.YELLOW + "[#5] ");
         addTeam(_defaultBoard, "lime", ChatColor.GREEN + "[#6] ");
         addTeam(_defaultBoard, "pink", ChatColor.RED + "[#7] ");
         addTeam(_defaultBoard, "gray", ChatColor.DARK_GRAY + "[#8] ");
-        addTeam(_defaultBoard, "lgray", ChatColor.GRAY + "[#9] ");
+        addTeam(_defaultBoard, "lightgray", ChatColor.GRAY + "[#9] ");
         addTeam(_defaultBoard, "cyan", ChatColor.DARK_AQUA + "[#10] ");
         addTeam(_defaultBoard, "purple", ChatColor.DARK_PURPLE + "[#11] ");
         addTeam(_defaultBoard, "blue", ChatColor.BLUE + "[#12] ");

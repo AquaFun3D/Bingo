@@ -2,6 +2,7 @@ package de.aquafun3d.bingo.Listeners;
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards;
+import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -35,7 +36,10 @@ public class DefaultListener implements Listener {
 		e.quitMessage(Component.text(_helpers.getPrefix() + ChatColor.AQUA + player.getName() + ChatColor.LIGHT_PURPLE + " has left"));
 	}
 
-	//TODO onChat?
+	@EventHandler
+	public void onChat(AsyncChatEvent e){
+		//TODO
+	}
 
 	@EventHandler
 	public void onItemDrop(PlayerDropItemEvent e){

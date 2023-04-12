@@ -1,6 +1,8 @@
 package de.aquafun3d.bingo.utils.helpers;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public interface IHelpers {
 
@@ -14,4 +16,5 @@ public interface IHelpers {
 
 	String getPrefix();
 
+	ItemStack newItem(Material mat, String name);
 }

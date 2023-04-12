@@ -5,8 +5,8 @@ Minecraft Bingo Plugin
 
 - [x] Timer
 - [x] Spawn Cage 
-- [ ] Team-Select
-  - [ ] Inventory/Signs
+- [x] Team-Select
+  - [x] Inventory/Signs
 - [ ] Team-Backpack
   - [ ] Listener
   - [ ] Command

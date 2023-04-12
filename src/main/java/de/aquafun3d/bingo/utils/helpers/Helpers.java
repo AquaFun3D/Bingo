@@ -3,7 +3,10 @@ package de.aquafun3d.bingo.utils.helpers;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.Scoreboard;
 
 public class Helpers implements IHelpers{
@@ -29,6 +32,14 @@ public class Helpers implements IHelpers{
 
 	public String getPrefix() {
 		return _prefix;
+	}
+
+	public ItemStack newItem(Material mat, String name){
+		ItemStack item = new ItemStack(mat);
+		ItemMeta meta = item.getItemMeta();
+		meta.displayName(Component.text(name));
+		item.setItemMeta(meta);
+		return item;
 	}
 
 }

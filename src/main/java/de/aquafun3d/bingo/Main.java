@@ -35,8 +35,8 @@ public final class Main extends JavaPlugin {
 		var cage = new SpawnCage();
 		var timer = new Timer(this,helpers);
 
-		commandRegistration(helpers,config);
-		listenerRegistration(helpers,scoreboards,teams,teamSelectInv);
+		commandRegistration(helpers,config,teams);
+		listenerRegistration(helpers,scoreboards,teams,teamSelectInv,config);
 
 	}
 
@@ -48,15 +48,15 @@ public final class Main extends JavaPlugin {
 		Bukkit.getWorld("world").setSpawnLocation(location);
 	}
 
-	private void commandRegistration(IHelpers helpers, IConfig config){
+	private void commandRegistration(IHelpers helpers, IConfig config,ITeams teams){
 		getCommand("top").setExecutor(new TopCommand(helpers));
-		getCommand("teambackpack").setExecutor(new TeamBackpackCommand(helpers,config));
+		getCommand("teambackpack").setExecutor(new TeamBackpackCommand(helpers,config,teams));
 	}
 
-	private void listenerRegistration(IHelpers helpers, IScoreboards scoreboards, ITeams teams, IInventory teamSelectInv) {
+	private void listenerRegistration(IHelpers helpers, IScoreboards scoreboards, ITeams teams, IInventory teamSelectInv, IConfig config) {
 		PluginManager pluginManager = Bukkit.getPluginManager();
 		pluginManager.registerEvents(new DefaultListener(helpers, scoreboards),this);
-		pluginManager.registerEvents(new TeamBackpackListener(),this);
+		pluginManager.registerEvents(new TeamBackpackListener(config,teams),this);
 		pluginManager.registerEvents(new InventoryListener(teams,teamSelectInv),this);
 	}
 }

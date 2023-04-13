@@ -7,9 +7,9 @@ Minecraft Bingo Plugin
 - [x] Spawn Cage 
 - [x] Team-Select
   - [x] Inventory/Signs
-- [ ] Team-Backpack
-  - [ ] Listener
-  - [ ] Command
+- [x] Team-Backpack
+  - [x] Listener
+  - [x] Command
 - [ ] Items
 - [x] Top Command 
 - [x] Config 
@@ -40,3 +40,4 @@ Minecraft Bingo Plugin
   - Items auf einer Map dargestellt (Scoreboard)
   - Modifier (beschleunigen)
   - Game state saven und wann anders weiterspielen
+  - Teambackpackgröße an Teamgröße anpassen

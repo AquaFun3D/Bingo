@@ -2,6 +2,7 @@ package de.aquafun3d.bingo.Commands;
 
 import de.aquafun3d.bingo.utils.config.IConfig;
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
+import de.aquafun3d.bingo.utils.teams.ITeams;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,10 +19,12 @@ public class TeamBackpackCommand implements CommandExecutor {
 
     private final IHelpers _helpers;
     private final IConfig _config;
+    private final ITeams _teams;
 
-    public TeamBackpackCommand(IHelpers helpers, IConfig config){
+    public TeamBackpackCommand(IHelpers helpers, IConfig config, ITeams teams){
         _helpers = helpers;
         _config = config;
+        _teams = teams;
     }
 
     @Override
@@ -32,11 +35,11 @@ public class TeamBackpackCommand implements CommandExecutor {
                 if(_config.contains("teambackpack")){
                     for (int i = 0; i < 9; i++) {
                         ItemStack item;
-                        if(true) {//TODO after Scoreboard & Teams
+                        if(_config.get("teambackpack." + _teams.getPlayerTeam(player).getName() + "." + i) == null){
                             item = new ItemStack(Material.AIR);
                             inv.setItem(i,item);
                         }else{
-                            item = item; //TODO after Scoreboard & Teams
+                            item = (ItemStack) _config.get("teambackpack." + _teams.getPlayerTeam(player).getName() + "." + i);
                             inv.setItem(i,item);
                         }
                     }

@@ -10,6 +10,7 @@ public interface ITeams {
     void joinTeam(Player player, String teamname);
     Team getPlayerTeam(Player player);
     String getPlayerTeamName(Player player);
+    String getPlayerTeamPrefix(Player player);
     HashMap<UUID,Team> getTeams();
     String getTeamPrefix(String name);
 }

@@ -16,8 +16,8 @@ import java.io.IOException;
 
 public class TeamBackpackListener implements Listener {
 
-    private IConfig _config;
-    private ITeams _teams;
+    private final IConfig _config;
+    private final ITeams _teams;
 
     public TeamBackpackListener(IConfig config, ITeams teams){
         _config = config;

@@ -1,7 +1,6 @@
 package de.aquafun3d.bingo.utils.inventories;
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
-import de.aquafun3d.bingo.utils.scoreboards.IScoreboards;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,13 +14,13 @@ import java.util.ArrayList;
 
 public class TeamselectInventory implements IInventory{
 
-    private Inventory _inv = Bukkit.createInventory(null, 18, ChatColor.DARK_PURPLE + "Teamselect");
-    private IHelpers _helper;
-    private IScoreboards _boards;
+    private final Inventory _inv = Bukkit.createInventory(null, 18, Component.text(ChatColor.DARK_PURPLE + "Teamselect"));
+    private final IHelpers _helper;
+    private final ItemStack _item;
 
-    public TeamselectInventory(IHelpers helper, IScoreboards boards){
+    public TeamselectInventory(IHelpers helper){
         _helper = helper;
-        _boards = boards;
+        _item = _helper.newItem(Material.EMERALD,ChatColor.DARK_AQUA + "Select Team");
         newInventory();
     }
 
@@ -81,6 +80,15 @@ public class TeamselectInventory implements IInventory{
                 p.openInventory(_inv);
             }
         }
+    }
+
+    public Inventory getInventory(){
+        return _inv;
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return _item;
     }
 
 }

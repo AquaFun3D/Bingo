@@ -84,6 +84,10 @@ public class BingoTeams implements ITeams{
         return getPlayerTeam(player).getName();
     }
 
+    public String getPlayerTeamPrefix(Player player) {
+        return _teams.get(player.getUniqueId()).prefix().toString();
+    }
+
 
     public final HashMap<UUID,Team> getTeams(){
         return this._teams;

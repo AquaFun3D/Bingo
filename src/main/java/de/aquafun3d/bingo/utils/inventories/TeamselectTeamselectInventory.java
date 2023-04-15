@@ -12,15 +12,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 
-public class TeamselectInventory implements IInventory{
+public class TeamselectTeamselectInventory implements ITeamselectInventory {
 
-    private final Inventory _inv = Bukkit.createInventory(null, 18, Component.text(ChatColor.DARK_PURPLE + "Teamselect"));
+    private final Inventory _inv;
     private final IHelpers _helper;
     private final ItemStack _item;
 
-    public TeamselectInventory(IHelpers helper){
+    public TeamselectTeamselectInventory(IHelpers helper){
         _helper = helper;
         _item = _helper.newItem(Material.EMERALD,ChatColor.DARK_AQUA + "Select Team");
+        _inv = Bukkit.createInventory(null, 18, Component.text(ChatColor.DARK_PURPLE + "Teamselect"));
         newInventory();
     }
 

@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public interface IInventory{
+public interface ITeamselectInventory {
     void updateInventory(String name, Player player);
     Inventory getInventory();
     ItemStack getItem();

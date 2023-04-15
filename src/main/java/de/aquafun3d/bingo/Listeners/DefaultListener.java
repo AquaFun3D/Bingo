@@ -1,7 +1,9 @@
 package de.aquafun3d.bingo.Listeners;
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
-import de.aquafun3d.bingo.utils.inventories.IInventory;
+import de.aquafun3d.bingo.utils.inventories.ISettingsInventory;
+import de.aquafun3d.bingo.utils.inventories.ITeamInventories;
+import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory;
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards;
 import de.aquafun3d.bingo.utils.teams.ITeams;
 import io.papermc.paper.event.player.AsyncChatEvent;
@@ -22,16 +24,18 @@ public class DefaultListener implements Listener {
 
 	private final IHelpers _helpers;
 	private final IScoreboards _scoreboard;
-	private final IInventory _teamselect;
-	private final IInventory _settings;
+	private final ITeamselectInventory _teamselect;
+	private final ISettingsInventory _settings;
 	private final ITeams _teams;
+	private final ITeamInventories _teaminv;
 
-	public DefaultListener(IHelpers helpers, IScoreboards scoreboards, IInventory settings, IInventory teamselect, ITeams teams){
+	public DefaultListener(IHelpers helpers, IScoreboards scoreboards, ISettingsInventory settings, ITeamselectInventory teamselect, ITeams teams, ITeamInventories teaminv){
 		_helpers = helpers;
 		_scoreboard = scoreboards;
 		_teamselect = teamselect;
 		_settings = settings;
 		_teams = teams;
+		_teaminv = teaminv;
 	}
 
 	@EventHandler
@@ -88,7 +92,14 @@ public class DefaultListener implements Listener {
 		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
 			if (e.hasItem()) {
 				if (e.getItem().equals(_settings.getItem())) {
-					_settings.updateInventory("",player);
+					player.openInventory(_settings.getInventory());
+				}
+			}
+		}
+		if(e.getAction().equals(Action.RIGHT_CLICK_AIR) || e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+			if (e.hasItem()) {
+				if (e.getItem().equals(_teaminv.getItem())) {
+					player.openInventory(_teaminv.getIventorybyPlayer(player));
 				}
 			}
 		}

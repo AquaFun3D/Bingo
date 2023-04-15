@@ -1,6 +1,6 @@
 package de.aquafun3d.bingo.Listeners;
 
-import de.aquafun3d.bingo.utils.inventories.IInventory;
+import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory;
 import de.aquafun3d.bingo.utils.teams.ITeams;
 import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
@@ -15,9 +15,9 @@ import java.util.Objects;
 public class InventoryListener implements Listener {
 
     private final ITeams _teams;
-    private final IInventory _teamInv;
+    private final ITeamselectInventory _teamInv;
 
-    public InventoryListener(ITeams teams, IInventory teamInv){
+    public InventoryListener(ITeams teams, ITeamselectInventory teamInv){
         _teams = teams;
         _teamInv = teamInv;
     }
@@ -42,6 +42,12 @@ public class InventoryListener implements Listener {
         if(item.getItemMeta() == null){
             return;
         }
+
+        //SETTINGS
+
+
+
+        //TEAMSELCT
 
         if (Objects.equals(item.getItemMeta().displayName(), Component.text(ChatColor.WHITE + "Team #1"))) {
             _teams.joinTeam(player,"white");

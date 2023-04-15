@@ -17,17 +17,17 @@ Minecraft Bingo Plugin
   - [x] Items
   - [x] Send Message
 - [ ] Default Listener
-  - [ ] Chat
+  - [x] Chat
   - [ ] Join
-  - [ ] Quit
+  - [x] Quit
   - [x] Hunger
 - [ ] Scoreboard
   - [ ] Timer
   - [ ] Scores
 - [ ] Scores 
 - [ ] Win Task
-- [ ] Start Command
-- [ ] Bingo Command/Item
+- [x] Start Command
+- [x] Bingo Command/Item
 - [ ] New Item Listener
 - [ ] Countdown
 - [ ] Settings Inventory

@@ -17,4 +17,8 @@ public interface IHelpers {
 	String getPrefix();
 
 	ItemStack newItem(Material mat, String name);
+
+	boolean isConfirmed();
+
+	void changeConfirm(boolean bool);
 }

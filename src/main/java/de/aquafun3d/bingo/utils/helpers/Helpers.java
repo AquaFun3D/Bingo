@@ -12,6 +12,7 @@ import org.bukkit.scoreboard.Scoreboard;
 public class Helpers implements IHelpers{
 
 	private boolean _isBingoRunning = false;
+	private boolean _confirm = false;
 	private final String _prefix = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_AQUA + "Bingo" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_PURPLE;
 
 	public void send(Player player, String message){
@@ -28,6 +29,14 @@ public class Helpers implements IHelpers{
 
 	public void changeBingoRunning(boolean bool) {
 		this._isBingoRunning = bool;
+	}
+
+	public boolean isConfirmed(){
+		return _confirm;
+	}
+
+	public void changeConfirm(boolean bool){
+		_confirm = bool;
 	}
 
 	public String getPrefix() {

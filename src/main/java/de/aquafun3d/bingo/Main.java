@@ -8,6 +8,8 @@ import de.aquafun3d.bingo.Listeners.DefaultListener;
 import de.aquafun3d.bingo.Listeners.InventoryListener;
 import de.aquafun3d.bingo.Listeners.TeamBackpackListener;
 import de.aquafun3d.bingo.utils.config.IConfig;
+import de.aquafun3d.bingo.utils.countdown.Countdown;
+import de.aquafun3d.bingo.utils.countdown.ICountdown;
 import de.aquafun3d.bingo.utils.helpers.Helpers;
 import de.aquafun3d.bingo.utils.config.BingoConfig;
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
@@ -17,6 +19,7 @@ import de.aquafun3d.bingo.utils.inventories.SettingsTeamselectInventory;
 import de.aquafun3d.bingo.utils.inventories.TeamselectTeamselectInventory;
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards;
 import de.aquafun3d.bingo.utils.scoreboards.Scoreboards;
+import de.aquafun3d.bingo.utils.spawncage.ISpawnCage;
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage;
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories;
 import de.aquafun3d.bingo.utils.inventories.TeamInventories;
@@ -40,10 +43,11 @@ public final class Main extends JavaPlugin {
 		var teamSelectInv = new TeamselectTeamselectInventory(helpers);
 		var settingsInv = new SettingsTeamselectInventory(helpers);
 		var teamInventories = new TeamInventories(teams,helpers);
+		var countdown = new Countdown(this);
 		var cage = new SpawnCage();
 		var timer = new Timer(this,helpers);
 
-		commandRegistration(helpers,config,teams,teamInventories);
+		commandRegistration(helpers,config,teams,teamInventories,countdown,cage);
 		listenerRegistration(helpers,scoreboards,teams,teamSelectInv,config,teamSelectInv,settingsInv,teamInventories);
 
 	}
@@ -56,11 +60,11 @@ public final class Main extends JavaPlugin {
 		Bukkit.getWorld("world").setSpawnLocation(location);
 	}
 
-	private void commandRegistration(IHelpers helpers, IConfig config, ITeams teams, ITeamInventories teaminv){
+	private void commandRegistration(IHelpers helpers, IConfig config, ITeams teams, ITeamInventories teaminv, ICountdown countdown, ISpawnCage cage){
 		getCommand("top").setExecutor(new TopCommand(helpers));
 		getCommand("teambackpack").setExecutor(new TeamBackpackCommand(helpers, config, teams));
 		getCommand("start").setExecutor(new BingoCommand(helpers, teams, teaminv));
-		getCommand("bingo").setExecutor(new StartCommand(helpers, teaminv, teams));
+		getCommand("bingo").setExecutor(new StartCommand(helpers, teaminv, teams, countdown,cage));
 	}
 
 	private void listenerRegistration(IHelpers helpers, IScoreboards scoreboards, ITeams teams, ITeamselectInventory teamSelectInv, IConfig config, ITeamselectInventory teamselect, ISettingsInventory settings, ITeamInventories teaminv) {

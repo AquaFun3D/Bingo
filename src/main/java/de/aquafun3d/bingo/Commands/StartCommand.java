@@ -1,7 +1,9 @@
 package de.aquafun3d.bingo.Commands;
 
+import de.aquafun3d.bingo.utils.countdown.ICountdown;
 import de.aquafun3d.bingo.utils.helpers.IHelpers;
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories;
+import de.aquafun3d.bingo.utils.spawncage.ISpawnCage;
 import de.aquafun3d.bingo.utils.teams.ITeams;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -15,11 +17,15 @@ public class StartCommand implements CommandExecutor {
     private final IHelpers _helper;
     private final ITeamInventories _teamInventories;
     private final ITeams _teams;
+    private final ICountdown _countdown;
+    private final ISpawnCage _cage;
 
-    public StartCommand(IHelpers helper, ITeamInventories teamInventories, ITeams teams){
+    public StartCommand(IHelpers helper, ITeamInventories teamInventories, ITeams teams, ICountdown countdown,ISpawnCage cage){
         _helper = helper;
         _teamInventories = teamInventories;
         _teams = teams;
+        _countdown = countdown;
+        _cage = cage;
     }
 
     @Override
@@ -33,9 +39,10 @@ public class StartCommand implements CommandExecutor {
             _helper.send(player, ChatColor.RED + "Bingo is already running");
         }
         if(_helper.isConfirmed()){
-            //TODO Countdown
+            _countdown.count(5);
             _helper.changeBingoRunning(true);
             _teamInventories.fillInventories();
+            //TODO Scoreboard laden (aus Countdown)
             for(World world : Bukkit.getWorlds()){
                 world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
                 world.setGameRule(GameRule.KEEP_INVENTORY,true);
@@ -50,6 +57,7 @@ public class StartCommand implements CommandExecutor {
                     p.setGameMode(GameMode.SURVIVAL);
                 }
             }
+            _cage.removeCage();
             player.getInventory().setItem(8, _teamInventories.getItem());
         }
         return false;

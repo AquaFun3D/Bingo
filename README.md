@@ -29,7 +29,7 @@ Minecraft Bingo Plugin
 - [x] Start Command
 - [x] Bingo Command/Item
 - [ ] New Item Listener
-- [ ] Countdown
+- [X] Countdown
 - [ ] Settings Inventory
 - [ ] Player disconnect possible 
 
@@ -41,3 +41,5 @@ Minecraft Bingo Plugin
   - Modifier (beschleunigen)
   - Game state saven und wann anders weiterspielen
   - Teambackpackgröße an Teamgröße anpassen
+  - Achievements, Enchantments, Mobs im Bingo
+  - Commands manchmal einblenden

@@ -4,12 +4,10 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Criteria;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.*;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Scoreboards implements IScoreboards{
@@ -82,6 +80,10 @@ public class Scoreboards implements IScoreboards{
         addTeam(_defaultBoard, "itemcount", "X items left");
 
         _defaultBoard.registerNewObjective("bingo", Criteria.DUMMY, Component.text("bingo"));
+        _defaultBoard.getObjective("bingo").displayName(Component.text(ChatColor.BLUE + "Bingo"));
+        if (!Objects.equals(_defaultBoard.getObjective("bingo").getDisplaySlot(), DisplaySlot.SIDEBAR)) {
+            _defaultBoard.getObjective("bingo").setDisplaySlot(DisplaySlot.SIDEBAR);
+        }
 
         initScore("firstplace", ChatColor.GOLD + "1. Place: ", 13);
         initScore("blank", " ", 11);

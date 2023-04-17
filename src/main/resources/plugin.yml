@@ -11,3 +11,9 @@ commands:
   teambackpack:
     description: Opens the shared team backpack
     aliases: [tbp, teambp, bp]
+  start:
+    description: starts the game
+  bingo:
+    description: shows your Bingo-Items
+  settings:
+    description: Bingo settings

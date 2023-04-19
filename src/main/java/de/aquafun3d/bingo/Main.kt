@@ -37,7 +37,7 @@ class Main : JavaPlugin() {
         val teamInventories = TeamInventories(teams, helpers)
         val countdown = Countdown(this)
         val cage = SpawnCage()
-        //val timer = Timer(this, helpers)
+        val timer = Timer(this, helpers)
         commandRegistration(helpers, config, teams, teamInventories, countdown, cage)
         listenerRegistration(helpers, scoreboards, teams, teamSelectInv, config, teamSelectInv, settingsInv, teamInventories)
     }
@@ -52,8 +52,8 @@ class Main : JavaPlugin() {
     private fun commandRegistration(helpers: IHelpers, config: IConfig, teams: ITeams, teaminv: ITeamInventories, countdown: ICountdown, cage: ISpawnCage) {
         getCommand("top")!!.setExecutor(TopCommand(helpers))
         getCommand("teambackpack")!!.setExecutor(TeamBackpackCommand(helpers, config, teams))
-        getCommand("start")!!.setExecutor(BingoCommand(helpers, teams, teaminv))
-        getCommand("bingo")!!.setExecutor(StartCommand(helpers, teaminv, teams, countdown, cage))
+        getCommand("bingo")!!.setExecutor(BingoCommand(helpers, teams, teaminv))
+        getCommand("start")!!.setExecutor(StartCommand(helpers, teaminv, teams, countdown, cage))
     }
 
     private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, teamSelectInv: ITeamselectInventory, config: IConfig, teamselect: ITeamselectInventory, settings: ISettingsInventory, teaminv: ITeamInventories) {

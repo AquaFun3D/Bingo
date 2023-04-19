@@ -10,7 +10,7 @@ Minecraft Bingo Plugin
 - [x] Team-Backpack
   - [x] Listener
   - [x] Command
-- [ ] Items
+- [ ] Bingo tasks
 - [x] Top Command 
 - [x] Config 
 - [x] Helper 
@@ -41,5 +41,5 @@ Minecraft Bingo Plugin
   - Modifier (beschleunigen)
   - Game state saven und wann anders weiterspielen
   - Teambackpackgröße an Teamgröße anpassen
-  - Achievements, Enchantments, Mobs im Bingo
+  - Achievements, Enchantments, Mobs, Biom im Bingo
   - Commands manchmal einblenden

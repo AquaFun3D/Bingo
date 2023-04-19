@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack
 class Helpers : IHelpers {
     private var _isBingoRunning = false
     private var _isConfirmed = false
-    private val _prefix = Component.text("[",NamedTextColor.DARK_GRAY).append(Component.text("Bingo",NamedTextColor.DARK_AQUA,)).append(Component.text("]",NamedTextColor.DARK_GRAY))
+    private val _prefix = Component.text("[",NamedTextColor.DARK_GRAY).append(Component.text("Bingo",NamedTextColor.DARK_AQUA,)).append(Component.text("] ",NamedTextColor.DARK_GRAY))
 
     override fun send(player: Player, message: Component) {
         player.sendMessage(_prefix.append(message))

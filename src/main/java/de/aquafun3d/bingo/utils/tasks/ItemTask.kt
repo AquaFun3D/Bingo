@@ -1,21 +1,24 @@
 package de.aquafun3d.bingo.utils.tasks
 
+import de.aquafun3d.bingo.utils.helpers.IHelpers
 import org.bukkit.Material
-import org.bukkit.enchantments.Enchantment
 import org.bukkit.inventory.ItemStack
 
-class ItemTask : IBingoTask {
-    var item: ItemStack
-        private set
+class ItemTask(material: Material): IBingoTask {
 
-    constructor(mat: Material?) {
-        item = ItemStack(mat!!)
+    private var _itemStack: ItemStack
+    private var _type: TaskType = TaskType.ITEM
+
+    init {
+        _itemStack = ItemStack(material)
     }
 
-    constructor(mat: Material?, enchantment: Enchantment?, level: Int) {
-        item = ItemStack(mat!!)
-        val meta = item.itemMeta
-        meta.addEnchant(enchantment!!, level, false)
-        item.setItemMeta(meta)
+    override fun getItemStack(): ItemStack {
+        return _itemStack
     }
+
+    override fun getTaskType(): TaskType {
+        return _type
+    }
+
 }

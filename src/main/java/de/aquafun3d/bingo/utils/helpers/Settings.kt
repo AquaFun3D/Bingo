@@ -4,10 +4,11 @@ import de.aquafun3d.bingo.utils.tasks.TaskDifficulty
 
 class Settings: ISettings { //Um die anderen TaskTypes erweitern
 
-    private var _difficulty = TaskDifficulty.EASY
+    private var _difficulty = TaskDifficulty.HARD
     private var _end: Boolean = false
     private var _nether: Boolean = false
     private var _silktouch: Boolean = false
+    private var _confirmed: Boolean = false
 
     override fun getDifficulty(): TaskDifficulty {
         return _difficulty
@@ -39,5 +40,13 @@ class Settings: ISettings { //Um die anderen TaskTypes erweitern
 
     override fun setSilktouch(b: Boolean) {
         _silktouch = b
+    }
+
+    override fun isConfirmed(): Boolean {
+        return _confirmed
+    }
+
+    override fun setConfirmed(b: Boolean) {
+        _confirmed = b
     }
 }

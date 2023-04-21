@@ -7,7 +7,7 @@ import java.util.*
 
 interface ITeams {
     fun joinTeam(player: Player, teamname: String)
-    fun getPlayerTeam(player: Player): Team
+    fun getPlayerTeam(player: Player): Team?
     fun getPlayerTeamName(player: Player): String
     fun getPlayerTeamPrefix(player: Player): Component
     fun getTeamPrefix(name: String): Component

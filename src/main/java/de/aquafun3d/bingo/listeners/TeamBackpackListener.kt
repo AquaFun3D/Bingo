@@ -19,11 +19,11 @@ class TeamBackpackListener(private val _config: IConfig, private val _teams: ITe
         val inv = e.inventory
         val player = e.player as Player
         if (title == Component.text("Team-Backpack", NamedTextColor.GREEN)) {
-            _config["teambackpack." + _teams.getPlayerTeam(player).name] = null
+            _config["teambackpack." + _teams.getPlayerTeam(player)!!.name] = null
             for (i in 0..8) {
                 val item = inv.getItem(i) ?: continue
                 if (item.type == Material.AIR) continue
-                _config["teambackpack." + _teams.getPlayerTeam(player).name + "." + i] = item
+                _config["teambackpack." + _teams.getPlayerTeam(player)!!.name + "." + i] = item
             }
         }
     }

@@ -6,6 +6,7 @@ import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.teams.ITeams
+import io.papermc.paper.chat.ChatRenderer
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -24,32 +25,39 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
         val player = e.player
-        e.joinMessage(_helpers.getPrefix().append(player.name()).color(NamedTextColor.AQUA).append(Component.text(" has joined").color(NamedTextColor.LIGHT_PURPLE)))
+        e.joinMessage(_helpers.getPrefix().append(player.name().color(NamedTextColor.AQUA)).append(Component.text(" has joined").color(NamedTextColor.LIGHT_PURPLE)))
         _scoreboard.initPlayerScorebaord(player)
-        //TODO
+        if(player.isOp){
+            player.inventory.setItem(4, _teamselect.getItem())
+        }
+        if(_teams.getPlayerTeam(player) == null){
+            _teams.joinTeam(player,"spec")
+        }
     }
 
     @EventHandler
     fun onQuit(e: PlayerQuitEvent) {
         val player = e.player
-        e.quitMessage(_helpers.getPrefix().append(player.name()).color(NamedTextColor.AQUA).append(Component.text(" has left").color(NamedTextColor.LIGHT_PURPLE)))
+        e.quitMessage(_helpers.getPrefix().append(player.name().color(NamedTextColor.AQUA)).append(Component.text(" has left").color(NamedTextColor.LIGHT_PURPLE)))
     }
 
     @EventHandler
     fun onChat(e: AsyncChatEvent) {
         val player = e.player
-        val prefix = if (player.isOp) {
-            player.displayName().color(NamedTextColor.RED).append(Component.text(" | ")).color(NamedTextColor.DARK_GRAY).append(e.message()).color(NamedTextColor.WHITE)
+        val prefix: Component
+        if (player.isOp) {
+            prefix = player.name().color(NamedTextColor.RED).append(Component.text(" | ").color(NamedTextColor.DARK_GRAY)).append(e.message().color(NamedTextColor.WHITE))
         } else {
-            player.displayName().color(NamedTextColor.GRAY).append(Component.text(" | ")).color(NamedTextColor.DARK_GRAY).append(e.message()).color(NamedTextColor.WHITE)
+            prefix = player.name().color(NamedTextColor.GRAY).append(Component.text(" | ").color(NamedTextColor.DARK_GRAY)).append(e.message().color(NamedTextColor.WHITE))
         }
-        e.message(_teams.getPlayerTeamPrefix(player).append(prefix))
+        //e.message(_teams.getPlayerTeamPrefix(player).append(prefix))
+        //TODO!!!
     }
 
     @EventHandler
     fun onItemDrop(e: PlayerDropItemEvent) {
         val item = e.itemDrop.itemStack
-        if (item == _settings.getItem() || item == _teamselect.item) {
+        if (item == _settings.getItem() || item == _teamselect.getItem()) {
             e.isCancelled = true
         }
     }
@@ -66,8 +74,8 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         val player = e.player
         if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             if (e.hasItem()) {
-                if (e.item == _teamselect.item) {
-                    _teamselect.updateInventory(_teams.getPlayerTeamName(player), player)
+                if (e.item == _teamselect.getItem()) {
+                    player.openInventory(_teamselect.getIventory())
                 }
             }
         }

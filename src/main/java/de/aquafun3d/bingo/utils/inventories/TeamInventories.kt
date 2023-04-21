@@ -1,6 +1,7 @@
 package de.aquafun3d.bingo.utils.inventories
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
 import de.aquafun3d.bingo.utils.teams.ITeams
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -11,19 +12,21 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scoreboard.Team
 
-class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers) : ITeamInventories {
+class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers, private val _bingoTasks: IBingoTaskManager) : ITeamInventories {
     private val _inventories = mutableMapOf<Team, Inventory>()
     private val _item: ItemStack
 
     init {
-        _item = _helper.newItem(Material.BUNDLE, Component.text("Bingo",NamedTextColor.DARK_AQUA))
+        _item = _helper.newItem(Material.BUNDLE, Component.text("Bingo", NamedTextColor.DARK_AQUA))
     }
 
     override fun fillInventories() {
         for (t in _teams.getTeams().values) {
-            val inv = Bukkit.createInventory(null, 9 * 1, Component.text("Bingo",NamedTextColor.DARK_AQUA)) //TODO * Quatity
-            //TODO generate Bingo Items
-            //inv.setContents(null); TODO
+            val inv = Bukkit.createInventory(null, 9 * 1, Component.text("Bingo", NamedTextColor.DARK_PURPLE)) //TODO * Quatity
+            _bingoTasks.fillList()
+            for((i, item) in _bingoTasks.getList().withIndex()){
+                inv.setItem(i, item.getItemStack())
+            }
             if (!_inventories.containsKey(t)) {
                 _inventories[t] = inv
             }

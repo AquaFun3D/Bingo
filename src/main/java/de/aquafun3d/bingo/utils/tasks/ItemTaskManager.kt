@@ -29,20 +29,40 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
                 if(_end) endEasy()
             }
             TaskDifficulty.NORMAL -> {
+                overworldEasy()
+                if(_nether) netherEasy()
+                if(_end) endEasy()
                 overworldNormal()
                 if(_nether) netherNormal()
                 if(_end) endNormal()
             }
             TaskDifficulty.HARD -> {
+                overworldEasy()
+                if(_nether) netherEasy()
+                if(_end) endEasy()
+                overworldNormal()
+                if(_nether) netherNormal()
+                if(_end) endNormal()
                 overworldHard()
                 if(_nether) netherHard()
                 if(_end) endHard()
                 if(_silktouch) silktouch()
             }
             TaskDifficulty.EXTREME -> {
+                overworldEasy()
+                if(_nether) netherEasy()
+                if(_end) endEasy()
+                overworldNormal()
+                if(_nether) netherNormal()
+                if(_end) endNormal()
+                overworldHard()
+                if(_nether) netherHard()
+                if(_end) endHard()
+                if(_silktouch) silktouch()
                 extreme()
             }
         }
+        if(_silktouch) silktouch()
         _list.shuffle()
         var index = 0
         while (index < amount){

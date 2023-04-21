@@ -11,4 +11,6 @@ interface ISettings {
     fun setEnd(b: Boolean)
     fun getSilktouch(): Boolean
     fun setSilktouch(b: Boolean)
+    fun isConfirmed(): Boolean
+    fun setConfirmed(b: Boolean)
 }

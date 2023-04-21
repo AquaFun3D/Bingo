@@ -13,11 +13,14 @@ import de.aquafun3d.bingo.utils.countdown.Countdown
 import de.aquafun3d.bingo.utils.countdown.ICountdown
 import de.aquafun3d.bingo.utils.helpers.Helpers
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.Settings
 import de.aquafun3d.bingo.utils.inventories.*
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.scoreboards.Scoreboards
 import de.aquafun3d.bingo.utils.spawncage.ISpawnCage
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage
+import de.aquafun3d.bingo.utils.tasks.BingoTaskManager
+import de.aquafun3d.bingo.utils.tasks.ItemTaskManager
 import de.aquafun3d.bingo.utils.teams.BingoTeams
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.Timer
@@ -33,8 +36,11 @@ class Main : JavaPlugin() {
         val scoreboards = Scoreboards()
         val teams = BingoTeams(scoreboards, helpers)
         val teamSelectInv = TeamselectInventory(helpers)
-        val settingsInv = SettingsInventory(helpers)
-        val teamInventories = TeamInventories(teams, helpers)
+        val settings = Settings()
+        val settingsInv = SettingsInventory(helpers,settings)
+        val itemTaskManager = ItemTaskManager(settings)
+        val bingoTaskManager = BingoTaskManager(itemTaskManager)
+        val teamInventories = TeamInventories(teams, helpers, bingoTaskManager)
         val countdown = Countdown(this)
         val cage = SpawnCage()
         val timer = Timer(this, helpers)

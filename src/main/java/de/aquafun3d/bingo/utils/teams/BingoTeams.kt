@@ -36,6 +36,7 @@ class BingoTeams(boards: Scoreboards, helpers: IHelpers) : ITeams {
         val team = _boards.getPlayerboards()[uuid]!!.getTeam(teamname)
         if (teamname == "spec") {
             addPlayerToTeam(player, teamname)
+            return
         }
         if (team!!.size >= _teamsize) {
             _helper.send(player, Component.text("Team is already full", NamedTextColor.RED))
@@ -73,12 +74,12 @@ class BingoTeams(boards: Scoreboards, helpers: IHelpers) : ITeams {
         return _teamnames[name]!!
     }
 
-    override fun getPlayerTeam(player: Player): Team {
-        return _teams[player.uniqueId]!!
+    override fun getPlayerTeam(player: Player): Team? {
+        return _teams[player.uniqueId]
     }
 
     override fun getPlayerTeamName(player: Player): String {
-        return getPlayerTeam(player).name
+        return getPlayerTeam(player)!!.name
     }
 
     override fun getPlayerTeamPrefix(player: Player): Component {

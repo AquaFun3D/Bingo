@@ -34,7 +34,11 @@ Minecraft Bingo Plugin
 - [ ] Player disconnect possible 
 
 ---
+- Bugs
+  - Teamselect inv Spectator aktualiesieren
+  - Chat
 
+---
 - Später
   - 5x5 Reihen Bingo
   - Items auf einer Map dargestellt (Scoreboard)
@@ -46,3 +50,4 @@ Minecraft Bingo Plugin
   - Klauen verhindern
   - pvp
   - KORALLEN, TRÄNKE
+

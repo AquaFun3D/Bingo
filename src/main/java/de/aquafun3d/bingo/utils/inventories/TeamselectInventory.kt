@@ -10,12 +10,10 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
 class TeamselectInventory(private val _helper: IHelpers) : ITeamselectInventory {
-    override val inventory: Inventory
-    override val item: ItemStack
+    private val _inventory: Inventory = Bukkit.createInventory(null, 18, Component.text("Teamselect", NamedTextColor.DARK_PURPLE))
+    private val _item: ItemStack = _helper.newItem(Material.EMERALD, Component.text("Select Team", NamedTextColor.DARK_AQUA))
 
     init {
-        item = _helper.newItem(Material.EMERALD, Component.text("Select Team",NamedTextColor.DARK_AQUA))
-        inventory = Bukkit.createInventory(null, 18, Component.text("Teamselect", NamedTextColor.DARK_PURPLE))
         newInventory()
     }
 
@@ -38,41 +36,50 @@ class TeamselectInventory(private val _helper: IHelpers) : ITeamselectInventory 
         val red = _helper.newItem(Material.RED_WOOL, Component.text("Team #15", NamedTextColor.DARK_RED))
         val black = _helper.newItem(Material.BLACK_WOOL, Component.text("Team #16", NamedTextColor.DARK_GRAY))
         val spec = _helper.newItem(Material.GLASS, Component.text("Spectator", NamedTextColor.GRAY))
-        inventory.setItem(0, white)
-        inventory.setItem(1, orange)
-        inventory.setItem(2, magenta)
-        inventory.setItem(3, lightblue)
-        inventory.setItem(4, yellow)
-        inventory.setItem(5, lime)
-        inventory.setItem(6, pink)
-        inventory.setItem(7, gray)
-        inventory.setItem(8, lightgray)
-        inventory.setItem(9, cyan)
-        inventory.setItem(10, purple)
-        inventory.setItem(11, blue)
-        inventory.setItem(12, brown)
-        inventory.setItem(13, green)
-        inventory.setItem(14, red)
-        inventory.setItem(15, black)
-        inventory.setItem(16, spec)
-        inventory.setItem(17, empty)
+        _inventory.setItem(0, white)
+        _inventory.setItem(1, orange)
+        _inventory.setItem(2, magenta)
+        _inventory.setItem(3, lightblue)
+        _inventory.setItem(4, yellow)
+        _inventory.setItem(5, lime)
+        _inventory.setItem(6, pink)
+        _inventory.setItem(7, gray)
+        _inventory.setItem(8, lightgray)
+        _inventory.setItem(9, cyan)
+        _inventory.setItem(10, purple)
+        _inventory.setItem(11, blue)
+        _inventory.setItem(12, brown)
+        _inventory.setItem(13, green)
+        _inventory.setItem(14, red)
+        _inventory.setItem(15, black)
+        _inventory.setItem(16, spec)
+        _inventory.setItem(17, empty)
     }
 
-    override fun updateInventory(name: String, player: Player) {
-        for (item in inventory) {
-            if (item.displayName().toString() == name) {
-                val meta = item.itemMeta
-                val list = ArrayList<Component>()
+    override fun updateInventory(player: Player, name: String, itemName: Component) {
+        for (item in _inventory) {
+            val meta = item.itemMeta
+            val list = ArrayList<Component>()
+            if(item.itemMeta.displayName() == itemName){
                 for (p in player.scoreboard.getTeam(name)!!.entries) {
                     list.add(Component.text(p!!))
                 }
-                meta.lore(list)
             }
+            meta.lore(list)
+            item.setItemMeta(meta)
         }
         for (p in Bukkit.getOnlinePlayers()) {
             if (p.openInventory.title() == Component.text("Teamselect", NamedTextColor.DARK_PURPLE)) {
-                p.openInventory(inventory)
+                p.openInventory(_inventory)
             }
         }
+    }
+
+    override fun getItem(): ItemStack{
+        return _item
+    }
+
+    override fun getIventory(): Inventory{
+        return _inventory
     }
 }

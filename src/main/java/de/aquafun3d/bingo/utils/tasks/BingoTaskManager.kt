@@ -12,4 +12,8 @@ class BingoTaskManager(itemTaskManager: IItemTaskManager): IBingoTaskManager {
     override fun fillList(){
         _list.addAll(_itemTaskManager.getItems(9))
     }
+
+    override fun getList(): List<IBingoTask>{
+        return _list
+    }
 }

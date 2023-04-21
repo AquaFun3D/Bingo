@@ -30,77 +30,79 @@ class InventoryListener(private val _teams: ITeams, private val _teamInv: ITeams
             return
         }
 
+        val itemName = item.itemMeta.displayName()
+
         //SETTINGS
 
 
         //TEAMSELCT
-        if (item.itemMeta.displayName() == Component.text("Team #1", NamedTextColor.WHITE)) {
+        if (itemName == Component.text("Team #1", NamedTextColor.WHITE)) {
             _teams.joinTeam(player, "white")
-            _teamInv.updateInventory("white", player)
+            _teamInv.updateInventory(player, "white", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #2", NamedTextColor.GOLD)) {
+        if (itemName == Component.text("Team #2", NamedTextColor.GOLD)) {
             _teams.joinTeam(player, "orange")
-            _teamInv.updateInventory("orange", player)
+            _teamInv.updateInventory(player, "orange", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #3", NamedTextColor.LIGHT_PURPLE)) {
+        if (itemName == Component.text("Team #3", NamedTextColor.LIGHT_PURPLE)) {
             _teams.joinTeam(player, "magenta")
-            _teamInv.updateInventory("magenta", player)
+            _teamInv.updateInventory(player, "magenta", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #4", NamedTextColor.AQUA)) {
+        if (itemName == Component.text("Team #4", NamedTextColor.AQUA)) {
             _teams.joinTeam(player, "lightblue")
-            _teamInv.updateInventory("lightblue", player)
+            _teamInv.updateInventory(player, "lightblue", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #5", NamedTextColor.YELLOW)) {
+        if (itemName == Component.text("Team #5", NamedTextColor.YELLOW)) {
             _teams.joinTeam(player, "yellow")
-            _teamInv.updateInventory("yellow", player)
+            _teamInv.updateInventory(player, "yellow", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #6", NamedTextColor.GREEN)) {
+        if (itemName == Component.text("Team #6", NamedTextColor.GREEN)) {
             _teams.joinTeam(player, "lime")
-            _teamInv.updateInventory("lime", player)
+            _teamInv.updateInventory(player, "lime", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #7", NamedTextColor.RED)) {
+        if (itemName == Component.text("Team #7", NamedTextColor.RED)) {
             _teams.joinTeam(player, "pink")
-            _teamInv.updateInventory("pink", player)
+            _teamInv.updateInventory(player, "pink", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #8", NamedTextColor.DARK_GRAY)) {
+        if (itemName == Component.text("Team #8", NamedTextColor.DARK_GRAY)) {
             _teams.joinTeam(player, "gray")
-            _teamInv.updateInventory("gray", player)
+            _teamInv.updateInventory(player, "gray", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #9", NamedTextColor.GRAY)) {
+        if (itemName == Component.text("Team #9", NamedTextColor.GRAY)) {
             _teams.joinTeam(player, "lightgray")
-            _teamInv.updateInventory("lightgray", player)
+            _teamInv.updateInventory(player, "lightgray", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #10", NamedTextColor.DARK_AQUA)) {
+        if (itemName == Component.text("Team #10", NamedTextColor.DARK_AQUA)) {
             _teams.joinTeam(player, "cyan")
-            _teamInv.updateInventory("cyan", player)
+            _teamInv.updateInventory(player, "cyan", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #11", NamedTextColor.DARK_PURPLE)) {
+        if (itemName == Component.text("Team #11", NamedTextColor.DARK_PURPLE)) {
             _teams.joinTeam(player, "purple")
-            _teamInv.updateInventory("purple", player)
+            _teamInv.updateInventory(player, "purple", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #12", NamedTextColor.BLUE)) {
+        if (itemName == Component.text("Team #12", NamedTextColor.BLUE)) {
             _teams.joinTeam(player, "blue")
-            _teamInv.updateInventory("blue", player)
+            _teamInv.updateInventory(player, "blue", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #13", NamedTextColor.GOLD)) {
+        if (itemName == Component.text("Team #13", NamedTextColor.GOLD)) {
             _teams.joinTeam(player, "brown")
-            _teamInv.updateInventory("brown", player)
+            _teamInv.updateInventory(player, "brown", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #14", NamedTextColor.DARK_GREEN)) {
+        if (itemName == Component.text("Team #14", NamedTextColor.DARK_GREEN)) {
             _teams.joinTeam(player, "green")
-            _teamInv.updateInventory("green", player)
+            _teamInv.updateInventory(player, "green", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #15", NamedTextColor.DARK_RED)) {
+        if (itemName == Component.text("Team #15", NamedTextColor.DARK_RED)) {
             _teams.joinTeam(player, "red")
-            _teamInv.updateInventory("red", player)
+            _teamInv.updateInventory(player, "red", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Team #16", NamedTextColor.DARK_GRAY)) {
+        if (itemName == Component.text("Team #16", NamedTextColor.DARK_GRAY)) {
             _teams.joinTeam(player, "black")
-            _teamInv.updateInventory("black", player)
+            _teamInv.updateInventory(player, "black", itemName)
         }
-        if (item.itemMeta.displayName() == Component.text("Spectator", NamedTextColor.GRAY)) {
+        if (itemName == Component.text("Spectator", NamedTextColor.GRAY)) {
             _teams.joinTeam(player, "spec")
-            _teamInv.updateInventory("spec", player)
+            _teamInv.updateInventory(player, "spec", itemName)
         }
     }
 }

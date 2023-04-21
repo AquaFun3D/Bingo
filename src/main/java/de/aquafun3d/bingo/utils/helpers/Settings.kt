@@ -7,6 +7,7 @@ class Settings: ISettings { //Um die anderen TaskTypes erweitern
     private var _difficulty = TaskDifficulty.EASY
     private var _end: Boolean = false
     private var _nether: Boolean = false
+    private var _silktouch: Boolean = false
 
     override fun getDifficulty(): TaskDifficulty {
         return _difficulty
@@ -32,5 +33,11 @@ class Settings: ISettings { //Um die anderen TaskTypes erweitern
         _end = b
     }
 
+    override fun getSilktouch(): Boolean {
+        return _silktouch
+    }
 
+    override fun setSilktouch(b: Boolean) {
+        _silktouch = b
+    }
 }

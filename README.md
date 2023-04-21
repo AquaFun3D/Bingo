@@ -43,3 +43,6 @@ Minecraft Bingo Plugin
   - Teambackpackgröße an Teamgröße anpassen
   - Achievements, Enchantments, Mobs, Biom im Bingo
   - Commands manchmal einblenden
+  - Klauen verhindern
+  - pvp
+  - KORALLEN, TRÄNKE

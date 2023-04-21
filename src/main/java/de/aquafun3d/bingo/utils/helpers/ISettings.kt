@@ -9,4 +9,6 @@ interface ISettings {
     fun setNether(b: Boolean)
     fun getEnd(): Boolean
     fun setEnd(b: Boolean)
+    fun getSilktouch(): Boolean
+    fun setSilktouch(b: Boolean)
 }

@@ -2,15 +2,13 @@ package de.aquafun3d.bingo.listeners
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.*
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
-import org.bukkit.inventory.ItemStack
 
-class NewItemListener : Listener {
+class BingoListener : Listener {
     @EventHandler
     fun onInvClick(e: InventoryClickEvent) {
         val player = e.whoClicked as Player

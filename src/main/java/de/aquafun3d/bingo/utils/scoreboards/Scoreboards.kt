@@ -1,6 +1,7 @@
 package de.aquafun3d.bingo.utils.scoreboards
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -33,21 +34,21 @@ class Scoreboards : IScoreboards {
         board.getTeam(teamname)!!.prefix(prefix)
     }
 
-    private fun initScore(teamname: String, value: Component, score: Int) {
+    private fun initScore(teamname: String, value: TextComponent, score: Int) {
         val obj = _defaultBoard.getObjective("bingo")
         val team = _defaultBoard.getTeam(teamname)
         team!!.prefix(value)
-        obj!!.getScore(value.toString()).score = score
+        obj!!.getScore(value.content()).score = score
     }
 
-    override fun updateScore(player: Player, teamname: String, value: String, score: Int, remove: Boolean) {
+    override fun updateScore(player: Player, teamname: String, value: TextComponent, score: Int, remove: Boolean) {
         val uuid = player.uniqueId
         val board = _playerBoards[uuid]
         val obj = _playerObjectives[uuid]
         board!!.resetScores(board.getTeam(teamname)!!.prefix().toString())
         if (!remove) {
-            board.getTeam(teamname)!!.prefix(Component.text(value))
-            obj!!.getScore(value).score = score
+            board.getTeam(teamname)!!.prefix(value)
+            obj!!.getScore(value.content()).score = score
         }
     }
 
@@ -77,11 +78,11 @@ class Scoreboards : IScoreboards {
         if (_defaultBoard.getObjective("bingo")!!.displaySlot != DisplaySlot.SIDEBAR) {
             _defaultBoard.getObjective("bingo")!!.displaySlot = DisplaySlot.SIDEBAR
         }
-        //initScore("firstplace", Component.text("1. Place: ",NamedTextColor.GOLD), 13)
-        //initScore("blank", Component.text(" "), 11)
-        //initScore("blank", Component.text(" "), 14)
-        //initScore("place", Component.text("Your Team: ",NamedTextColor.GOLD), 12)
-        //initScore("itemcount", Component.text("X items left"), 10)
+        initScore("firstplace", Component.text("1. Place: ",NamedTextColor.GOLD), 13)
+        initScore("blank", Component.text(" "), 11)
+        initScore("blank", Component.text(" "), 14)
+        initScore("place", Component.text("Your Team: ",NamedTextColor.GOLD), 12)
+        initScore("itemcount", Component.text("X items left"), 10)
     }
 
     override fun getPlayerboards(): Map<UUID, Scoreboard>{

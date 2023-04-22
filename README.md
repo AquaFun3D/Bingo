@@ -10,7 +10,7 @@ Minecraft Bingo Plugin
 - [x] Team-Backpack
   - [x] Listener
   - [x] Command
-- [ ] Bingo tasks
+- [x] Bingo tasks
 - [x] Top Command 
 - [x] Config 
 - [x] Helper 
@@ -28,7 +28,7 @@ Minecraft Bingo Plugin
 - [ ] Win Task
 - [x] Start Command
 - [x] Bingo Command/Item
-- [ ] New Item Listener
+- [ ] Bingo Listener
 - [X] Countdown
 - [ ] Settings Inventory
 - [ ] Player disconnect possible 

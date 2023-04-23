@@ -8,5 +8,5 @@ import org.bukkit.inventory.ItemStack
 interface ITeamselectInventory {
     fun updateInventory(player: Player, name: String, itemName: Component)
     fun getItem(): ItemStack
-    fun getIventory(): Inventory
+    fun getInventory(): Inventory
 }

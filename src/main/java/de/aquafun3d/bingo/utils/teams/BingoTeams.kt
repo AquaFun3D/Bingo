@@ -1,6 +1,7 @@
 package de.aquafun3d.bingo.utils.teams
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.scoreboards.Scoreboards
 import net.kyori.adventure.text.Component
@@ -9,17 +10,18 @@ import org.bukkit.entity.Player
 import org.bukkit.scoreboard.Team
 import java.util.*
 
-class BingoTeams(boards: Scoreboards, helpers: IHelpers) : ITeams {
+class BingoTeams(boards: Scoreboards, helpers: IHelpers, settings: ISettings) : ITeams {
     private val _boards: IScoreboards
     private val _helper: IHelpers
+    private val _settings: ISettings
     private val _teams = mutableMapOf<UUID, Team>()
     private val _teamnames = mutableMapOf<String, Component>()
-    private val _teamsize = 1
     //TODO add Scores
 
     init {
         _boards = boards
         _helper = helpers
+        _settings = settings
         initTeamnames()
     }
 
@@ -38,7 +40,7 @@ class BingoTeams(boards: Scoreboards, helpers: IHelpers) : ITeams {
             addPlayerToTeam(player, teamname)
             return
         }
-        if (team!!.size >= _teamsize) {
+        if (team!!.size >= _settings.getTeamsize()) {
             _helper.send(player, Component.text("Team is already full", NamedTextColor.RED))
         } else {
             val playerTeam = _boards.getPlayerboards()[uuid]!!.getEntryTeam(player.name)

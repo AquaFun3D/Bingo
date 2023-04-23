@@ -13,4 +13,8 @@ interface ISettings {
     fun setSilktouch(b: Boolean)
     fun isConfirmed(): Boolean
     fun setConfirmed(b: Boolean)
+    fun setQuantity(multiyplyer: Int)
+    fun getQuantity(): Int
+    fun setTeamsize(size: Int)
+    fun getTeamsize(): Int
 }

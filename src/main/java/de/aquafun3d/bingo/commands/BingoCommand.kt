@@ -16,7 +16,7 @@ class BingoCommand(private val _helper: IHelpers, private val _teams: ITeams, pr
         if (sender is Player) {
             if (_helper.isBingoRunning()) {
                 if (_teams.getPlayerTeamName(sender) != "spec") {
-                    sender.openInventory(_teaminv.getIventorybyPlayer(sender))
+                    sender.openInventory(_teaminv.getInventorybyPlayer(sender))
                 } else {
                     _helper.send(sender, Component.text("You are spectator",NamedTextColor.RED))
                 }

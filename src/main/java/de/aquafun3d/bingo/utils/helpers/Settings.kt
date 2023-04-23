@@ -9,6 +9,8 @@ class Settings: ISettings { //Um die anderen TaskTypes erweitern
     private var _nether: Boolean = false
     private var _silktouch: Boolean = false
     private var _confirmed: Boolean = false
+    private var _quantity: Int = 1
+    private var _teamsize: Int = 1
 
     override fun getDifficulty(): TaskDifficulty {
         return _difficulty
@@ -48,5 +50,30 @@ class Settings: ISettings { //Um die anderen TaskTypes erweitern
 
     override fun setConfirmed(b: Boolean) {
         _confirmed = b
+    }
+
+    override fun setQuantity(multiyplyer: Int){
+        _quantity = if(multiyplyer == 6){
+            1
+        }else{
+            multiyplyer
+        }
+    }
+
+    override fun getQuantity(): Int {
+        return _quantity
+    }
+
+    override fun setTeamsize(size: Int){
+        _teamsize = if(size == 5){
+            1
+        }else{
+            size
+        }
+
+    }
+
+    override fun getTeamsize(): Int{
+        return _teamsize
     }
 }

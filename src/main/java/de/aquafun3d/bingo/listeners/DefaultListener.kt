@@ -1,12 +1,13 @@
 package de.aquafun3d.bingo.listeners
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.ISettings
+import de.aquafun3d.bingo.utils.helpers.Settings
 import de.aquafun3d.bingo.utils.inventories.ISettingsInventory
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.teams.ITeams
-import io.papermc.paper.chat.ChatRenderer
 import io.papermc.paper.event.player.AsyncChatEvent
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -20,7 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
-class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settings: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories) : Listener {
+class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories, private val _settings: ISettings) : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
@@ -28,10 +29,13 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         e.joinMessage(_helpers.getPrefix().append(player.name().color(NamedTextColor.AQUA)).append(Component.text(" has joined").color(NamedTextColor.LIGHT_PURPLE)))
         _scoreboard.initPlayerScorebaord(player)
         if(player.isOp){
-            player.inventory.setItem(4, _teamselect.getItem())
+            player.inventory.setItem(8, _settingsInv.getItem())
         }
         if(_teams.getPlayerTeam(player) == null){
             _teams.joinTeam(player,"spec")
+        }
+        if(_settings.isConfirmed()){
+            player.inventory.setItem(4, _teamselect.getItem())
         }
     }
 
@@ -57,7 +61,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     @EventHandler
     fun onItemDrop(e: PlayerDropItemEvent) {
         val item = e.itemDrop.itemStack
-        if (item == _settings.getItem() || item == _teamselect.getItem()) {
+        if (item == _settingsInv.getItem() || item == _teamselect.getItem()) {
             e.isCancelled = true
         }
     }
@@ -75,21 +79,21 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             if (e.hasItem()) {
                 if (e.item == _teamselect.getItem()) {
-                    player.openInventory(_teamselect.getIventory())
+                    player.openInventory(_teamselect.getInventory())
                 }
             }
         }
         if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             if (e.hasItem()) {
-                if (e.item == _settings.getItem()) {
-                    player.openInventory(_settings.getInventory())
+                if (e.item == _settingsInv.getItem()) {
+                    player.openInventory(_settingsInv.getInventory())
                 }
             }
         }
         if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             if (e.hasItem()) {
                 if (e.item == _teaminv.getItem()) {
-                    player.openInventory(_teaminv.getIventorybyPlayer(player))
+                    player.openInventory(_teaminv.getInventorybyPlayer(player))
                 }
             }
         }

@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
-class TeamselectInventory(private val _helper: IHelpers) : ITeamselectInventory {
+class TeamselectTeamselectInventory(private val _helper: IHelpers) : ITeamselectInventory {
     private val _inventory: Inventory = Bukkit.createInventory(null, 18, Component.text("Teamselect", NamedTextColor.DARK_PURPLE))
     private val _item: ItemStack = _helper.newItem(Material.EMERALD, Component.text("Select Team", NamedTextColor.DARK_AQUA))
 
@@ -79,7 +79,7 @@ class TeamselectInventory(private val _helper: IHelpers) : ITeamselectInventory 
         return _item
     }
 
-    override fun getIventory(): Inventory{
+    override fun getInventory(): Inventory {
         return _inventory
     }
 }

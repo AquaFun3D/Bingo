@@ -47,4 +47,21 @@ class Helpers : IHelpers {
         item.setItemMeta(meta)
         return item
     }
+
+    override fun newItem(mat: Material, amount: Int, name: Component): ItemStack{
+        val item = ItemStack(mat,amount)
+        val meta = item.itemMeta
+        meta.displayName(name)
+        item.setItemMeta(meta)
+        return item
+    }
+
+    override fun newItem(mat: Material, lore: List<Component>, name: Component): ItemStack{
+        val item = ItemStack(mat)
+        val meta = item.itemMeta
+        meta.displayName(name)
+        meta.lore(lore)
+        item.setItemMeta(meta)
+        return item
+    }
 }

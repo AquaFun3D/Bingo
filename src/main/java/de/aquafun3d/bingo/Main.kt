@@ -13,6 +13,7 @@ import de.aquafun3d.bingo.utils.countdown.Countdown
 import de.aquafun3d.bingo.utils.countdown.ICountdown
 import de.aquafun3d.bingo.utils.helpers.Helpers
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.helpers.Settings
 import de.aquafun3d.bingo.utils.inventories.*
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
@@ -32,20 +33,19 @@ class Main : JavaPlugin() {
     override fun onEnable() {
         Bukkit.getLogger().fine("Plugin activated")
         val helpers = Helpers()
+        val settings = Settings()
         val config = BingoConfig("BingoConfig")
         val scoreboards = Scoreboards()
-        val teams = BingoTeams(scoreboards, helpers)
-        val teamSelectInv = TeamselectInventory(helpers)
-        val settings = Settings()
+        val teams = BingoTeams(scoreboards, helpers, settings)
+        val teamSelectInv = TeamselectTeamselectInventory(helpers)
         val settingsInv = SettingsInventory(helpers,settings)
         val itemTaskManager = ItemTaskManager(settings)
-        val bingoTaskManager = BingoTaskManager(itemTaskManager)
-        val teamInventories = TeamInventories(teams, helpers, bingoTaskManager)
+        val bingoTaskManager = BingoTaskManager(itemTaskManager, settings)
+        val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings)
         val countdown = Countdown(this)
         val cage = SpawnCage()
-        val timer = Timer(this, helpers)
         commandRegistration(helpers, config, teams, teamInventories, countdown, cage)
-        listenerRegistration(helpers, scoreboards, teams, teamSelectInv, config, teamSelectInv, settingsInv, teamInventories)
+        listenerRegistration(helpers, scoreboards, teams, teamSelectInv, config, teamSelectInv, settingsInv, teamInventories, settings)
     }
 
     override fun onDisable() {
@@ -62,10 +62,10 @@ class Main : JavaPlugin() {
         getCommand("start")!!.setExecutor(StartCommand(helpers, teaminv, teams, countdown, cage))
     }
 
-    private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, teamSelectInv: ITeamselectInventory, config: IConfig, teamselect: ITeamselectInventory, settings: ISettingsInventory, teaminv: ITeamInventories) {
+    private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, teamSelectInv: ITeamselectInventory, config: IConfig, teamselectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings) {
         val pluginManager = Bukkit.getPluginManager()
-        pluginManager.registerEvents(DefaultListener(helpers, scoreboards, settings, teamselect, teams, teaminv), this)
+        pluginManager.registerEvents(DefaultListener(helpers, scoreboards, settingsInv, teamselectInv, teams, teamInv, settings), this)
         pluginManager.registerEvents(TeamBackpackListener(config, teams), this)
-        pluginManager.registerEvents(InventoryListener(teams, teamSelectInv), this)
+        pluginManager.registerEvents(InventoryListener(teams, teamSelectInv, settings, settingsInv, teamselectInv), this)
     }
 }

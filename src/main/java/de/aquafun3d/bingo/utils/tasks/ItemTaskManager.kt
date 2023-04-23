@@ -8,66 +8,59 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
     private var _list = mutableListOf<IBingoTask>()
     private var _listReturn = mutableListOf<IBingoTask>()
     private val _settings: ISettings
-    private val _difficulty: TaskDifficulty
-    private val _nether: Boolean
-    private val _end: Boolean
-    private val _silktouch: Boolean
 
     init {
         _settings = settings
-        _difficulty = settings.getDifficulty()
-        _end = settings.getEnd()
-        _nether = settings.getNether()
-        _silktouch = settings.getSilktouch()
     }
 
     override fun getItems(amount : Int): List<IBingoTask>{
-        when(_difficulty){
+        when(_settings.getDifficulty()){
             TaskDifficulty.EASY -> {
                 overworldEasy()
-                if(_nether) netherEasy()
-                if(_end) endEasy()
+                if(_settings.getNether()) netherEasy()
+                if(_settings.getEnd()) endEasy()
             }
             TaskDifficulty.NORMAL -> {
                 overworldEasy()
-                if(_nether) netherEasy()
-                if(_end) endEasy()
+                if(_settings.getNether()) netherEasy()
+                if(_settings.getEnd()) endEasy()
                 overworldNormal()
-                if(_nether) netherNormal()
-                if(_end) endNormal()
+                if(_settings.getNether()) netherNormal()
+                if(_settings.getEnd()) endNormal()
             }
             TaskDifficulty.HARD -> {
                 overworldEasy()
-                if(_nether) netherEasy()
-                if(_end) endEasy()
+                if(_settings.getNether()) netherEasy()
+                if(_settings.getEnd()) endEasy()
                 overworldNormal()
-                if(_nether) netherNormal()
-                if(_end) endNormal()
+                if(_settings.getNether()) netherNormal()
+                if(_settings.getEnd()) endNormal()
                 overworldHard()
-                if(_nether) netherHard()
-                if(_end) endHard()
-                if(_silktouch) silktouch()
+                if(_settings.getNether()) netherHard()
+                if(_settings.getEnd()) endHard()
+                if(_settings.getSilktouch()) silktouch()
             }
             TaskDifficulty.EXTREME -> {
                 overworldEasy()
-                if(_nether) netherEasy()
-                if(_end) endEasy()
+                if(_settings.getNether()) netherEasy()
+                if(_settings.getEnd()) endEasy()
                 overworldNormal()
-                if(_nether) netherNormal()
-                if(_end) endNormal()
+                if(_settings.getNether()) netherNormal()
+                if(_settings.getEnd()) endNormal()
                 overworldHard()
-                if(_nether) netherHard()
-                if(_end) endHard()
-                if(_silktouch) silktouch()
+                if(_settings.getNether()) netherHard()
+                if(_settings.getEnd()) endHard()
+                if(_settings.getSilktouch()) silktouch()
                 extreme()
             }
         }
-        if(_silktouch) silktouch()
+        if(_settings.getSilktouch()) silktouch()
         _list.shuffle()
         var index = 0
         while (index < amount){
             val rdm = (0 until _list.size).random()
             _listReturn.add(_list[rdm])
+            _list.removeAt(rdm)
             index++
         }
         return _listReturn
@@ -867,14 +860,14 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.SCULK_CATALYST))
         _list.add(ItemTask(Material.SCULK_SENSOR))
         _list.add(ItemTask(Material.SCULK_SHRIEKER))
-        if (_nether){
+        if (_settings.getNether()){
             _list.add(ItemTask(Material.WARPED_NYLIUM))
             _list.add(ItemTask(Material.CRIMSON_NYLIUM))
             _list.add(ItemTask(Material.NETHER_GOLD_ORE))
             _list.add(ItemTask(Material.NETHER_QUARTZ_ORE))
             _list.add(ItemTask(Material.NETHER_SPROUTS))
         }
-        if(_difficulty == TaskDifficulty.EXTREME){
+        if(_settings.getDifficulty() == TaskDifficulty.EXTREME){
             _list.add(ItemTask(Material.MYCELIUM))
             _list.add(ItemTask(Material.PODZOL))
             _list.add(ItemTask(Material.DEEPSLATE_COAL_ORE))

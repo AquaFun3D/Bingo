@@ -1,6 +1,7 @@
 package de.aquafun3d.bingo.utils.inventories
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
 import de.aquafun3d.bingo.utils.teams.ITeams
 import net.kyori.adventure.text.Component
@@ -12,7 +13,7 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scoreboard.Team
 
-class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers, private val _bingoTasks: IBingoTaskManager) : ITeamInventories {
+class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers, private val _bingoTasks: IBingoTaskManager, private val _settings: ISettings) : ITeamInventories {
     private val _inventories = mutableMapOf<Team, Inventory>()
     private val _item: ItemStack
 
@@ -22,7 +23,7 @@ class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers,
 
     override fun fillInventories() {
         for (t in _teams.getTeams().values) {
-            val inv = Bukkit.createInventory(null, 9 * 1, Component.text("Bingo", NamedTextColor.DARK_PURPLE)) //TODO * Quatity
+            val inv = Bukkit.createInventory(null, 9 * _settings.getQuantity(), Component.text("Bingo", NamedTextColor.DARK_PURPLE))
             _bingoTasks.fillList()
             for((i, item) in _bingoTasks.getList().withIndex()){
                 inv.setItem(i, item.getItemStack())
@@ -37,7 +38,7 @@ class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers,
         _inventories[_teams.getPlayerTeam(player)]!!.removeItem(item)
     }
 
-    override fun getIventorybyPlayer(player: Player): Inventory {
+    override fun getInventorybyPlayer(player: Player): Inventory {
         return _inventories[_teams.getPlayerTeam(player)]!!
     }
 

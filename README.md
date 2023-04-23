@@ -16,9 +16,9 @@ Minecraft Bingo Plugin
 - [x] Helper 
   - [x] Items
   - [x] Send Message
-- [ ] Default Listener
+- [x] Default Listener
   - [x] Chat
-  - [ ] Join
+  - [x] Join
   - [x] Quit
   - [x] Hunger
 - [ ] Scoreboard
@@ -30,7 +30,7 @@ Minecraft Bingo Plugin
 - [x] Bingo Command/Item
 - [ ] Bingo Listener
 - [X] Countdown
-- [ ] Settings Inventory
+- [x] Settings Inventory
 - [ ] Player disconnect possible 
 
 ---

@@ -16,6 +16,7 @@ class Countdown(private val _plugin: Plugin) : ICountdown {
             var time = i + 1
             override fun run() {
                 time--
+                Bukkit.broadcast(Component.text("countdown"))
                 //TODO Fades anpassen
                 val mainTitle: Component = Component.text(time.toString(), NamedTextColor.GREEN)
                 val subTitle: Component = Component.text("seconds until Bingo starts", NamedTextColor.GRAY)

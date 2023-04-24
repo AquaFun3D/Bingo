@@ -78,11 +78,11 @@ class Scoreboards : IScoreboards {
         if (_defaultBoard.getObjective("bingo")!!.displaySlot != DisplaySlot.SIDEBAR) {
             _defaultBoard.getObjective("bingo")!!.displaySlot = DisplaySlot.SIDEBAR
         }
-        initScore("firstplace", Component.text("1. Place: ",NamedTextColor.GOLD), 13)
-        initScore("blank", Component.text(" "), 11)
-        initScore("blank", Component.text(" "), 14)
-        initScore("place", Component.text("Your Team: ",NamedTextColor.GOLD), 12)
-        initScore("itemcount", Component.text("X items left"), 10)
+        //initScore("firstplace", Component.text("1. Place: ",NamedTextColor.GOLD), 13)
+        //initScore("blank", Component.text(" "), 11)
+        //initScore("blank", Component.text(" "), 14)
+        //initScore("place", Component.text("Your Team: ",NamedTextColor.GOLD), 12)
+        //initScore("itemcount", Component.text("X items left"), 10)
     }
 
     override fun getPlayerboards(): Map<UUID, Scoreboard>{

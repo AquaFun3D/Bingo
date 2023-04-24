@@ -28,15 +28,16 @@ Minecraft Bingo Plugin
 - [ ] Win Task
 - [x] Start Command
 - [x] Bingo Command/Item
-- [ ] Bingo Listener
+- [ ] Bingo Listener (fehlt send title & sound)
 - [X] Countdown
 - [x] Settings Inventory
 - [ ] Player disconnect possible 
 
 ---
 - Bugs
-  - Teamselect inv Spectator aktualiesieren
+  - Teamselect inv Spectator aktualisieren
   - Chat
+  - Countdown
 
 ---
 - Später

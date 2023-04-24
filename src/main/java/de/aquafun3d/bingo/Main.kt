@@ -4,6 +4,7 @@ import de.aquafun3d.bingo.commands.BingoCommand
 import de.aquafun3d.bingo.commands.StartCommand
 import de.aquafun3d.bingo.commands.TeamBackpackCommand
 import de.aquafun3d.bingo.commands.TopCommand
+import de.aquafun3d.bingo.listeners.BingoListener
 import de.aquafun3d.bingo.listeners.DefaultListener
 import de.aquafun3d.bingo.listeners.InventoryListener
 import de.aquafun3d.bingo.listeners.TeamBackpackListener
@@ -25,6 +26,7 @@ import de.aquafun3d.bingo.utils.tasks.ItemTaskManager
 import de.aquafun3d.bingo.utils.teams.BingoTeams
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.Timer
+import net.kyori.adventure.audience.Audiences
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.plugin.java.JavaPlugin
@@ -44,6 +46,7 @@ class Main : JavaPlugin() {
         val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings)
         val countdown = Countdown(this)
         val cage = SpawnCage()
+        val timer = Timer(this, helpers)
         commandRegistration(helpers, config, teams, teamInventories, countdown, cage)
         listenerRegistration(helpers, scoreboards, teams, teamSelectInv, config, teamSelectInv, settingsInv, teamInventories, settings)
     }
@@ -67,5 +70,6 @@ class Main : JavaPlugin() {
         pluginManager.registerEvents(DefaultListener(helpers, scoreboards, settingsInv, teamselectInv, teams, teamInv, settings), this)
         pluginManager.registerEvents(TeamBackpackListener(config, teams), this)
         pluginManager.registerEvents(InventoryListener(teams, teamSelectInv, settings, settingsInv, teamselectInv), this)
+        pluginManager.registerEvents(BingoListener(helpers, teamInv, teams, settings), this)
     }
 }

@@ -22,13 +22,15 @@ class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers,
     }
 
     override fun fillInventories() {
+        _bingoTasks.fillList()
         for (t in _teams.getTeams().values) {
             val inv = Bukkit.createInventory(null, 9 * _settings.getQuantity(), Component.text("Bingo", NamedTextColor.DARK_PURPLE))
-            _bingoTasks.fillList()
-            for((i, item) in _bingoTasks.getList().withIndex()){
+            var i: Int = 0
+            for(item in _bingoTasks.getList()){
                 inv.setItem(i, item.getItemStack())
+                i++
             }
-            if (!_inventories.containsKey(t)) {
+            if(!_inventories.containsKey(t)) {
                 _inventories[t] = inv
             }
         }
@@ -36,6 +38,10 @@ class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers,
 
     override fun removeItem(player: Player, item: ItemStack) {
         _inventories[_teams.getPlayerTeam(player)]!!.removeItem(item)
+    }
+
+    override fun removeItem(player: Player, item: Material) {
+        _inventories[_teams.getPlayerTeam(player)]!!.removeItem(ItemStack(item))
     }
 
     override fun getInventorybyPlayer(player: Player): Inventory {
@@ -48,5 +54,15 @@ class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers,
 
     override fun getItem(): ItemStack{
         return _item
+    }
+
+    override fun itemCount(player: Player): Int{
+        var out = 0
+        for(item in getInventorybyPlayer(player)){
+            if(item != null){
+                out++
+            }
+        }
+        return out
     }
 }

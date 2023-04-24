@@ -22,11 +22,11 @@ class TeamBackpackCommand(private val _helpers: IHelpers, private val _config: I
                 if (_config.contains("teambackpack")) {
                     for (i in 0..8) {
                         var item: ItemStack
-                        if (_config["teambackpack." + _teams.getPlayerTeam(sender)!!.name + "." + i] == null) {
+                        if (_config["teambackpack." + _teams.getPlayerTeam(sender)!!.prefix().toString() + "." + i] == null) {
                             item = ItemStack(Material.AIR)
                             inv.setItem(i, item)
                         } else {
-                            item = _config["teambackpack." + _teams.getPlayerTeam(sender)!!.name + "." + i] as ItemStack
+                            item = _config["teambackpack." + _teams.getPlayerTeam(sender)!!.prefix().toString() + "." + i] as ItemStack
                             inv.setItem(i, item)
                         }
                     }

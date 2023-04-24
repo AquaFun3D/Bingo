@@ -778,20 +778,6 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.MANGROVE_CHEST_BOAT))
         _list.add(ItemTask(Material.MANGROVE_BOAT))
         _list.add(ItemTask(Material.GOAT_HORN))
-        _list.add(ItemTask(Material.MUSIC_DISC_11))
-        _list.add(ItemTask(Material.MUSIC_DISC_13))
-        _list.add(ItemTask(Material.MUSIC_DISC_5))
-        _list.add(ItemTask(Material.MUSIC_DISC_BLOCKS))
-        _list.add(ItemTask(Material.MUSIC_DISC_CAT))
-        _list.add(ItemTask(Material.MUSIC_DISC_CHIRP))
-        _list.add(ItemTask(Material.MUSIC_DISC_FAR))
-        _list.add(ItemTask(Material.MUSIC_DISC_MALL))
-        _list.add(ItemTask(Material.MUSIC_DISC_MELLOHI))
-        _list.add(ItemTask(Material.MUSIC_DISC_OTHERSIDE))
-        _list.add(ItemTask(Material.MUSIC_DISC_STAL))
-        _list.add(ItemTask(Material.MUSIC_DISC_STRAD))
-        _list.add(ItemTask(Material.MUSIC_DISC_WAIT))
-        _list.add(ItemTask(Material.MUSIC_DISC_WARD))
         _list.add(ItemTask(Material.CHAINMAIL_CHESTPLATE))
         _list.add(ItemTask(Material.CHAINMAIL_BOOTS))
         _list.add(ItemTask(Material.CHAINMAIL_LEGGINGS))
@@ -832,6 +818,8 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.BROWN_DYE))
         _list.add(ItemTask(Material.LIME_DYE))
         _list.add(ItemTask(Material.GLISTERING_MELON_SLICE))
+        _list.add(ItemTask(Material.MUSIC_DISC_13))
+        _list.add(ItemTask(Material.MUSIC_DISC_CAT))
     }
 
     private fun silktouch(){
@@ -897,6 +885,18 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.ENCHANTED_GOLDEN_APPLE))
         _list.add(ItemTask(Material.RABBIT_FOOT))
         _list.add(ItemTask(Material.PHANTOM_MEMBRANE))
+        _list.add(ItemTask(Material.MUSIC_DISC_11))
+        _list.add(ItemTask(Material.MUSIC_DISC_5))
+        _list.add(ItemTask(Material.MUSIC_DISC_BLOCKS))
+        _list.add(ItemTask(Material.MUSIC_DISC_CHIRP))
+        _list.add(ItemTask(Material.MUSIC_DISC_FAR))
+        _list.add(ItemTask(Material.MUSIC_DISC_MALL))
+        _list.add(ItemTask(Material.MUSIC_DISC_MELLOHI))
+        _list.add(ItemTask(Material.MUSIC_DISC_OTHERSIDE))
+        _list.add(ItemTask(Material.MUSIC_DISC_STAL))
+        _list.add(ItemTask(Material.MUSIC_DISC_STRAD))
+        _list.add(ItemTask(Material.MUSIC_DISC_WAIT))
+        _list.add(ItemTask(Material.MUSIC_DISC_WARD))
     }
 
     private fun netherEasy(){

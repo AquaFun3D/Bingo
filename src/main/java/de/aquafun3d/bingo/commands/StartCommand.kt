@@ -45,7 +45,9 @@ class StartCommand(private val _helper: IHelpers, private val _teamInventories: 
                 }
             }
             _cage.removeCage()
-            player.inventory.setItem(8, _teamInventories.getItem())
+            for(p in Bukkit.getOnlinePlayers()){
+                p.inventory.setItem(8, _teamInventories.getItem())
+            }
         }
         return false
     }

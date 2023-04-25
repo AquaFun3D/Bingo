@@ -9,7 +9,6 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import java.util.*
 
 class TopCommand(private val _helpers: IHelpers) : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
@@ -20,13 +19,18 @@ class TopCommand(private val _helpers: IHelpers) : CommandExecutor {
                 var z: Double = sender.location.z
                 val yaw: Float = sender.location.yaw
                 val pitch: Float = sender.location.pitch
-                val y = Objects.requireNonNull(Bukkit.getWorld(world))!!.getHighestBlockYAt(x.toInt(), z.toInt()) + 1
+                var y = (Bukkit.getWorld(world))!!.getHighestBlockYAt(x.toInt(), z.toInt()) + 2
                 if (world == "world_nether") {
                     x *= 8.0
                     z *= 8.0
+                    y = (Bukkit.getWorld("world"))!!.getHighestBlockYAt(x.toInt(), z.toInt()) + 2
                 }
                 val location = Location(Bukkit.getWorld("world"), x, y.toDouble(), z, yaw, pitch)
-                sender.teleport(location)
+                if(world == "the_end"){
+                    sender.teleport(Bukkit.getWorld("world")!!.spawnLocation)
+                }else{
+                    sender.teleport(location)
+                }
                 _helpers.send(sender, Component.text("Wooooosh!", NamedTextColor.GREEN))
             } else {
                 _helpers.send(sender, Component.text("Bingo hasn't started yet!", NamedTextColor.RED))

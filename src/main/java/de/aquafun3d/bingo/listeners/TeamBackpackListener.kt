@@ -20,7 +20,7 @@ class TeamBackpackListener(private val _config: IConfig, private val _teams: ITe
         val inv = e.inventory
         val player = e.player as Player
         val size = if (_settings.getTeamsize() > 2){
-            9 * _settings.getTeamsize() - 1
+            9 * (_settings.getTeamsize() - 1)
         }else{
             9
         }

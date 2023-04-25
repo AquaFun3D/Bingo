@@ -1,5 +1,8 @@
 package de.aquafun3d.bingo.utils.countdown
 
+import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.inventories.ITeamInventories
+import de.aquafun3d.bingo.utils.spawncage.ISpawnCage
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
@@ -9,7 +12,7 @@ import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 
-class Countdown(private val _plugin: Plugin) : ICountdown {
+class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, private val _helper: IHelpers, private val _teamInv: ITeamInventories) : ICountdown {
     private var _taskid = 0
     val audi = Audience.audience(Bukkit.getOnlinePlayers())
     override fun count(i: Int) {
@@ -26,8 +29,11 @@ class Countdown(private val _plugin: Plugin) : ICountdown {
                     audi.showTitle(Title.title(Component.text("Bingo", NamedTextColor.GREEN), Component.text("has started",NamedTextColor.GRAY)))
                     val sound = Sound.sound(Key.key("entity.player.levelup"), Sound.Source.PLAYER, 1f, 1f)
                     audi.playSound(sound)
+                    _helper.changeBingoRunning(true)
+                    _teamInv.fillInventories()
+                    _cage.removeCage()
+                    Bukkit.getScheduler().cancelTask(_taskid)
                 }
-                Bukkit.getScheduler().cancelTask(_taskid)
             }
         }, 0, 20)
     }

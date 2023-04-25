@@ -31,8 +31,7 @@ Minecraft Bingo Plugin
 
 ---
 
-- Bugs
-  - Countdown
+- Bugs:
   
 ---
 

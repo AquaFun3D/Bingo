@@ -66,7 +66,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     @EventHandler
     fun onItemDrop(e: PlayerDropItemEvent) {
         val item = e.itemDrop.itemStack
-        if (item == _settingsInv.getItem() || item == _teamselect.getItem()) {
+        if (item == _settingsInv.getItem() || item == _teamselect.getItem() || item == _teaminv.getItem()){
             e.isCancelled = true
         }
     }

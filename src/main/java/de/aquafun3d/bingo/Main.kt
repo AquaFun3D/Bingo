@@ -19,7 +19,6 @@ import de.aquafun3d.bingo.utils.helpers.Settings
 import de.aquafun3d.bingo.utils.inventories.*
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.scoreboards.Scoreboards
-import de.aquafun3d.bingo.utils.spawncage.ISpawnCage
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage
 import de.aquafun3d.bingo.utils.tasks.BingoTaskManager
 import de.aquafun3d.bingo.utils.tasks.ItemTaskManager
@@ -44,10 +43,10 @@ class Main : JavaPlugin() {
         val itemTaskManager = ItemTaskManager(settings)
         val bingoTaskManager = BingoTaskManager(itemTaskManager, settings)
         val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings)
-        val countdown = Countdown(this)
         val cage = SpawnCage()
+        val countdown = Countdown(this, cage, helpers, teamInventories)
         val timer = Timer(this, helpers)
-        commandRegistration(helpers, config, teams, teamInventories, countdown, cage, settings)
+        commandRegistration(helpers, config, teams, teamInventories, countdown, settings)
         listenerRegistration(helpers, scoreboards, teams, teamSelectInv, config, teamSelectInv, settingsInv, teamInventories, settings, timer)
     }
 
@@ -58,11 +57,11 @@ class Main : JavaPlugin() {
         Bukkit.getWorld("world")!!.setSpawnLocation(location)
     }
 
-    private fun commandRegistration(helpers: IHelpers, config: IConfig, teams: ITeams, teaminv: ITeamInventories, countdown: ICountdown, cage: ISpawnCage, settings: ISettings) {
+    private fun commandRegistration(helpers: IHelpers, config: IConfig, teams: ITeams, teaminv: ITeamInventories, countdown: ICountdown, settings: ISettings) {
         getCommand("top")!!.setExecutor(TopCommand(helpers))
         getCommand("teambackpack")!!.setExecutor(TeamBackpackCommand(helpers, config, teams, settings))
         getCommand("bingo")!!.setExecutor(BingoCommand(helpers, teams, teaminv))
-        getCommand("start")!!.setExecutor(StartCommand(helpers, teaminv, teams, countdown, cage))
+        getCommand("start")!!.setExecutor(StartCommand(helpers, teaminv, teams, countdown))
     }
 
     private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, teamSelectInv: ITeamselectInventory, config: IConfig, teamselectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings, timer: ITimer) {

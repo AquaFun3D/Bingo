@@ -19,7 +19,7 @@ class TeamBackpackCommand(private val _helpers: IHelpers, private val _config: I
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (sender is Player) {
             val size = if (_settings.getTeamsize() > 2){
-                9 * _settings.getTeamsize() - 1
+                9 * (_settings.getTeamsize() - 1)
             }else{
                 9
             }

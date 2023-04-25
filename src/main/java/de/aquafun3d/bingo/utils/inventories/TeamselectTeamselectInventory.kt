@@ -1,6 +1,7 @@
 package de.aquafun3d.bingo.utils.inventories
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.teams.ITeams
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
@@ -56,14 +57,12 @@ class TeamselectTeamselectInventory(private val _helper: IHelpers) : ITeamselect
         _inventory.setItem(17, empty)
     }
 
-    override fun updateInventory(player: Player, name: String, itemName: Component) {
+    override fun updateInventory(player: Player) {
         for (item in _inventory) {
             val meta = item.itemMeta
             val list = ArrayList<Component>()
-            if(item.itemMeta.displayName() == itemName){
-                for (p in player.scoreboard.getTeam(name)!!.entries) {
-                    list.add(Component.text(p!!))
-                }
+            for (p in player.scoreboard.getTeam(getNamebyItem(meta.displayName()!!))!!.entries) {
+                list.add(Component.text(p!!, NamedTextColor.WHITE))
             }
             meta.lore(list)
             item.setItemMeta(meta)
@@ -72,6 +71,29 @@ class TeamselectTeamselectInventory(private val _helper: IHelpers) : ITeamselect
             if (p.openInventory.title() == Component.text("Teamselect", NamedTextColor.DARK_PURPLE)) {
                 p.openInventory(_inventory)
             }
+        }
+    }
+
+    private fun getNamebyItem(itemName: Component): String{
+        return when(itemName){
+            Component.text("Team #1", NamedTextColor.WHITE) -> "white"
+            Component.text("Team #2", NamedTextColor.GOLD) -> "orange"
+            Component.text("Team #3", NamedTextColor.LIGHT_PURPLE) -> "magenta"
+            Component.text("Team #4", NamedTextColor.AQUA) -> "lightblue"
+            Component.text("Team #5", NamedTextColor.YELLOW) -> "yellow"
+            Component.text("Team #6", NamedTextColor.GREEN) -> "lime"
+            Component.text("Team #7", NamedTextColor.RED) -> "pink"
+            Component.text("Team #8", NamedTextColor.DARK_GRAY) -> "gray"
+            Component.text("Team #9", NamedTextColor.GRAY) -> "lightgray"
+            Component.text("Team #10", NamedTextColor.DARK_AQUA) -> "cyan"
+            Component.text("Team #11", NamedTextColor.DARK_PURPLE) -> "purple"
+            Component.text("Team #12", NamedTextColor.BLUE) -> "blue"
+            Component.text("Team #13", NamedTextColor.GOLD) -> "brown"
+            Component.text("Team #14", NamedTextColor.DARK_GREEN) -> "green"
+            Component.text("Team #15", NamedTextColor.DARK_RED) -> "red"
+            Component.text("Team #16", NamedTextColor.DARK_GRAY) -> "black"
+            Component.text("Spectator", NamedTextColor.GRAY) -> "spec"
+            else -> "blank"
         }
     }
 

@@ -6,7 +6,7 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
 interface ITeamselectInventory {
-    fun updateInventory(player: Player, name: String, itemName: Component)
+    fun updateInventory(player: Player)
     fun getItem(): ItemStack
     fun getInventory(): Inventory
 }

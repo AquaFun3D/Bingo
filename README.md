@@ -32,10 +32,7 @@ Minecraft Bingo Plugin
 ---
 
 - Bugs
-  - Teamselect inv Spectator aktualisieren
-  - Teamselect bug
-  - Countdown 
-  - 
+  - Countdown
   
 ---
 

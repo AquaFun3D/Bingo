@@ -145,71 +145,71 @@ class InventoryListener(private val _teams: ITeams, private val _teamInv: ITeams
         //TEAMSELCT
         if (itemName == Component.text("Team #1", NamedTextColor.WHITE)) {
             _teams.joinTeam(player, "white")
-            _teamInv.updateInventory(player, "white", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #2", NamedTextColor.GOLD)) {
             _teams.joinTeam(player, "orange")
-            _teamInv.updateInventory(player, "orange", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #3", NamedTextColor.LIGHT_PURPLE)) {
             _teams.joinTeam(player, "magenta")
-            _teamInv.updateInventory(player, "magenta", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #4", NamedTextColor.AQUA)) {
             _teams.joinTeam(player, "lightblue")
-            _teamInv.updateInventory(player, "lightblue", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #5", NamedTextColor.YELLOW)) {
             _teams.joinTeam(player, "yellow")
-            _teamInv.updateInventory(player, "yellow", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #6", NamedTextColor.GREEN)) {
             _teams.joinTeam(player, "lime")
-            _teamInv.updateInventory(player, "lime", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #7", NamedTextColor.RED)) {
             _teams.joinTeam(player, "pink")
-            _teamInv.updateInventory(player, "pink", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #8", NamedTextColor.DARK_GRAY)) {
             _teams.joinTeam(player, "gray")
-            _teamInv.updateInventory(player, "gray", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #9", NamedTextColor.GRAY)) {
             _teams.joinTeam(player, "lightgray")
-            _teamInv.updateInventory(player, "lightgray", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #10", NamedTextColor.DARK_AQUA)) {
             _teams.joinTeam(player, "cyan")
-            _teamInv.updateInventory(player, "cyan", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #11", NamedTextColor.DARK_PURPLE)) {
             _teams.joinTeam(player, "purple")
-            _teamInv.updateInventory(player, "purple", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #12", NamedTextColor.BLUE)) {
             _teams.joinTeam(player, "blue")
-            _teamInv.updateInventory(player, "blue", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #13", NamedTextColor.GOLD)) {
             _teams.joinTeam(player, "brown")
-            _teamInv.updateInventory(player, "brown", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #14", NamedTextColor.DARK_GREEN)) {
             _teams.joinTeam(player, "green")
-            _teamInv.updateInventory(player, "green", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #15", NamedTextColor.DARK_RED)) {
             _teams.joinTeam(player, "red")
-            _teamInv.updateInventory(player, "red", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Team #16", NamedTextColor.DARK_GRAY)) {
             _teams.joinTeam(player, "black")
-            _teamInv.updateInventory(player, "black", itemName)
+            _teamInv.updateInventory(player)
         }
         if (itemName == Component.text("Spectator", NamedTextColor.GRAY)) {
             _teams.joinTeam(player, "spec")
-            _teamInv.updateInventory(player, "spec", itemName)
+            _teamInv.updateInventory(player)
         }
     }
 }

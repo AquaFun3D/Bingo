@@ -22,7 +22,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 
-class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories, private val _settings: ISettings, private val _teamInv: ITeamInventories) : Listener {
+class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories, private val _settings: ISettings) : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
@@ -37,6 +37,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         }
         if(_teams.getPlayerTeam(player) == null){
             _teams.joinTeam(player,"spec")
+            _teamselect.updateInventory(player)
         }
         if(_settings.isConfirmed() && !_helpers.isBingoRunning()){
             player.inventory.setItem(4, _teamselect.getItem())
@@ -80,7 +81,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     @EventHandler
     fun onPlayerDeath(e: PlayerRespawnEvent) {
         val player = e.player
-        player.inventory.setItem(8, _teamInv.getItem())
+        player.inventory.setItem(8, _teaminv.getItem())
     }
 
     @EventHandler

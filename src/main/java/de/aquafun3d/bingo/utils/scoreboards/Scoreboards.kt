@@ -72,10 +72,7 @@ class Scoreboards : IScoreboards {
         addTeam(_defaultBoard, "green", Component.text("[#14] ", NamedTextColor.DARK_GREEN))
         addTeam(_defaultBoard, "red", Component.text("[#15] ", NamedTextColor.DARK_RED))
         addTeam(_defaultBoard, "black", Component.text("[#16] ", NamedTextColor.DARK_GRAY))
-        addTeam(_defaultBoard, "firstplace", Component.text("1. Place: ", NamedTextColor.GOLD))
-        addTeam(_defaultBoard, "place", Component.text("Your Team: ", NamedTextColor.GOLD))
         addTeam(_defaultBoard, "blank", Component.text(" "))
-        addTeam(_defaultBoard, "itemcount", Component.text("X items left"))
         /*
         _defaultBoard.registerNewObjective("bingo", Criteria.DUMMY, Component.text("bingo"))
         _defaultBoard.getObjective("bingo")!!.displayName(Component.text("Bingo", NamedTextColor.BLUE))

@@ -8,9 +8,12 @@ import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.teams.ITeams
+import io.papermc.paper.chat.ChatRenderer
 import io.papermc.paper.event.player.AsyncChatEvent
+import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -20,6 +23,7 @@ import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import javax.swing.Renderer
 
 class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories, private val _settings: ISettings) : Listener {
 
@@ -54,8 +58,8 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         } else {
             prefix = player.name().color(NamedTextColor.GRAY).append(Component.text(" | ").color(NamedTextColor.DARK_GRAY)).append(e.message().color(NamedTextColor.WHITE))
         }
-        //e.message(_teams.getPlayerTeamPrefix(player).append(prefix))
-        //TODO!!!
+        val audi = Audience.audience(Bukkit.getOnlinePlayers())
+        e.renderer().render(player, player.name(), prefix, audi)
     }
 
     @EventHandler

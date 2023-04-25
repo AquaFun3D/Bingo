@@ -26,6 +26,8 @@ import de.aquafun3d.bingo.utils.tasks.ItemTaskManager
 import de.aquafun3d.bingo.utils.teams.BingoTeams
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.Timer
+import net.kyori.adventure.Adventure
+import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.audience.Audiences
 import org.bukkit.Bukkit
 import org.bukkit.Location

@@ -38,17 +38,15 @@ class BingoListener(private val _helper: IHelpers, private val _teaminv: ITeamIn
             e.isCancelled = true
             return
         }
-        if (item == null) {
-            return
-        }
-        if (item.itemMeta == null) {
-            return
-        }
+        if (item == null) return
+        if (item.itemMeta == null) return
+        if(!_helper.isBingoRunning()) return
         checkItem(player, item)
     }
 
     @EventHandler
     fun onPickUp(e: EntityPickupItemEvent) {
+        if(!_helper.isBingoRunning()) return
         if (e.entity is Player){
             val player = (e.entity as Player)
             val item = e.item.itemStack

@@ -13,19 +13,15 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scoreboard.Team
 
-class TeamInventories(private val _teams: ITeams, private val _helper: IHelpers, private val _bingoTasks: IBingoTaskManager, private val _settings: ISettings) : ITeamInventories {
+class TeamInventories(private val _teams: ITeams, _helper: IHelpers, private val _bingoTasks: IBingoTaskManager, private val _settings: ISettings) : ITeamInventories {
     private val _inventories = mutableMapOf<Team, Inventory>()
-    private val _item: ItemStack
-
-    init {
-        _item = _helper.newItem(Material.BUNDLE, Component.text("Bingo", NamedTextColor.DARK_AQUA))
-    }
+    private val _item: ItemStack = _helper.newItem(Material.BUNDLE, Component.text("Bingo", NamedTextColor.DARK_AQUA))
 
     override fun fillInventories() {
         _bingoTasks.fillList()
         for (t in _teams.getTeams().values) {
             val inv = Bukkit.createInventory(null, 9 * _settings.getQuantity(), Component.text("Bingo", NamedTextColor.DARK_PURPLE))
-            var i: Int = 0
+            var i = 0
             for(item in _bingoTasks.getList()){
                 inv.setItem(i, item.getItemStack())
                 i++

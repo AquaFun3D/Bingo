@@ -45,4 +45,5 @@ Minecraft Bingo Plugin
   - Klauen verhindern
   - pvp
   - KORALLEN, TRÄNKE
+  - Keep inventory & Hunger in den Settings
 

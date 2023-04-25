@@ -13,7 +13,7 @@ import java.util.*
 
 class Scoreboards : IScoreboards {
     private val _playerBoards = mutableMapOf<UUID, Scoreboard>()
-    private val _playerObjectives = mutableMapOf<UUID, Objective>()
+    //private val _playerObjectives = mutableMapOf<UUID, Objective>()
     private val _defaultBoard = Bukkit.getScoreboardManager().newScoreboard
 
     init {
@@ -26,7 +26,7 @@ class Scoreboards : IScoreboards {
             _playerBoards[uuid] = _defaultBoard
         }
         player.scoreboard = _playerBoards[uuid]!!
-        _playerObjectives[uuid] = player.scoreboard.getObjective("bingo")!!
+        //_playerObjectives[uuid] = player.scoreboard.getObjective("bingo")!!
     }
 
     private fun addTeam(board: Scoreboard, teamname: String, prefix: Component) {
@@ -34,6 +34,7 @@ class Scoreboards : IScoreboards {
         board.getTeam(teamname)!!.prefix(prefix)
     }
 
+    /*
     private fun initScore(teamname: String, value: TextComponent, score: Int) {
         val obj = _defaultBoard.getObjective("bingo")
         val team = _defaultBoard.getTeam(teamname)
@@ -51,6 +52,7 @@ class Scoreboards : IScoreboards {
             obj!!.getScore(value.content()).score = score
         }
     }
+    */
 
     private fun initDefaultBoard() {
         addTeam(_defaultBoard, "spec", Component.text("[Spec] ", NamedTextColor.GRAY))
@@ -68,21 +70,24 @@ class Scoreboards : IScoreboards {
         addTeam(_defaultBoard, "blue", Component.text("[#12] ", NamedTextColor.BLUE))
         addTeam(_defaultBoard, "brown", Component.text("[#13] ", NamedTextColor.GOLD))
         addTeam(_defaultBoard, "green", Component.text("[#14] ", NamedTextColor.DARK_GREEN))
-        addTeam(_defaultBoard, "red", Component.text("[#16] ", NamedTextColor.DARK_GRAY))
+        addTeam(_defaultBoard, "red", Component.text("[#15] ", NamedTextColor.DARK_RED))
+        addTeam(_defaultBoard, "black", Component.text("[#16] ", NamedTextColor.DARK_GRAY))
         addTeam(_defaultBoard, "firstplace", Component.text("1. Place: ", NamedTextColor.GOLD))
         addTeam(_defaultBoard, "place", Component.text("Your Team: ", NamedTextColor.GOLD))
         addTeam(_defaultBoard, "blank", Component.text(" "))
         addTeam(_defaultBoard, "itemcount", Component.text("X items left"))
+        /*
         _defaultBoard.registerNewObjective("bingo", Criteria.DUMMY, Component.text("bingo"))
         _defaultBoard.getObjective("bingo")!!.displayName(Component.text("Bingo", NamedTextColor.BLUE))
         if (_defaultBoard.getObjective("bingo")!!.displaySlot != DisplaySlot.SIDEBAR) {
             _defaultBoard.getObjective("bingo")!!.displaySlot = DisplaySlot.SIDEBAR
         }
-        //initScore("firstplace", Component.text("1. Place: ",NamedTextColor.GOLD), 13)
-        //initScore("blank", Component.text(" "), 11)
-        //initScore("blank", Component.text(" "), 14)
-        //initScore("place", Component.text("Your Team: ",NamedTextColor.GOLD), 12)
-        //initScore("itemcount", Component.text("X items left"), 10)
+        initScore("firstplace", Component.text("1. Place: ",NamedTextColor.GOLD), 13)
+        initScore("blank", Component.text(" "), 11)
+        initScore("blank", Component.text(" "), 14)
+        initScore("place", Component.text("Your Team: ",NamedTextColor.GOLD), 12)
+        initScore("itemcount", Component.text("X items left"), 10)
+        */
     }
 
     override fun getPlayerboards(): Map<UUID, Scoreboard>{

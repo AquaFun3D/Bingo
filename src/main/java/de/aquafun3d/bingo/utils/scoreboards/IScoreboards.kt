@@ -8,6 +8,6 @@ import java.util.*
 
 interface IScoreboards {
     fun initPlayerScorebaord(player: Player)
-    fun updateScore(player: Player, teamname: String, value: TextComponent, score: Int, remove: Boolean)
+    //fun updateScore(player: Player, teamname: String, value: TextComponent, score: Int, remove: Boolean)
     fun getPlayerboards(): Map<UUID, Scoreboard>
 }

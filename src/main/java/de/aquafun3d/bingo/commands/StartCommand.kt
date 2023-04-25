@@ -29,10 +29,8 @@ class StartCommand(private val _helper: IHelpers, private val _teamInventories: 
             _countdown.count(5)
             _helper.changeBingoRunning(true)
             _teamInventories.fillInventories()
-            //TODO Scoreboard laden (aus Countdown)
             for (world in Bukkit.getWorlds()) {
                 world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
-                world.setGameRule(GameRule.KEEP_INVENTORY, true)
             }
             for (p in Bukkit.getOnlinePlayers()) {
                 p.inventory.clear()
@@ -47,6 +45,7 @@ class StartCommand(private val _helper: IHelpers, private val _teamInventories: 
             _cage.removeCage()
             for(p in Bukkit.getOnlinePlayers()){
                 p.inventory.setItem(8, _teamInventories.getItem())
+                p.closeInventory()
             }
         }
         return false

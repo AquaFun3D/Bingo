@@ -2,9 +2,9 @@ package de.aquafun3d.bingo.utils.helpers
 
 import de.aquafun3d.bingo.utils.tasks.TaskDifficulty
 
-class Settings: ISettings { //Um die anderen TaskTypes erweitern
+class Settings: ISettings {
 
-    private var _difficulty = TaskDifficulty.HARD
+    private var _difficulty = TaskDifficulty.EASY
     private var _end: Boolean = false
     private var _nether: Boolean = false
     private var _silktouch: Boolean = false

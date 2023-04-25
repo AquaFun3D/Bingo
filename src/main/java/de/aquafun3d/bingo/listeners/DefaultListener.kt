@@ -2,15 +2,12 @@ package de.aquafun3d.bingo.listeners
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
-import de.aquafun3d.bingo.utils.helpers.Settings
 import de.aquafun3d.bingo.utils.inventories.ISettingsInventory
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.teams.ITeams
-import io.papermc.paper.chat.ChatRenderer
 import io.papermc.paper.event.player.AsyncChatEvent
-import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
@@ -23,22 +20,25 @@ import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import javax.swing.Renderer
+import org.bukkit.event.player.PlayerRespawnEvent
 
-class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories, private val _settings: ISettings) : Listener {
+class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories, private val _settings: ISettings, private val _teamInv: ITeamInventories) : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
         val player = e.player
         e.joinMessage(_helpers.getPrefix().append(player.name().color(NamedTextColor.AQUA)).append(Component.text(" has joined").color(NamedTextColor.LIGHT_PURPLE)))
         _scoreboard.initPlayerScorebaord(player)
-        if(player.isOp){
+        if(!_helpers.isBingoRunning()){
+            player.inventory.clear()
+        }
+        if(player.isOp && !_helpers.isBingoRunning()){
             player.inventory.setItem(8, _settingsInv.getItem())
         }
         if(_teams.getPlayerTeam(player) == null){
             _teams.joinTeam(player,"spec")
         }
-        if(_settings.isConfirmed()){
+        if(_settings.isConfirmed() && !_helpers.isBingoRunning()){
             player.inventory.setItem(4, _teamselect.getItem())
         }
     }
@@ -52,14 +52,14 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     @EventHandler
     fun onChat(e: AsyncChatEvent) {
         val player = e.player
-        val prefix: Component
-        if (player.isOp) {
-            prefix = player.name().color(NamedTextColor.RED).append(Component.text(" | ").color(NamedTextColor.DARK_GRAY)).append(e.message().color(NamedTextColor.WHITE))
+        val name: Component = if (player.isOp) {
+            _teams.getPlayerTeamPrefix(player).append(player.name().color(NamedTextColor.RED))
         } else {
-            prefix = player.name().color(NamedTextColor.GRAY).append(Component.text(" | ").color(NamedTextColor.DARK_GRAY)).append(e.message().color(NamedTextColor.WHITE))
+            _teams.getPlayerTeamPrefix(player).append(player.name().color(NamedTextColor.WHITE))
         }
-        val audi = Audience.audience(Bukkit.getOnlinePlayers())
-        e.renderer().render(player, player.name(), prefix, audi)
+        val message = Component.text(" | ").color(NamedTextColor.DARK_GRAY).append(e.message().color(NamedTextColor.WHITE))
+        Bukkit.broadcast(name.append(message))
+        e.isCancelled = true
     }
 
     @EventHandler
@@ -75,6 +75,12 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         val player = e.entity as Player
         player.saturation = 21f
         e.isCancelled = true
+    }
+
+    @EventHandler
+    fun onPlayerDeath(e: PlayerRespawnEvent) {
+        val player = e.player
+        player.inventory.setItem(8, _teamInv.getItem())
     }
 
     @EventHandler

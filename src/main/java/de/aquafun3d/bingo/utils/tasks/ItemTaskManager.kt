@@ -448,15 +448,6 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.IRON_TRAPDOOR))
         _list.add(ItemTask(Material.HEAVY_WEIGHTED_PRESSURE_PLATE))
         _list.add(ItemTask(Material.CHAIN))
-        _list.add(ItemTask(Material.WEATHERED_COPPER))
-        _list.add(ItemTask(Material.WEATHERED_CUT_COPPER))
-        _list.add(ItemTask(Material.WEATHERED_CUT_COPPER_SLAB))
-        _list.add(ItemTask(Material.WEATHERED_CUT_COPPER_STAIRS))
-        _list.add(ItemTask(Material.WEATHERED_CUT_COPPER_STAIRS))
-        _list.add(ItemTask(Material.EXPOSED_COPPER))
-        _list.add(ItemTask(Material.EXPOSED_CUT_COPPER))
-        _list.add(ItemTask(Material.EXPOSED_CUT_COPPER_SLAB))
-        _list.add(ItemTask(Material.EXPOSED_CUT_COPPER_STAIRS))
         _list.add(ItemTask(Material.ORANGE_WOOL))
         _list.add(ItemTask(Material.ORANGE_CARPET))
         _list.add(ItemTask(Material.LIGHT_BLUE_CARPET))
@@ -655,10 +646,6 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.SMOOTH_RED_SANDSTONE))
         _list.add(ItemTask(Material.SMOOTH_RED_SANDSTONE_STAIRS))
         _list.add(ItemTask(Material.AMETHYST_BLOCK))
-        _list.add(ItemTask(Material.OXIDIZED_COPPER))
-        _list.add(ItemTask(Material.OXIDIZED_CUT_COPPER))
-        _list.add(ItemTask(Material.OXIDIZED_CUT_COPPER_SLAB))
-        _list.add(ItemTask(Material.OXIDIZED_CUT_COPPER_STAIRS))
         _list.add(ItemTask(Material.BROWN_WOOL))
         _list.add(ItemTask(Material.BROWN_CARPET))
         _list.add(ItemTask(Material.LIME_CARPET))
@@ -820,6 +807,10 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.GLISTERING_MELON_SLICE))
         _list.add(ItemTask(Material.MUSIC_DISC_13))
         _list.add(ItemTask(Material.MUSIC_DISC_CAT))
+        _list.add(ItemTask(Material.EXPOSED_COPPER))
+        _list.add(ItemTask(Material.EXPOSED_CUT_COPPER))
+        _list.add(ItemTask(Material.EXPOSED_CUT_COPPER_SLAB))
+        _list.add(ItemTask(Material.EXPOSED_CUT_COPPER_STAIRS))
     }
 
     private fun silktouch(){
@@ -897,6 +888,14 @@ class ItemTaskManager(settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.MUSIC_DISC_STRAD))
         _list.add(ItemTask(Material.MUSIC_DISC_WAIT))
         _list.add(ItemTask(Material.MUSIC_DISC_WARD))
+        _list.add(ItemTask(Material.OXIDIZED_COPPER))
+        _list.add(ItemTask(Material.OXIDIZED_CUT_COPPER))
+        _list.add(ItemTask(Material.OXIDIZED_CUT_COPPER_SLAB))
+        _list.add(ItemTask(Material.OXIDIZED_CUT_COPPER_STAIRS))
+        _list.add(ItemTask(Material.WEATHERED_COPPER))
+        _list.add(ItemTask(Material.WEATHERED_CUT_COPPER))
+        _list.add(ItemTask(Material.WEATHERED_CUT_COPPER_SLAB))
+        _list.add(ItemTask(Material.WEATHERED_CUT_COPPER_STAIRS))
     }
 
     private fun netherEasy(){

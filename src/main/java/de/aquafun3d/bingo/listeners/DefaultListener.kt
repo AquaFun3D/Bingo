@@ -15,6 +15,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.FoodLevelChangeEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
@@ -82,6 +83,13 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     fun onPlayerDeath(e: PlayerRespawnEvent) {
         val player = e.player
         player.inventory.setItem(8, _teaminv.getItem())
+    }
+
+    @EventHandler
+    fun onPlayerDamage(e: EntityDamageByEntityEvent){
+        if(!_helpers.isBingoRunning() && e.damager is Player){
+            e.isCancelled = true
+        }
     }
 
     @EventHandler

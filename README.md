@@ -32,22 +32,16 @@ Minecraft Bingo Plugin
 ---
 
 - Bugs/Improvements:
-  - pvp vor start aus (keep inv)
-  - bingo item vor start nicht bekommen (death)
-  - items über inv drop bar bei amout > 2
   - bisschen erklär text
   - confirm bestätigung teamselect item nur einmal
   - ein nether star für einen op
   - Wie viele items im Tab
   - nach confirm emeral on join
   - title item find bug
-  - team tp
-  - team glow
-  - copper diffi höher
-  - skip item
   - teamback gleichzeit
-
-
+  - Difficulty vor start auf peaceful
+  - pvp
+  
 ---
 
 - Später
@@ -58,8 +52,10 @@ Minecraft Bingo Plugin
   - Achievements, Enchantments, Mobs, Biom im Bingo
   - Commands manchmal einblenden
   - Klauen verhindern
-  - pvp
   - KORALLEN, TRÄNKE
   - Keep inventory & Hunger in den Settings
   - Items wertigkeiten geben falls unbalaced
+  - Team-tp
+  - Team glow effekt
+  - Skip item
   

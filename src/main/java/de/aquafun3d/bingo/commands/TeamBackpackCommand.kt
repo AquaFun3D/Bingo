@@ -23,9 +23,15 @@ class TeamBackpackCommand(private val _helpers: IHelpers, private val _config: I
             }else{
                 9
             }
-            val inv = Bukkit.createInventory(null, size, Component.text("Team-Backpack", NamedTextColor.GREEN))
+            val inv = Bukkit.createInventory(null, size, Component.text("Team-Backpack", NamedTextColor.GREEN).append(_teams.getPlayerTeamPrefix(sender)))
             if (_helpers.isBingoRunning()) {
                 if (_config.contains("teambackpack")) {
+                    for(p in Bukkit.getOnlinePlayers()){
+                        if (p.openInventory.title() == Component.text("Team-Backpack", NamedTextColor.GREEN).append(_teams.getPlayerTeamPrefix(sender))) {
+                            _helpers.send(sender, Component.text("Someone else is using the backpack right now!", NamedTextColor.RED))
+                            return false
+                        }
+                    }
                     for (i in 0 until size) {
                         var item: ItemStack
                         if (!_config.contains("teambackpack." + _teams.getPlayerTeam(sender)!!.name + "." + i)) {

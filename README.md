@@ -32,7 +32,6 @@ Minecraft Bingo Plugin
 ---
 
 - Bugs/Improvements:
-  - teamback gleichzeit
   
 ---
 

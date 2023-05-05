@@ -105,6 +105,12 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             if (e.hasItem()) {
                 if (e.item == _settingsInv.getItem()) {
+                    for(p in Bukkit.getOnlinePlayers()){
+                        if (p.openInventory.title() == Component.text("Settings", NamedTextColor.DARK_PURPLE)) {
+                            _helpers.send(player, Component.text("Someone else is setting up right now!",NamedTextColor.RED))
+                            return
+                        }
+                    }
                     _settings.setConfirmed(false)
                     player.openInventory(_settingsInv.getInventory())
                 }

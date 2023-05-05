@@ -1,5 +1,6 @@
 package de.aquafun3d.bingo.listeners
 
+import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.inventories.ISettingsInventory
 import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory
@@ -13,7 +14,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 
-class InventoryListener(private val _teams: ITeams, private val _teamInv: ITeamselectInventory, private val _settings: ISettings, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory) : Listener {
+class InventoryListener(private val _teams: ITeams, private val _helper: IHelpers, private val _teamInv: ITeamselectInventory, private val _settings: ISettings, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory) : Listener {
     @EventHandler
     fun onInvClick(e: InventoryClickEvent) {
         val player = e.whoClicked as Player
@@ -40,8 +41,11 @@ class InventoryListener(private val _teams: ITeams, private val _teamInv: ITeams
         if (itemName == Component.text("Confirm", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setConfirmed(true)
+                _helper.send(player, Component.text("Confirmed", NamedTextColor.GREEN))
             }
             for(p in Bukkit.getOnlinePlayers()){
+                p.inventory.clear()
+                if(p.isOp) p.inventory.setItem(8, _settingsInv.getItem())
                 p.inventory.setItem(4, _teamselect.getItem())
             }
             player.closeInventory()

@@ -105,6 +105,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             if (e.hasItem()) {
                 if (e.item == _settingsInv.getItem()) {
+                    _settings.setConfirmed(false)
                     player.openInventory(_settingsInv.getInventory())
                 }
             }

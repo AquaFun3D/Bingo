@@ -32,15 +32,7 @@ Minecraft Bingo Plugin
 ---
 
 - Bugs/Improvements:
-  - bisschen erklär text
-  - confirm bestätigung teamselect item nur einmal
-  - ein nether star für einen op
-  - Wie viele items im Tab
-  - nach confirm emeral on join
-  - title item find bug
   - teamback gleichzeit
-  - Difficulty vor start auf peaceful
-  - pvp
   
 ---
 
@@ -58,4 +50,6 @@ Minecraft Bingo Plugin
   - Team-tp
   - Team glow effekt
   - Skip item
+  - pvp
+  - clean code & TODOs
   

@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
+import org.bukkit.Difficulty
 import org.bukkit.plugin.Plugin
 
 class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, private val _helper: IHelpers, private val _teamInv: ITeamInventories) : ICountdown {
@@ -31,6 +32,7 @@ class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, priv
                     audi.playSound(sound)
                     _helper.changeBingoRunning(true)
                     _teamInv.fillInventories()
+                    Bukkit.getWorld("world")!!.difficulty = Difficulty.EASY
                     _cage.removeCage()
                     Bukkit.getScheduler().cancelTask(_taskid)
                 }

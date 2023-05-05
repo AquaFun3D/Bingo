@@ -12,4 +12,5 @@ interface ITeams {
     fun getPlayerTeamPrefix(player: Player): Component
     fun getTeamPrefix(name: String): Component
     fun getTeams(): Map<UUID, Team>
+    fun updateTeamSuffix(player: Player, itemCount: Int)
 }

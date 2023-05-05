@@ -2,6 +2,7 @@ package de.aquafun3d.bingo.commands
 
 import de.aquafun3d.bingo.utils.countdown.ICountdown
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.teams.ITeams
 import net.kyori.adventure.text.Component
@@ -14,7 +15,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
-class StartCommand(private val _helper: IHelpers, private val _teamInventories: ITeamInventories, private val _teams: ITeams, private val _countdown: ICountdown) : CommandExecutor {
+class StartCommand(private val _helper: IHelpers, private val _settings: ISettings, private val _teamInventories: ITeamInventories, private val _teams: ITeams, private val _countdown: ICountdown) : CommandExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         val player = sender as Player
         if (!player.isOp) {
@@ -24,7 +25,7 @@ class StartCommand(private val _helper: IHelpers, private val _teamInventories: 
         if (_helper.isBingoRunning()) {
             _helper.send(player,  Component.text("Bingo is already running", NamedTextColor.RED))
         }
-        if (_helper.isConfirmed()) {
+        if (_settings.isConfirmed()) {
             _countdown.count(5)
             for (world in Bukkit.getWorlds()) {
                 world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
@@ -42,7 +43,9 @@ class StartCommand(private val _helper: IHelpers, private val _teamInventories: 
             for(p in Bukkit.getOnlinePlayers()){
                 p.inventory.setItem(8, _teamInventories.getItem())
                 p.closeInventory()
+                _teams.updateTeamSuffix(p,_teamInventories.itemCount(p))
             }
+            _helper.atAll(Component.text("Commands: ", NamedTextColor.GOLD).append(Component.text("/top | /bp | /bingo", NamedTextColor.GREEN)))
         }
         return false
     }

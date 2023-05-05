@@ -3,32 +3,23 @@ package de.aquafun3d.bingo.utils.teams
 import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
-import de.aquafun3d.bingo.utils.scoreboards.Scoreboards
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.entity.Player
 import org.bukkit.scoreboard.Team
 import java.util.*
 
-class BingoTeams(boards: Scoreboards, helpers: IHelpers, settings: ISettings) : ITeams {
-    private val _boards: IScoreboards
-    private val _helper: IHelpers
-    private val _settings: ISettings
+class BingoTeams(private val _boards: IScoreboards, private val _helper: IHelpers, private val _settings: ISettings) : ITeams {
     private val _teams = mutableMapOf<UUID, Team>()
     private val _teamnames = mutableMapOf<String, Component>()
-    //TODO add Scores
 
     init {
-        _boards = boards
-        _helper = helpers
-        _settings = settings
         initTeamnames()
     }
 
     private fun addPlayerToTeam(player: Player, teamname: String) {
         for (board in _boards.getPlayerboards().values) {
             board.getTeam(teamname)!!.addEntry(player.name)
-            //TODO muss ich das bei allen Spielern auch machen
         }
         _teams[player.uniqueId] = _boards.getPlayerboards()[player.uniqueId]!!.getTeam(teamname)!!
     }
@@ -90,5 +81,10 @@ class BingoTeams(boards: Scoreboards, helpers: IHelpers, settings: ISettings) : 
 
     override fun getTeams(): Map<UUID, Team>{
         return _teams
+    }
+
+    override fun updateTeamSuffix(player: Player, itemCount: Int){
+        if(_teams[player.uniqueId]!!.name == "spec") return
+        _teams[player.uniqueId]!!.suffix(Component.text(" (" + ((_settings.getQuantity() * 9) - itemCount) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW))
     }
 }

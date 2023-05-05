@@ -13,7 +13,5 @@ interface IHelpers {
     fun newItem(mat: Material, name: Component): ItemStack
     fun newItem(mat: Material, amount: Int, name: Component): ItemStack
     fun newItem(mat: Material, lore: List<Component>, name: Component): ItemStack
-    fun isConfirmed(): Boolean
-    fun changeConfirm(bool: Boolean)
     fun getPrefix(): Component
 }

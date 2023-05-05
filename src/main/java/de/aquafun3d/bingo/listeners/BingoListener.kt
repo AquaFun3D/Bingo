@@ -54,16 +54,19 @@ class BingoListener(private val _helper: IHelpers, private val _teaminv: ITeamIn
         }
     }
 
-    private fun checkItem(player: Player, item: ItemStack){
+    private fun checkItem(player: Player, item: ItemStack){ //TODO CLEAN CODE
         if (item.amount > 1) {
             if(_teaminv.getInventorybyPlayer(player).contains(item.type)) {
                 _teaminv.removeItem(player, item.type)
                 _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text("registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teaminv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
+                sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+                _teams.updateTeamSuffix(player, _teaminv.itemCount(player))
             }
         }else if(_teaminv.getInventorybyPlayer(player).contains(item)){
             _teaminv.removeItem(player, item)
             _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text("registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teaminv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
             sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+            _teams.updateTeamSuffix(player, _teaminv.itemCount(player))
         }
         if(_teaminv.getInventorybyPlayer(player).isEmpty) winTask(player)
     }

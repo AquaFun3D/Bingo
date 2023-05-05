@@ -24,16 +24,8 @@ class Helpers : IHelpers {
         _isBingoRunning = bool
     }
 
-    override fun changeConfirm(bool: Boolean) {
-        _isConfirmed = bool
-    }
-
     override fun isBingoRunning(): Boolean {
         return _isBingoRunning
-    }
-
-    override fun isConfirmed(): Boolean {
-        return _isConfirmed
     }
 
     override fun getPrefix(): Component{

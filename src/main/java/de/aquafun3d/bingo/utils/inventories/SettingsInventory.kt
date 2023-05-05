@@ -10,7 +10,7 @@ import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
 class SettingsInventory(private val _helper: IHelpers, private val _settings: ISettings) : ISettingsInventory {
-    private val _inventory: Inventory = Bukkit.createInventory(null, 27, Component.text("Bingo Settings",NamedTextColor.DARK_PURPLE))
+    private val _inventory: Inventory = Bukkit.createInventory(null, 27, Component.text("Settings", NamedTextColor.DARK_PURPLE))
     private val _item: ItemStack = _helper.newItem(Material.NETHER_STAR, Component.text("Settings", NamedTextColor.DARK_AQUA))
 
     init {

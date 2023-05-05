@@ -26,26 +26,10 @@ class StartCommand(private val _helper: IHelpers, private val _settings: ISettin
             _helper.send(player,  Component.text("Bingo is already running", NamedTextColor.RED))
         }
         if (_settings.isConfirmed()) {
-            _countdown.count(5)
-            for (world in Bukkit.getWorlds()) {
-                world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
-            }
-            for (p in Bukkit.getOnlinePlayers()) {
-                p.inventory.clear()
-                p.saturation = 20f
-                p.health = 20.0
-                if (_teams.getPlayerTeamName(player) == "spec") {
-                    p.gameMode = GameMode.SPECTATOR
-                } else {
-                    p.gameMode = GameMode.SURVIVAL
-                }
-            }
             for(p in Bukkit.getOnlinePlayers()){
-                p.inventory.setItem(8, _teamInventories.getItem())
-                p.closeInventory()
-                _teams.updateTeamSuffix(p,_teamInventories.itemCount(p))
+                p.inventory.clear()
             }
-            _helper.atAll(Component.text("Commands: ", NamedTextColor.GOLD).append(Component.text("/top | /bp | /bingo", NamedTextColor.GREEN)))
+            _countdown.count(5,player)
         }
         return false
     }

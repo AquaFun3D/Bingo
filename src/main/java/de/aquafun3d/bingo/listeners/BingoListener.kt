@@ -31,7 +31,7 @@ class BingoListener(private val _helper: IHelpers, private val _teaminv: ITeamIn
         if (e.view.title() == Component.text("Teamselect", NamedTextColor.DARK_PURPLE)) {
             return
         }
-        if (e.view.title() == Component.text("Bingo Settings", NamedTextColor.DARK_PURPLE)) {
+        if (e.view.title() == Component.text("Settings", NamedTextColor.DARK_PURPLE)) {
             return
         }
         if (e.view.title() == Component.text("Bingo", NamedTextColor.DARK_PURPLE)) {

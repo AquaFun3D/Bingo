@@ -24,7 +24,7 @@ class TeamBackpackListener(private val _config: IConfig, private val _teams: ITe
         }else{
             9
         }
-        if (title == Component.text("Team-Backpack", NamedTextColor.GREEN)) {
+        if (title == Component.text("Team-Backpack ", NamedTextColor.GREEN).append(_teams.getPlayerTeamPrefix(player))) {
             _config.set("teambackpack." + _teams.getPlayerTeam(player)!!.name, null)
             for (i in 0 until size) {
                 val item = inv.getItem(i) ?: continue

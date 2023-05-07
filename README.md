@@ -18,9 +18,6 @@ Minecraft Bingo Plugin
 - [ ] Skip item
 - [ ] pvp
 - [ ] clean code & TODOs
+- [ ] Map Reset ohne Bungecord
 
 ## Bugs/Improvements:
-
-
-
-  

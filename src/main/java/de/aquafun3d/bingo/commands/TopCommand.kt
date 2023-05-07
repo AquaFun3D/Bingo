@@ -20,13 +20,8 @@ class TopCommand(private val _helpers: IHelpers) : CommandExecutor {
                 val yaw: Float = sender.location.yaw
                 val pitch: Float = sender.location.pitch
                 var y = (Bukkit.getWorld(world))!!.getHighestBlockYAt(x.toInt(), z.toInt()) + 2
-                if (world == "world_nether") {
-                    x *= 8.0
-                    z *= 8.0
-                    y = (Bukkit.getWorld("world"))!!.getHighestBlockYAt(x.toInt(), z.toInt()) + 2
-                }
                 val location = Location(Bukkit.getWorld("world"), x, y.toDouble(), z, yaw, pitch)
-                if(world == "the_end"){
+                if(world == "the_end" || world == "world_nether"){
                     sender.teleport(Bukkit.getWorld("world")!!.spawnLocation)
                 }else{
                     sender.teleport(location)

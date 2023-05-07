@@ -1,9 +1,6 @@
 package de.aquafun3d.bingo
 
-import de.aquafun3d.bingo.commands.BingoCommand
-import de.aquafun3d.bingo.commands.StartCommand
-import de.aquafun3d.bingo.commands.TeamBackpackCommand
-import de.aquafun3d.bingo.commands.TopCommand
+import de.aquafun3d.bingo.commands.*
 import de.aquafun3d.bingo.listeners.BingoListener
 import de.aquafun3d.bingo.listeners.DefaultListener
 import de.aquafun3d.bingo.listeners.InventoryListener
@@ -64,6 +61,7 @@ class Main : JavaPlugin() {
         getCommand("teambackpack")!!.setExecutor(TeamBackpackCommand(helpers, config, teams, settings))
         getCommand("bingo")!!.setExecutor(BingoCommand(helpers, teams, teaminv))
         getCommand("start")!!.setExecutor(StartCommand(helpers, settings, teaminv, teams, countdown))
+        getCommand("spawn")!!.setExecutor(SpawnCommand(helpers))
     }
 
     private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, teamSelectInv: ITeamselectInventory, config: IConfig, teamselectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings, timer: ITimer) {

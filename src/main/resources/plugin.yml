@@ -17,3 +17,5 @@ commands:
     description: shows your Bingo-Items
   settings:
     description: Bingo settings
+  spawn:
+    description: teleports the player to the spawn

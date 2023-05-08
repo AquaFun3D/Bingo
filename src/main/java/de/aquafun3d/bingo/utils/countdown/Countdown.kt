@@ -44,18 +44,16 @@ class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, priv
                     for (p in Bukkit.getOnlinePlayers()) {
                         p.saturation = 20f
                         p.health = 20.0
-                        if (_teams.getPlayerTeamName(player) == "spec") {
+                        if (_teams.getPlayerTeamName(p) == "spec") {
                             p.gameMode = GameMode.SPECTATOR
                         } else {
                             p.gameMode = GameMode.SURVIVAL
+                            p.inventory.setItem(8, _teamInv.getItem())
+                            p.closeInventory()
+                            _teams.updateTeamSuffix(p,_teamInv.itemCount(p))
                         }
                     }
-                    for(p in Bukkit.getOnlinePlayers()){
-                        p.inventory.setItem(8, _teamInv.getItem())
-                        p.closeInventory()
-                        _teams.updateTeamSuffix(p,_teamInv.itemCount(p))
-                    }
-                    _helper.atAll(Component.text("Commands: ", NamedTextColor.GOLD).append(Component.text("/top | /bp | /bingo", NamedTextColor.GREEN)))
+                    _helper.atAll(Component.text("Commands: ", NamedTextColor.GOLD).append(Component.text("/top | /bp | /bingo | /spawn", NamedTextColor.GREEN)))
                     Bukkit.getScheduler().cancelTask(_taskid)
                 }
             }

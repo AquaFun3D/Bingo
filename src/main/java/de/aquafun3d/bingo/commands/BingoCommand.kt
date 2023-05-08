@@ -15,11 +15,7 @@ class BingoCommand(private val _helper: IHelpers, private val _teams: ITeams, pr
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (sender is Player) {
             if (_helper.isBingoRunning()) {
-                if (_teams.getPlayerTeamName(sender) != "spec") {
-                    sender.openInventory(_teaminv.getInventorybyPlayer(sender))
-                } else {
-                    _helper.send(sender, Component.text("You are spectator",NamedTextColor.RED))
-                }
+                sender.openInventory(_teaminv.getInventorybyPlayer(sender))
             } else {
                 _helper.send(sender, Component.text("Bingo hasn't started yet",NamedTextColor.RED))
             }

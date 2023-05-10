@@ -9,7 +9,6 @@ Minecraft Bingo Plugin
 - Game state saven und wann anders weiterspielen
 - Achievements, Enchantments, Mobs, Biom im Bingo
 - KORALLEN, TRÄNKE
-- Keep inventory, Hunger, pvp, Diffi in den Settings
 - Team glow effekt
 - Skip item
 - Map Reset ohne Bungecord

@@ -9,7 +9,7 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
     private var _listReturn = mutableListOf<IBingoTask>()
 
     override fun getItems(amount : Int): List<IBingoTask>{
-        when(_settings.getDifficulty()){
+        when(_settings.getBingoDifficulty()){
             TaskDifficulty.EASY -> {
                 overworldEasy()
                 if(_settings.getNether()) netherEasy()
@@ -841,7 +841,7 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
             _list.add(ItemTask(Material.NETHER_QUARTZ_ORE))
             _list.add(ItemTask(Material.NETHER_SPROUTS))
         }
-        if(_settings.getDifficulty() == TaskDifficulty.EXTREME){
+        if(_settings.getBingoDifficulty() == TaskDifficulty.EXTREME){
             _list.add(ItemTask(Material.MYCELIUM))
             _list.add(ItemTask(Material.PODZOL))
             _list.add(ItemTask(Material.DEEPSLATE_COAL_ORE))

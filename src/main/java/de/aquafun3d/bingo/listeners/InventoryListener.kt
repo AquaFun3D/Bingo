@@ -9,6 +9,7 @@ import de.aquafun3d.bingo.utils.teams.ITeams
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
+import org.bukkit.Difficulty
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -50,38 +51,38 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
             }
             player.closeInventory()
         }
-        if (itemName == Component.text("Difficulty ", NamedTextColor.GOLD).append(Component.text(_settings.getDifficulty().toString()).color(NamedTextColor.AQUA))) {
+        if (itemName == Component.text("Bingo Difficulty ", NamedTextColor.GOLD).append(Component.text(_settings.getBingoDifficulty().toString()).color(NamedTextColor.AQUA))) {
             if(e.isLeftClick){
-                when(_settings.getDifficulty()){
+                when(_settings.getBingoDifficulty()){
                     TaskDifficulty.EASY ->{
-                        _settings.setDifficulty(TaskDifficulty.NORMAL)
+                        _settings.setBingoDifficulty(TaskDifficulty.NORMAL)
                     }
                     TaskDifficulty.NORMAL ->{
-                        _settings.setDifficulty(TaskDifficulty.HARD)
+                        _settings.setBingoDifficulty(TaskDifficulty.HARD)
                     }
                     TaskDifficulty.HARD ->{
-                        _settings.setDifficulty(TaskDifficulty.EXTREME)
+                        _settings.setBingoDifficulty(TaskDifficulty.EXTREME)
 
                     }
                     TaskDifficulty.EXTREME ->{
-                        _settings.setDifficulty(TaskDifficulty.EASY)
+                        _settings.setBingoDifficulty(TaskDifficulty.EASY)
 
                     }
                 }
             }else if(e.isRightClick){
-                when(_settings.getDifficulty()){
+                when(_settings.getBingoDifficulty()){
                     TaskDifficulty.EASY ->{
-                        _settings.setDifficulty(TaskDifficulty.EXTREME)
+                        _settings.setBingoDifficulty(TaskDifficulty.EXTREME)
                     }
                     TaskDifficulty.NORMAL ->{
-                        _settings.setDifficulty(TaskDifficulty.EASY)
+                        _settings.setBingoDifficulty(TaskDifficulty.EASY)
                     }
                     TaskDifficulty.HARD ->{
-                        _settings.setDifficulty(TaskDifficulty.NORMAL)
+                        _settings.setBingoDifficulty(TaskDifficulty.NORMAL)
 
                     }
                     TaskDifficulty.EXTREME ->{
-                        _settings.setDifficulty(TaskDifficulty.HARD)
+                        _settings.setBingoDifficulty(TaskDifficulty.HARD)
 
                     }
                 }
@@ -141,6 +142,143 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
         if (itemName == Component.text("Teamsize", NamedTextColor.DARK_AQUA)) {
             if(e.isLeftClick){
                 _settings.setTeamsize(_settings.getTeamsize()+1)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("PVP ON", NamedTextColor.GREEN)) {
+            if(e.isLeftClick){
+                _settings.setPvP(false)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("PVP OFF", NamedTextColor.RED)) {
+            if(e.isLeftClick){
+                _settings.setPvP(true)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("KeepInventory ON", NamedTextColor.GREEN)) {
+            if(e.isLeftClick){
+                _settings.setKeepInventory(false)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("KeepInventory OFF", NamedTextColor.RED)) {
+            if(e.isLeftClick){
+                _settings.setKeepInventory(true)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Enchanting ON", NamedTextColor.GREEN)) {
+            if(e.isLeftClick){
+                _settings.setEnchanting(false)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Enchanting OFF", NamedTextColor.RED)) {
+            if(e.isLeftClick){
+                _settings.setEnchanting(true)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Mobs ON", NamedTextColor.GREEN)) {
+            if(e.isLeftClick){
+                _settings.setMobs(false)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Mobs OFF", NamedTextColor.RED)) {
+            if(e.isLeftClick){
+                _settings.setMobs(true)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Bioms ON", NamedTextColor.GREEN)) {
+            if(e.isLeftClick){
+                _settings.setBioms(false)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Bioms OFF", NamedTextColor.RED)) {
+            if(e.isLeftClick){
+                _settings.setBioms(true)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Achievements ON", NamedTextColor.GREEN)) {
+            if(e.isLeftClick){
+                _settings.setAchievements(false)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Achievements OFF", NamedTextColor.RED)) {
+            if(e.isLeftClick){
+                _settings.setAchievements(true)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Hunger ON", NamedTextColor.GREEN)) {
+            if(e.isLeftClick){
+                _settings.setHunger(false)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Hunger OFF", NamedTextColor.RED)) {
+            if(e.isLeftClick){
+                _settings.setHunger(true)
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+        if (itemName == Component.text("Difficulty ", NamedTextColor.GOLD).append(Component.text(_settings.getDifficulty().toString()).color(NamedTextColor.AQUA))) {
+            if(e.isLeftClick){
+                when(_settings.getDifficulty()){
+                    Difficulty.EASY ->{
+                        _settings.setDifficulty(Difficulty.NORMAL)
+                    }
+                    Difficulty.NORMAL ->{
+                        _settings.setDifficulty(Difficulty.HARD)
+                    }
+                    Difficulty.HARD ->{
+                        _settings.setDifficulty(Difficulty.PEACEFUL)
+
+                    }
+                    Difficulty.PEACEFUL ->{
+                        _settings.setDifficulty(Difficulty.EASY)
+
+                    }
+                }
+            }else if(e.isRightClick){
+                when(_settings.getDifficulty()){
+                    Difficulty.EASY ->{
+                        _settings.setDifficulty(Difficulty.PEACEFUL)
+                    }
+                    Difficulty.NORMAL ->{
+                        _settings.setDifficulty(Difficulty.EASY)
+                    }
+                    Difficulty.HARD ->{
+                        _settings.setDifficulty(Difficulty.NORMAL)
+
+                    }
+                    Difficulty.PEACEFUL ->{
+                        _settings.setDifficulty(Difficulty.HARD)
+
+                    }
+                }
             }
             _settingsInv.newInventory()
             player.openInventory(_settingsInv.getInventory())

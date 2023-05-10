@@ -47,6 +47,7 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
         if (e.entity is Player){
             val player = (e.entity as Player)
             val item = e.item.itemStack
+            if(item == _teamInv.getItem()) e.isCancelled = true
             checkItem(player, item)
         }
     }

@@ -17,6 +17,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.FoodLevelChangeEvent
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerDropItemEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
@@ -74,20 +75,25 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
 
     @EventHandler
     fun onHunger(e: FoodLevelChangeEvent) {
-        val player = e.entity as Player
-        player.saturation = 21f
-        e.isCancelled = true
+        if(!_settings.getHunger()) {
+            val player = e.entity as Player
+            player.saturation = 21f
+            e.isCancelled = true
+        }
     }
 
     @EventHandler
-    fun onPlayerDeath(e: PlayerRespawnEvent) {
+    fun onPlayerRespawn(e: PlayerRespawnEvent) {
         val player = e.player
-        player.inventory.setItem(8, _teamInv.getItem())
+        if(!_settings.getKeepInventory()) player.inventory.setItem(8, _teamInv.getItem())
     }
 
     @EventHandler
     fun onPlayerDamage(e: EntityDamageByEntityEvent){
-        if(!_helpers.isBingoRunning() && e.damager is Player){
+        if(!_helpers.isBingoRunning() && e.damager is Player && e.entity is Player){
+            e.isCancelled = true
+        }
+        if(!_settings.getPvP() && e.entity is Player){
             e.isCancelled = true
         }
     }

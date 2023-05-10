@@ -1,6 +1,7 @@
 package de.aquafun3d.bingo.utils.countdown
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.spawncage.ISpawnCage
 import de.aquafun3d.bingo.utils.teams.ITeams
@@ -17,7 +18,7 @@ import org.bukkit.GameRule
 import org.bukkit.entity.Player
 import org.bukkit.plugin.Plugin
 
-class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, private val _helper: IHelpers, private val _teamInv: ITeamInventories, private val _teams: ITeams) : ICountdown {
+class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, private val _helper: IHelpers, private val _teamInv: ITeamInventories, private val _teams: ITeams, private val _settings: ISettings) : ICountdown {
     private var _taskid = 0
     val audi = Audience.audience(Bukkit.getOnlinePlayers())
     override fun count(i: Int, player: Player) {
@@ -44,10 +45,13 @@ class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, priv
     private fun gameStart(){
         _helper.changeBingoRunning(true)
         _teamInv.fillInventories()
-        Bukkit.getWorld("world")!!.difficulty = Difficulty.EASY
         _cage.removeCage()
         for (world in Bukkit.getWorlds()) {
             world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
+            world.difficulty = _settings.getDifficulty()
+            if(_settings.getKeepInventory()){
+                world.setGameRule(GameRule.KEEP_INVENTORY, true)
+            }
         }
         for (p in Bukkit.getOnlinePlayers()) {
             p.saturation = 20f

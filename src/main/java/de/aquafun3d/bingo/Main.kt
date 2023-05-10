@@ -42,7 +42,7 @@ class Main : JavaPlugin() {
         val itemTaskManager = ItemTaskManager(settings)
         val bingoTaskManager = BingoTaskManager(itemTaskManager, settings)
         val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings)
-        val countdown = Countdown(this, cage, helpers, teamInventories, teams)
+        val countdown = Countdown(this, cage, helpers, teamInventories, teams, settings)
         val timer = Timer(this, helpers)
         commandRegistration(helpers, config, teams, teamInventories, countdown, settings)
         listenerRegistration(helpers, scoreboards, teams, config, teamSelectInv, settingsInv, teamInventories, settings, timer)

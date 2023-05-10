@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException
 
-class BingoConfig(private val _name: String) : IConfig {
+class BingoConfig : IConfig {
     private lateinit var _config: YamlConfiguration
     private lateinit var _file: File
 
@@ -17,7 +17,7 @@ class BingoConfig(private val _name: String) : IConfig {
         if (!dir.exists()) {
             dir.mkdirs()
         }
-        _file = File(dir, "$_name.yml")
+        _file = File(dir, "bingo.yml")
         if (!_file.exists()) {
             try {
                 _file.createNewFile()
@@ -44,26 +44,5 @@ class BingoConfig(private val _name: String) : IConfig {
             throw NullPointerException("couldn't find path")
         }
         return _config[path]
-    }
-
-    override fun getInt(path: String): Int {
-        if (!contains(path)) {
-            throw NullPointerException("couldn't find path")
-        }
-        return _config.getInt(path)
-    }
-
-    override fun getString(path: String): String{
-        if (!contains(path)) {
-            throw NullPointerException("couldn't find path")
-        }
-        return _config.getString(path)!!
-    }
-
-    override fun getDouble(path: String): Double {
-        if (!contains(path)) {
-            throw NullPointerException("couldn't find path")
-        }
-        return _config.getDouble(path)
     }
 }

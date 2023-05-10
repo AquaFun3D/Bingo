@@ -20,7 +20,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-class BingoListener(private val _helper: IHelpers, private val _teaminv: ITeamInventories, private val _teams: ITeams, private val _settings: ISettings, private val _timer: ITimer) : Listener {
+class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamInventories, private val _teams: ITeams, private val _settings: ISettings, private val _timer: ITimer) : Listener {
     @EventHandler
     fun onInvClick(e: InventoryClickEvent) {
         val player = e.whoClicked as Player
@@ -51,22 +51,24 @@ class BingoListener(private val _helper: IHelpers, private val _teaminv: ITeamIn
         }
     }
 
-    private fun checkItem(player: Player, item: ItemStack){ //TODO CLEAN CODE
+    private fun checkItem(player: Player, item: ItemStack){
         if(_teams.getPlayerTeamName(player) == "spec") return
         if (item.amount > 1) {
-            if(_teaminv.getInventorybyPlayer(player).contains(item.type)) {
-                _teaminv.removeItem(player, item.type)
-                _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text("registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teaminv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
-                sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
-                _teams.updateTeamSuffix(player, _teaminv.itemCount(player))
+            if(_teamInv.getInventorybyPlayer(player).contains(item.type)) {
+                _teamInv.removeItem(player, item.type)
+                foundItem(player, item)
             }
-        }else if(_teaminv.getInventorybyPlayer(player).contains(item)){
-            _teaminv.removeItem(player, item)
-            _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teaminv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
-            sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
-            _teams.updateTeamSuffix(player, _teaminv.itemCount(player))
+        }else if(_teamInv.getInventorybyPlayer(player).contains(item)){
+            _teamInv.removeItem(player, item)
+            foundItem(player, item)
         }
-        if(_teaminv.getInventorybyPlayer(player).isEmpty) winTask(player)
+        if(_teamInv.getInventorybyPlayer(player).isEmpty) winTask(player)
+    }
+
+    private fun foundItem(player: Player, item: ItemStack){
+        _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teamInv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
+        sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+        _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
     }
 
     private fun sendTitle(player: Player, title: Component, subtitle: Component){

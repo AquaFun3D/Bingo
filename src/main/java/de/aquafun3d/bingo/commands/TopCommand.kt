@@ -15,11 +15,11 @@ class TopCommand(private val _helpers: IHelpers) : CommandExecutor {
         if (sender is Player) {
             if (_helpers.isBingoRunning()) {
                 val world: String = sender.world.name
-                var x: Double = sender.location.x
-                var z: Double = sender.location.z
+                val x: Double = sender.location.x
+                val z: Double = sender.location.z
                 val yaw: Float = sender.location.yaw
                 val pitch: Float = sender.location.pitch
-                var y = (Bukkit.getWorld(world))!!.getHighestBlockYAt(x.toInt(), z.toInt()) + 2
+                val y = (Bukkit.getWorld(world))!!.getHighestBlockYAt(x.toInt(), z.toInt()) + 2
                 val location = Location(Bukkit.getWorld("world"), x, y.toDouble(), z, yaw, pitch)
                 if(world == "the_end" || world == "world_nether"){
                     sender.teleport(Bukkit.getWorld("world")!!.spawnLocation)

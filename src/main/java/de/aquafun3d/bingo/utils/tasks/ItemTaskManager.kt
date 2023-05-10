@@ -3,15 +3,10 @@ package de.aquafun3d.bingo.utils.tasks
 import de.aquafun3d.bingo.utils.helpers.ISettings
 import org.bukkit.Material
 
-class ItemTaskManager(settings: ISettings): IItemTaskManager {
+class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
 
     private var _list = mutableListOf<IBingoTask>()
     private var _listReturn = mutableListOf<IBingoTask>()
-    private val _settings: ISettings
-
-    init {
-        _settings = settings
-    }
 
     override fun getItems(amount : Int): List<IBingoTask>{
         when(_settings.getDifficulty()){

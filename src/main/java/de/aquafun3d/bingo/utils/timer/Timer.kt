@@ -14,7 +14,6 @@ class Timer(plugin: Plugin, private val _helper: IHelpers) : ITimer {
 
     init {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, {
-            //TODO eigener Thread?
             if (_helper.isBingoRunning() && _lastSec != LocalDateTime.now().second) {
                 _lastSec = LocalDateTime.now().second
                 _sec++

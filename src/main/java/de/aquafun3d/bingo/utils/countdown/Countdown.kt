@@ -34,29 +34,33 @@ class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, priv
                     audi.showTitle(Title.title(Component.text("Bingo", NamedTextColor.GREEN), Component.text("has started",NamedTextColor.GRAY)))
                     val sound = Sound.sound(Key.key("entity.player.levelup"), Sound.Source.PLAYER, 1f, 1f)
                     audi.playSound(sound)
-                    _helper.changeBingoRunning(true)
-                    _teamInv.fillInventories()
-                    Bukkit.getWorld("world")!!.difficulty = Difficulty.EASY
-                    _cage.removeCage()
-                    for (world in Bukkit.getWorlds()) {
-                        world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
-                    }
-                    for (p in Bukkit.getOnlinePlayers()) {
-                        p.saturation = 20f
-                        p.health = 20.0
-                        if (_teams.getPlayerTeamName(p) == "spec") {
-                            p.gameMode = GameMode.SPECTATOR
-                        } else {
-                            p.gameMode = GameMode.SURVIVAL
-                            p.inventory.setItem(8, _teamInv.getItem())
-                            p.closeInventory()
-                            _teams.updateTeamSuffix(p,_teamInv.itemCount(p))
-                        }
-                    }
-                    _helper.atAll(Component.text("Commands: ", NamedTextColor.GOLD).append(Component.text("/top | /bp | /bingo | /spawn", NamedTextColor.GREEN)))
+                    gameStart()
                     Bukkit.getScheduler().cancelTask(_taskid)
                 }
             }
         }, 0, 20)
+    }
+
+    private fun gameStart(){
+        _helper.changeBingoRunning(true)
+        _teamInv.fillInventories()
+        Bukkit.getWorld("world")!!.difficulty = Difficulty.EASY
+        _cage.removeCage()
+        for (world in Bukkit.getWorlds()) {
+            world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
+        }
+        for (p in Bukkit.getOnlinePlayers()) {
+            p.saturation = 20f
+            p.health = 20.0
+            if (_teams.getPlayerTeamName(p) == "spec") {
+                p.gameMode = GameMode.SPECTATOR
+            } else {
+                p.gameMode = GameMode.SURVIVAL
+                p.inventory.setItem(8, _teamInv.getItem())
+                p.closeInventory()
+                _teams.updateTeamSuffix(p,_teamInv.itemCount(p))
+            }
+        }
+        _helper.atAll(Component.text("Commands: ", NamedTextColor.GOLD).append(Component.text("/top | /bp | /bingo | /spawn", NamedTextColor.GREEN)))
     }
 }

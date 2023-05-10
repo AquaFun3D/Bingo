@@ -22,21 +22,25 @@ class SettingsInventory(private val _helper: IHelpers, private val _settings: IS
         val empty = _helper.newItem(Material.BLACK_STAINED_GLASS_PANE, Component.text(" "))
         val confirm = _helper.newItem(Material.LIME_DYE, Component.text("Confirm", NamedTextColor.GREEN))
         val difficulty = _helper.newItem(Material.TOTEM_OF_UNDYING, Component.text("Difficulty ", NamedTextColor.GOLD).append(Component.text(_settings.getDifficulty().toString()).color(NamedTextColor.AQUA)))
+
         val nether: ItemStack = if(_settings.getNether()){
             _helper.newItem(Material.NETHERRACK, Component.text("Nether ON", NamedTextColor.GREEN))
         }else{
             _helper.newItem(Material.NETHERRACK, Component.text("Nether OFF", NamedTextColor.RED))
         }
+
         val end:ItemStack = if(_settings.getEnd()){
             _helper.newItem(Material.END_STONE, Component.text("End ON", NamedTextColor.GREEN))
         }else{
             _helper.newItem(Material.END_STONE, Component.text("End OFF", NamedTextColor.RED))
         }
+
         val silktouch:ItemStack = if(_settings.getSilktouch()){
             _helper.newItem(Material.GOLDEN_PICKAXE, Component.text("Silktouch ON", NamedTextColor.GREEN))
         }else{
             _helper.newItem(Material.GOLDEN_PICKAXE, Component.text("Silktouch OFF", NamedTextColor.RED))
         }
+
         val quantity = _helper.newItem(Material.FIRE_CHARGE, _settings.getQuantity() * 9, Component.text("Items", NamedTextColor.AQUA))
         val teamsize = _helper.newItem(Material.ARMOR_STAND, _settings.getTeamsize(), Component.text("Teamsize", NamedTextColor.DARK_AQUA))
 

@@ -30,45 +30,43 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
     override fun onEnable() {
-        Bukkit.getLogger().fine("Plugin activated")
         Bukkit.getWorld("world")!!.difficulty = Difficulty.PEACEFUL
         val helpers = Helpers()
         val settings = Settings()
-        val config = BingoConfig("BingoConfig")
+        val config = BingoConfig()
         val scoreboards = Scoreboards()
+        val cage = SpawnCage()
         val teams = BingoTeams(scoreboards, helpers, settings)
         val teamSelectInv = TeamselectTeamselectInventory(helpers)
         val settingsInv = SettingsInventory(helpers,settings)
         val itemTaskManager = ItemTaskManager(settings)
         val bingoTaskManager = BingoTaskManager(itemTaskManager, settings)
         val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings)
-        val cage = SpawnCage()
         val countdown = Countdown(this, cage, helpers, teamInventories, teams)
         val timer = Timer(this, helpers)
         commandRegistration(helpers, config, teams, teamInventories, countdown, settings)
-        listenerRegistration(helpers, scoreboards, teams, teamSelectInv, config, teamSelectInv, settingsInv, teamInventories, settings, timer)
+        listenerRegistration(helpers, scoreboards, teams, config, teamSelectInv, settingsInv, teamInventories, settings, timer)
     }
 
     override fun onDisable() {
-        Bukkit.getLogger().fine("Plugin deactivated")
         val spawn = Bukkit.getWorld("world")!!.spawnLocation
         val location = Location(Bukkit.getWorld("world"), spawn.x, spawn.y - 2.0, spawn.z)
         Bukkit.getWorld("world")!!.setSpawnLocation(location)
     }
 
-    private fun commandRegistration(helpers: IHelpers, config: IConfig, teams: ITeams, teaminv: ITeamInventories, countdown: ICountdown, settings: ISettings) {
+    private fun commandRegistration(helpers: IHelpers, config: IConfig, teams: ITeams, teamInv: ITeamInventories, countdown: ICountdown, settings: ISettings) {
         getCommand("top")!!.setExecutor(TopCommand(helpers))
         getCommand("teambackpack")!!.setExecutor(TeamBackpackCommand(helpers, config, teams, settings))
-        getCommand("bingo")!!.setExecutor(BingoCommand(helpers, teams, teaminv))
-        getCommand("start")!!.setExecutor(StartCommand(helpers, settings, teaminv, teams, countdown))
+        getCommand("bingo")!!.setExecutor(BingoCommand(helpers, teamInv))
+        getCommand("start")!!.setExecutor(StartCommand(helpers, settings, countdown))
         getCommand("spawn")!!.setExecutor(SpawnCommand(helpers))
     }
 
-    private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, teamSelectInv: ITeamselectInventory, config: IConfig, teamselectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings, timer: ITimer) {
+    private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, config: IConfig, teamSelectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings, timer: ITimer) {
         val pluginManager = Bukkit.getPluginManager()
-        pluginManager.registerEvents(DefaultListener(helpers, scoreboards, settingsInv, teamselectInv, teams, teamInv, settings), this)
+        pluginManager.registerEvents(DefaultListener(helpers, scoreboards, settingsInv, teamSelectInv, teams, teamInv, settings), this)
         pluginManager.registerEvents(TeamBackpackListener(config, teams, settings), this)
-        pluginManager.registerEvents(InventoryListener(teams,helpers, teamSelectInv, settings, settingsInv, teamselectInv), this)
+        pluginManager.registerEvents(InventoryListener(teams,helpers, settings, settingsInv, teamSelectInv), this)
         pluginManager.registerEvents(BingoListener(helpers, teamInv, teams, settings, timer), this)
     }
 }

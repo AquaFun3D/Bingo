@@ -23,7 +23,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 
-class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teaminv: ITeamInventories, private val _settings: ISettings) : Listener {
+class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: IScoreboards, private val _settingsInv: ISettingsInventory, private val _teamselect: ITeamselectInventory, private val _teams: ITeams, private val _teamInv: ITeamInventories, private val _settings: ISettings) : Listener {
 
     @EventHandler
     fun onJoin(e: PlayerJoinEvent) {
@@ -67,7 +67,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     @EventHandler
     fun onItemDrop(e: PlayerDropItemEvent) {
         val item = e.itemDrop.itemStack
-        if (item == _settingsInv.getItem() || item == _teamselect.getItem() || item == _teaminv.getItem()){
+        if (item == _settingsInv.getItem() || item == _teamselect.getItem() || item == _teamInv.getItem()){
             e.isCancelled = true
         }
     }
@@ -82,7 +82,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
     @EventHandler
     fun onPlayerDeath(e: PlayerRespawnEvent) {
         val player = e.player
-        player.inventory.setItem(8, _teaminv.getItem())
+        player.inventory.setItem(8, _teamInv.getItem())
     }
 
     @EventHandler
@@ -118,8 +118,8 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         }
         if (e.action == Action.RIGHT_CLICK_AIR || e.action == Action.RIGHT_CLICK_BLOCK) {
             if (e.hasItem()) {
-                if (e.item == _teaminv.getItem()) {
-                    player.openInventory(_teaminv.getInventorybyPlayer(player))
+                if (e.item == _teamInv.getItem()) {
+                    player.openInventory(_teamInv.getInventorybyPlayer(player))
                 }
             }
         }

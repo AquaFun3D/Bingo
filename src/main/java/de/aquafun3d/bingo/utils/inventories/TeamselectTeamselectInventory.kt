@@ -1,7 +1,6 @@
 package de.aquafun3d.bingo.utils.inventories
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
-import de.aquafun3d.bingo.utils.teams.ITeams
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
@@ -61,7 +60,7 @@ class TeamselectTeamselectInventory(private val _helper: IHelpers) : ITeamselect
         for (item in _inventory) {
             val meta = item.itemMeta
             val list = ArrayList<Component>()
-            for (p in player.scoreboard.getTeam(getNamebyItem(meta.displayName()!!))!!.entries) {
+            for (p in player.scoreboard.getTeam(getNameByItem(meta.displayName()!!))!!.entries) {
                 list.add(Component.text(p!!, NamedTextColor.WHITE))
             }
             meta.lore(list)
@@ -74,7 +73,7 @@ class TeamselectTeamselectInventory(private val _helper: IHelpers) : ITeamselect
         }
     }
 
-    private fun getNamebyItem(itemName: Component): String{
+    private fun getNameByItem(itemName: Component): String{
         return when(itemName){
             Component.text("Team #1", NamedTextColor.WHITE) -> "white"
             Component.text("Team #2", NamedTextColor.GOLD) -> "orange"

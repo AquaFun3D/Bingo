@@ -93,7 +93,7 @@ class DefaultListener(private val _helpers: IHelpers, private val _scoreboard: I
         if(!_helpers.isBingoRunning() && e.damager is Player && e.entity is Player){
             e.isCancelled = true
         }
-        if(!_settings.getPvP() && e.entity is Player){
+        if(!_settings.getPvP() && e.damager is Player && e.entity is Player){
             e.isCancelled = true
         }
     }

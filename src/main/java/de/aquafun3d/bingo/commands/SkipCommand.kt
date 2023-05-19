@@ -19,7 +19,7 @@ class SkipCommand(private val _helper: IHelpers, private val _teamInv: ITeamInve
             if(args.size != 1){
                 _helper.send(sender, Component.text("./skip index", NamedTextColor.RED))
             }else{
-                if(args[0].toInt() < _settings.getQuantity() * 9 || args[0].toInt() < 0) {
+                if(args[0].toInt() < _settings.getQuantity() * 9 && args[0].toInt() > 0) {
                     _teamInv.removeItemIndex(args[0].toInt(), sender)
                 }else{
                     _helper.send(sender, Component.text("Index out of bounds", NamedTextColor.RED))

@@ -18,7 +18,7 @@ class Timer(plugin: Plugin, private val _helper: IHelpers) : ITimer {
                 _lastSec = LocalDateTime.now().second
                 _sec++
             }
-            if (_helper.isBingoRunning()) {
+            if (_helper.isBingoRunning() && _sec > 5) {
                 for (player in Bukkit.getOnlinePlayers()) {
                     player.sendActionBar(Component.text(timerString,NamedTextColor.GOLD))
                 }
@@ -30,8 +30,8 @@ class Timer(plugin: Plugin, private val _helper: IHelpers) : ITimer {
         }, 5L, 5L)
     }
 
-    override fun getTime(): Int{
-        return _sec
+    override fun getTime(): String{
+        return timerString
     }
 
     override fun reset() {

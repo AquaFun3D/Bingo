@@ -8,48 +8,54 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
     private var _list = mutableListOf<IBingoTask>()
     private var _listReturn = mutableListOf<IBingoTask>()
 
-    override fun getItems(amount : Int): List<IBingoTask>{
-        when(_settings.getBingoDifficulty()){
-            TaskDifficulty.EASY -> {
-                overworldEasy()
-                if(_settings.getNether()) netherEasy()
-                if(_settings.getEnd()) endEasy()
+    override fun getItems(amount: Int): List<IBingoTask>{
+        _listReturn.clear()
+        if(_list.isEmpty()) {
+            when (_settings.getBingoDifficulty()) {
+                TaskDifficulty.EASY -> {
+                    overworldEasy()
+                    if (_settings.getNether()) netherEasy()
+                    if (_settings.getEnd()) endEasy()
+                }
+
+                TaskDifficulty.NORMAL -> {
+                    overworldEasy()
+                    if (_settings.getNether()) netherEasy()
+                    if (_settings.getEnd()) endEasy()
+                    overworldNormal()
+                    if (_settings.getNether()) netherNormal()
+                    if (_settings.getEnd()) endNormal()
+                }
+
+                TaskDifficulty.HARD -> {
+                    overworldEasy()
+                    if (_settings.getNether()) netherEasy()
+                    if (_settings.getEnd()) endEasy()
+                    overworldNormal()
+                    if (_settings.getNether()) netherNormal()
+                    if (_settings.getEnd()) endNormal()
+                    overworldHard()
+                    if (_settings.getNether()) netherHard()
+                    if (_settings.getEnd()) endHard()
+                    if (_settings.getSilktouch()) silktouch()
+                }
+
+                TaskDifficulty.EXTREME -> {
+                    overworldEasy()
+                    if (_settings.getNether()) netherEasy()
+                    if (_settings.getEnd()) endEasy()
+                    overworldNormal()
+                    if (_settings.getNether()) netherNormal()
+                    if (_settings.getEnd()) endNormal()
+                    overworldHard()
+                    if (_settings.getNether()) netherHard()
+                    if (_settings.getEnd()) endHard()
+                    if (_settings.getSilktouch()) silktouch()
+                    extreme()
+                }
             }
-            TaskDifficulty.NORMAL -> {
-                overworldEasy()
-                if(_settings.getNether()) netherEasy()
-                if(_settings.getEnd()) endEasy()
-                overworldNormal()
-                if(_settings.getNether()) netherNormal()
-                if(_settings.getEnd()) endNormal()
-            }
-            TaskDifficulty.HARD -> {
-                overworldEasy()
-                if(_settings.getNether()) netherEasy()
-                if(_settings.getEnd()) endEasy()
-                overworldNormal()
-                if(_settings.getNether()) netherNormal()
-                if(_settings.getEnd()) endNormal()
-                overworldHard()
-                if(_settings.getNether()) netherHard()
-                if(_settings.getEnd()) endHard()
-                if(_settings.getSilktouch()) silktouch()
-            }
-            TaskDifficulty.EXTREME -> {
-                overworldEasy()
-                if(_settings.getNether()) netherEasy()
-                if(_settings.getEnd()) endEasy()
-                overworldNormal()
-                if(_settings.getNether()) netherNormal()
-                if(_settings.getEnd()) endNormal()
-                overworldHard()
-                if(_settings.getNether()) netherHard()
-                if(_settings.getEnd()) endHard()
-                if(_settings.getSilktouch()) silktouch()
-                extreme()
-            }
+            if (_settings.getSilktouch()) silktouch()
         }
-        if(_settings.getSilktouch()) silktouch()
         _list.shuffle()
         var index = 0
         while (index < amount){

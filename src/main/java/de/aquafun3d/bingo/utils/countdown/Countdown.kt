@@ -43,7 +43,6 @@ class Countdown(private val _plugin: Plugin, private val _cage: ISpawnCage, priv
     }
 
     private fun gameStart(){
-        _helper.changeBingoRunning(true)
         _teamInv.fillInventories()
         _cage.removeCage()
         for (world in Bukkit.getWorlds()) {

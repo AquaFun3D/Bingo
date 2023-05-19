@@ -30,6 +30,10 @@ class Timer(plugin: Plugin, private val _helper: IHelpers) : ITimer {
         }, 5L, 5L)
     }
 
+    override fun getTime(): Int{
+        return _sec
+    }
+
     override fun reset() {
         _helper.changeBingoRunning(false)
         _sec = 0

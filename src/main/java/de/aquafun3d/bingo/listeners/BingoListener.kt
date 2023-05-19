@@ -81,6 +81,7 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
     }
 
     private fun winTask(player: Player){
+        _helper.atAll(Component.text("Time played: ",NamedTextColor.GOLD).append(Component.text(_timer.getTime(), NamedTextColor.GREEN)))
         _timer.reset()
         val audi = Audience.audience(Bukkit.getOnlinePlayers())
         audi.showTitle(Title.title(Component.text("Team ",NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)), Component.text("has won the Bingo!", NamedTextColor.GRAY)))

@@ -4,16 +4,22 @@ import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
 import de.aquafun3d.bingo.utils.teams.ITeams
+import de.aquafun3d.bingo.utils.timer.ITimer
+import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.key.Key
+import net.kyori.adventure.sound.Sound
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.scoreboard.Team
 
-class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, private val _bingoTasks: IBingoTaskManager, private val _settings: ISettings) : ITeamInventories {
+class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, private val _bingoTasks: IBingoTaskManager, private val _settings: ISettings,private  val _timer: ITimer) : ITeamInventories {
     private val _inventories = mutableMapOf<Team, Inventory>()
     private val _item: ItemStack = _helper.newItem(Material.BUNDLE, Component.text("Bingo", NamedTextColor.DARK_AQUA))
 
@@ -40,6 +46,17 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
             inv.remove(item!!)
             _helper.atAll(item.displayName().color(NamedTextColor.LIGHT_PURPLE).append(Component.text(" skipped!", NamedTextColor.GREEN)))
             _teams.updateTeamSuffix(player, itemCount(player))
+            if(inv.isEmpty){
+                _timer.reset()
+                val audi = Audience.audience(Bukkit.getOnlinePlayers())
+                audi.showTitle(Title.title(Component.text("Team ",NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)), Component.text("has won the Bingo!", NamedTextColor.GRAY)))
+                audi.playSound(Sound.sound(Key.key("entity.player.levelup"), Sound.Source.PLAYER, 1f, 1f))
+                for(p in Bukkit.getOnlinePlayers()){
+                    p.gameMode = GameMode.SPECTATOR
+                }
+                _helper.atAll(Component.text("Team ",NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text("won the Bingo!", NamedTextColor.GOLD)))
+                return
+            }
         }
     }
 

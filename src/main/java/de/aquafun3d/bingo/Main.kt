@@ -60,6 +60,7 @@ class Main : JavaPlugin() {
         getCommand("bingo")!!.setExecutor(BingoCommand(helpers, teamInv))
         getCommand("start")!!.setExecutor(StartCommand(helpers, settings, countdown))
         getCommand("spawn")!!.setExecutor(SpawnCommand(helpers))
+        getCommand("skip")!!.setExecutor(SkipCommand(helpers, teamInv, settings))
     }
 
     private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, config: IConfig, teamSelectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings, timer: ITimer) {

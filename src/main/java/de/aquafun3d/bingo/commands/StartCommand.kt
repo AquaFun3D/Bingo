@@ -19,12 +19,14 @@ class StartCommand(private val _helper: IHelpers, private val _settings: ISettin
             return false
         }
         if (_helper.isBingoRunning()) {
-            _helper.send(player,  Component.text("Bingo is already running", NamedTextColor.RED))
+            _helper.send(player, Component.text("Bingo is already running!", NamedTextColor.RED))
         }else if (_settings.isConfirmed()) {
             for(p in Bukkit.getOnlinePlayers()){
                 p.inventory.clear()
             }
             _countdown.count(5,player)
+        }else{
+            _helper.send(player, Component.text("Please confirm!", NamedTextColor.RED))
         }
         return false
     }

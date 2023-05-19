@@ -10,6 +10,7 @@ interface ITeamInventories {
     fun fillInventories()
     fun removeItem(player: Player, item: ItemStack)
     fun removeItem(player: Player, item: Material)
+    fun removeItemIndex(index: Int, player: Player)
     fun getInventorybyPlayer(player: Player): Inventory
     fun getInventorybyTeam(team: Team): Inventory
     fun getItem(): ItemStack

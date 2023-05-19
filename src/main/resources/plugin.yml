@@ -19,3 +19,5 @@ commands:
     description: Bingo settings
   spawn:
     description: teleports the player to the spawn
+  skip:
+    description: skips an item

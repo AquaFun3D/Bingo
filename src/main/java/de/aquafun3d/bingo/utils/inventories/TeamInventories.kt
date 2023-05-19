@@ -34,6 +34,15 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
         _inventories[_teams.getPlayerTeam(player)]!!.removeItem(item)
     }
 
+    override fun removeItemIndex(index: Int, player: Player){
+        val item = _inventories[_teams.getPlayerTeam(player)]!!.getItem(index)
+        for(inv in _inventories.values){
+            inv.remove(item!!)
+            _helper.atAll(item.displayName().color(NamedTextColor.LIGHT_PURPLE).append(Component.text(" skipped!", NamedTextColor.GREEN)))
+            _teams.updateTeamSuffix(player, itemCount(player))
+        }
+    }
+
     override fun removeItem(player: Player, item: Material) {
         _inventories[_teams.getPlayerTeam(player)]!!.removeItem(ItemStack(item))
     }

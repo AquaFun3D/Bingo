@@ -57,7 +57,10 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
             if(_teamInv.getInventorybyPlayer(player).contains(item.type)) {
                 _teamInv.removeItem(player, item.type)
                 _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teamInv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
-                sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+                for(p in Bukkit.getOnlinePlayers()){
+                    if(_teams.getPlayerTeam(p) == _teams.getPlayerTeam(player))
+                    sendTitle(p, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+                }
                 _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
             }
         if(_teamInv.getInventorybyPlayer(player).isEmpty) winTask(player)

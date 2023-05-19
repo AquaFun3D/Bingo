@@ -54,23 +54,15 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
 
     private fun checkItem(player: Player, item: ItemStack){
         if(_teams.getPlayerTeamName(player) == "spec") return
-        if (item.amount > 1) {
             if(_teamInv.getInventorybyPlayer(player).contains(item.type)) {
                 _teamInv.removeItem(player, item.type)
-                foundItem(player, item)
+                _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teamInv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
+                sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+                _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
             }
-        }else if(_teamInv.getInventorybyPlayer(player).contains(item)){
-            _teamInv.removeItem(player, item)
-            foundItem(player, item)
-        }
         if(_teamInv.getInventorybyPlayer(player).isEmpty) winTask(player)
     }
 
-    private fun foundItem(player: Player, item: ItemStack){
-        _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teamInv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
-        sendTitle(player, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
-        _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
-    }
 
     private fun sendTitle(player: Player, title: Component, subtitle: Component){
         Bukkit.getEntity(player.uniqueId)

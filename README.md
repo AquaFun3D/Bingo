@@ -12,6 +12,8 @@ Minecraft Bingo Plugin
 - Team glow effekt
 - Skip item
 - Map Reset ohne Bungecord
-- Scoreboard mit Plätzen der Teams 
+- Scoreboard mit Plätzen der Teams
+- nach joinen
+- teamwaypoints
 
 ## Bugs/Improvements:

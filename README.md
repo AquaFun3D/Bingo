@@ -15,5 +15,6 @@ Minecraft Bingo Plugin
 - Scoreboard mit Plätzen der Teams
 - nach joinen
 - teamwaypoints
+- Pause
 
 ## Bugs/Improvements:

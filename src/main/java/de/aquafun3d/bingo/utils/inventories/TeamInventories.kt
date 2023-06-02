@@ -43,11 +43,11 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
 
     override fun removeItemIndex(index: Int, player: Player){
         val item = _inventories[_teams.getPlayerTeam(player)]!!.getItem(index - 1) ?: return
+        val newItem = _itemManager.getItems(1)[0].getItemStack()
         for(inv in _inventories.values){
-            val newItem = _itemManager.getItems(1)[0].getItemStack()
             inv.setItem(index - 1, newItem)
-            _helper.atAll(item.displayName().color(NamedTextColor.LIGHT_PURPLE).append(Component.text(" replaced with ", NamedTextColor.GREEN)).append(newItem.displayName().color(NamedTextColor.LIGHT_PURPLE)))
         }
+        _helper.atAll(item.displayName().color(NamedTextColor.LIGHT_PURPLE).append(Component.text(" replaced with ", NamedTextColor.GREEN)).append(newItem.displayName().color(NamedTextColor.LIGHT_PURPLE)))
     }
 
     override fun removeItem(player: Player, item: Material) {

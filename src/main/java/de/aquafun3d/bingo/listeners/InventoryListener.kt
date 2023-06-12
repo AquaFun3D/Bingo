@@ -10,6 +10,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Difficulty
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -38,7 +39,8 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
 
         val itemName = item.itemMeta.displayName()
 
-        if(itemName == Component.text("Bingo", NamedTextColor.DARK_AQUA) && e.isRightClick) e.isCancelled = true
+        if(((e.cursor != null && e.cursor!!.type == Material.BUNDLE) || item.type == Material.BUNDLE) && e.isRightClick) e.isCancelled = true
+
 
         //SETTINGS
         if (itemName == Component.text("Confirm", NamedTextColor.GREEN)) {

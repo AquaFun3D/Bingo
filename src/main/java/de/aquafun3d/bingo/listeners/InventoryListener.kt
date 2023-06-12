@@ -38,6 +38,8 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
 
         val itemName = item.itemMeta.displayName()
 
+        if(itemName == Component.text("Bingo", NamedTextColor.DARK_AQUA) && e.isRightClick) e.isCancelled = true
+
         //SETTINGS
         if (itemName == Component.text("Confirm", NamedTextColor.GREEN)) {
             if(e.isLeftClick){

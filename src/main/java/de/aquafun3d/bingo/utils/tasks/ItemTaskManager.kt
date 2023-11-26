@@ -441,9 +441,6 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.PRISMARINE_SLAB))
         _list.add(ItemTask(Material.PRISMARINE_STAIRS))
         _list.add(ItemTask(Material.PRISMARINE_WALL))
-        _list.add(ItemTask(Material.DARK_PRISMARINE))
-        _list.add(ItemTask(Material.DARK_PRISMARINE_SLAB))
-        _list.add(ItemTask(Material.DARK_PRISMARINE_STAIRS))
         _list.add(ItemTask(Material.NETHERRACK))
         _list.add(ItemTask(Material.COAL_BLOCK))
         _list.add(ItemTask(Material.IRON_BLOCK))
@@ -896,6 +893,9 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.HOST_ARMOR_TRIM_SMITHING_TEMPLATE))
         _list.add(ItemTask(Material.RAISER_ARMOR_TRIM_SMITHING_TEMPLATE))
         _list.add(ItemTask(Material.TIDE_ARMOR_TRIM_SMITHING_TEMPLATE))
+        _list.add(ItemTask(Material.DARK_PRISMARINE))
+        _list.add(ItemTask(Material.DARK_PRISMARINE_SLAB))
+        _list.add(ItemTask(Material.DARK_PRISMARINE_STAIRS))
     }
 
     private fun silktouch(){

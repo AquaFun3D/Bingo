@@ -34,4 +34,6 @@ interface ISettings {
     fun setDifficulty(difficulty: Difficulty)
     fun getHunger(): Boolean
     fun setHunger(b: Boolean)
+    fun getMode(): Mode
+    fun setMode(mode: Mode)
 }

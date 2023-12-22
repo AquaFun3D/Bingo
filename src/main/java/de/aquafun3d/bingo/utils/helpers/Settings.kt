@@ -20,6 +20,7 @@ class Settings: ISettings {
     private var _difficulty = Difficulty.EASY
     private var _quantity: Int = 1
     private var _teamsize: Int = 1
+    private var _mode: Mode = Mode.NORMAL
 
     override fun getPvP(): Boolean {
         return _pvp
@@ -148,5 +149,13 @@ class Settings: ISettings {
 
     override fun getTeamsize(): Int{
         return _teamsize
+    }
+
+    override fun getMode(): Mode {
+        return _mode
+    }
+
+    override fun setMode(mode: Mode) {
+        _mode = mode
     }
 }

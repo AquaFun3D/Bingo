@@ -2,6 +2,7 @@ package de.aquafun3d.bingo.listeners
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
+import de.aquafun3d.bingo.utils.helpers.Mode
 import de.aquafun3d.bingo.utils.inventories.ISettingsInventory
 import de.aquafun3d.bingo.utils.inventories.ITeamselectInventory
 import de.aquafun3d.bingo.utils.tasks.TaskDifficulty
@@ -281,6 +282,36 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                     Difficulty.PEACEFUL ->{
                         _settings.setDifficulty(Difficulty.HARD)
 
+                    }
+                }
+            }
+            _settingsInv.newInventory()
+            player.openInventory(_settingsInv.getInventory())
+        }
+
+        if (itemName == Component.text(_settings.getMode().toString(),NamedTextColor.AQUA).append(Component.text(" Bingo", NamedTextColor.GOLD))) {
+            if(e.isLeftClick){
+                when(_settings.getMode()){
+                    Mode.NORMAL ->{
+                        _settings.setMode(Mode.ROWS)
+                    }
+                    Mode.ROWS ->{
+                        _settings.setMode(Mode.LOCKOUT)
+                    }
+                    Mode.LOCKOUT ->{
+                        _settings.setMode(Mode.NORMAL)
+                    }
+                }
+            }else if(e.isRightClick){
+                when(_settings.getMode()){
+                    Mode.NORMAL ->{
+                        _settings.setMode(Mode.LOCKOUT)
+                    }
+                    Mode.ROWS ->{
+                        _settings.setMode(Mode.NORMAL)
+                    }
+                    Mode.LOCKOUT ->{
+                        _settings.setMode(Mode.ROWS)
                     }
                 }
             }

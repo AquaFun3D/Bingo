@@ -7,7 +7,7 @@ Minecraft Bingo Plugin
 - Modifier (beschleunigen)
 - Game state saven und wann anders weiterspielen
 - Achievements, Enchantments, Mobs, Biom im Bingo
-- KORALLEN, TRÄNKE
+- Korallen, Tränke
 - Team glow effekt
 - Map Reset ohne Bungecord
 - Scoreboard mit Plätzen der Teams
@@ -17,7 +17,7 @@ Minecraft Bingo Plugin
   
 ## Modi:
 - 5x5 Reihen Bingo
-- Gleiche Items und wer zuerst
+- Lockout
 
 
 

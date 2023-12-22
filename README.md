@@ -15,7 +15,7 @@ Minecraft Bingo Plugin
 - teamwaypoints
 - Pause
   
-- Modi:
+## Modi:
 - 5x5 Reihen Bingo
 - Gleiche Items und wer zuerst
 

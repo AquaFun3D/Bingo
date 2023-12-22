@@ -422,6 +422,7 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.CHISELED_BOOKSHELF))
         _list.add(ItemTask(Material.DECORATED_POT))
         _list.add(ItemTask(Material.BRUSH))
+        _list.add(ItemTask(Material.MUD))
     }
 
     private fun overworldNormal(){
@@ -680,7 +681,11 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.CHERRY_SAPLING))
         _list.add(ItemTask(Material.PINK_PETALS))
         _list.add(ItemTask(Material.COAST_ARMOR_TRIM_SMITHING_TEMPLATE))
-
+        _list.add(ItemTask(Material.PACKED_MUD))
+        _list.add(ItemTask(Material.MUD_BRICKS))
+        _list.add(ItemTask(Material.MUD_BRICK_SLAB))
+        _list.add(ItemTask(Material.MUD_BRICK_WALL))
+        _list.add(ItemTask(Material.MUD_BRICK_STAIRS))
     }
 
     private fun overworldHard(){
@@ -698,11 +703,6 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.STRIPPED_MANGROVE_LOG))
         _list.add(ItemTask(Material.STRIPPED_MANGROVE_WOOD))
         _list.add(ItemTask(Material.CRACKED_STONE_BRICKS))
-        _list.add(ItemTask(Material.PACKED_MUD))
-        _list.add(ItemTask(Material.MUD_BRICKS))
-        _list.add(ItemTask(Material.MUD_BRICK_SLAB))
-        _list.add(ItemTask(Material.MUD_BRICK_WALL))
-        _list.add(ItemTask(Material.MUD_BRICK_STAIRS))
         _list.add(ItemTask(Material.RED_SANDSTONE))
         _list.add(ItemTask(Material.RED_SANDSTONE_SLAB))
         _list.add(ItemTask(Material.RED_SANDSTONE_STAIRS))
@@ -762,7 +762,6 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         _list.add(ItemTask(Material.BROWN_CANDLE))
         _list.add(ItemTask(Material.CYAN_CANDLE))
         _list.add(ItemTask(Material.PINK_CANDLE))
-        _list.add(ItemTask(Material.MUD))
         _list.add(ItemTask(Material.RED_SAND))
         _list.add(ItemTask(Material.CALCITE))
         _list.add(ItemTask(Material.OBSIDIAN))

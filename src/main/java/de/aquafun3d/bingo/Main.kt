@@ -38,7 +38,7 @@ class Main : JavaPlugin() {
         val cage = SpawnCage()
         val timer = Timer(this, helpers)
         val teams = BingoTeams(scoreboards, helpers, settings)
-        val teamSelectInv = TeamselectTeamselectInventory(helpers)
+        val teamSelectInv = TeamselectTeamselectInventory(helpers,settings)
         val settingsInv = SettingsInventory(helpers,settings)
         val itemTaskManager = ItemTaskManager(settings)
         val bingoTaskManager = BingoTaskManager(itemTaskManager, settings)

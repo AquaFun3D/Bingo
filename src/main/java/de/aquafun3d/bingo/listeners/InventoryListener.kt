@@ -40,7 +40,7 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
 
         val itemName = item.itemMeta.displayName()
 
-        if(((e.cursor != null && e.cursor!!.type == Material.BUNDLE) || item.type == Material.BUNDLE) && e.isRightClick) e.isCancelled = true
+        if(((e.cursor.type == Material.BUNDLE) || item.type == Material.BUNDLE) && e.isRightClick) e.isCancelled = true
 
 
         //SETTINGS
@@ -92,162 +92,141 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                     }
                 }
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Nether ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setNether(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Nether OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setNether(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("End ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setEnd(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("End OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setEnd(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Silktouch ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setSilktouch(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Silktouch OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setSilktouch(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Items", NamedTextColor.AQUA)) {
             if(e.isLeftClick){
                 _settings.setQuantity(_settings.getQuantity()+1)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Teamsize", NamedTextColor.DARK_AQUA)) {
             if(e.isLeftClick){
-                _settings.setTeamsize(_settings.getTeamsize()+1)
+                if(_settings.getMode() != Mode.LOCKOUT) {
+                    _settings.setTeamsize(_settings.getTeamsize() + 1)
+                }
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("PVP ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setPvP(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("PVP OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setPvP(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("KeepInventory ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setKeepInventory(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("KeepInventory OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setKeepInventory(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Enchanting ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setEnchanting(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Enchanting OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setEnchanting(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Mobs ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setMobs(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Mobs OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setMobs(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Bioms ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setBioms(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Bioms OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setBioms(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Achievements ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setAchievements(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Achievements OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setAchievements(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Hunger ON", NamedTextColor.GREEN)) {
             if(e.isLeftClick){
                 _settings.setHunger(false)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Hunger OFF", NamedTextColor.RED)) {
             if(e.isLeftClick){
                 _settings.setHunger(true)
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
         if (itemName == Component.text("Difficulty ", NamedTextColor.GOLD).append(Component.text(_settings.getDifficulty().toString()).color(NamedTextColor.AQUA))) {
             if(e.isLeftClick){
@@ -285,8 +264,7 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                     }
                 }
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
 
         if (itemName == Component.text(_settings.getMode().toString(),NamedTextColor.AQUA).append(Component.text(" Bingo", NamedTextColor.GOLD))) {
@@ -294,99 +272,99 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                 when(_settings.getMode()){
                     Mode.NORMAL ->{
                         _settings.setMode(Mode.ROWS)
+                        _settings.setTeamsize(2)
                     }
                     Mode.ROWS ->{
                         _settings.setMode(Mode.LOCKOUT)
+                        _settings.setTeamsize(10)
                     }
                     Mode.LOCKOUT ->{
                         _settings.setMode(Mode.NORMAL)
+                        _settings.setTeamsize(2)
                     }
                 }
             }else if(e.isRightClick){
                 when(_settings.getMode()){
                     Mode.NORMAL ->{
                         _settings.setMode(Mode.LOCKOUT)
+                        _settings.setTeamsize(10)
                     }
                     Mode.ROWS ->{
                         _settings.setMode(Mode.NORMAL)
+                        _settings.setTeamsize(2)
                     }
                     Mode.LOCKOUT ->{
                         _settings.setMode(Mode.ROWS)
+                        _settings.setTeamsize(2)
                     }
                 }
             }
-            _settingsInv.newInventory()
-            player.openInventory(_settingsInv.getInventory())
+            updateInv(player)
         }
 
         //TEAMSELECT
         if (itemName == Component.text("Team #1", NamedTextColor.WHITE)) {
-            _teams.joinTeam(player, "white")
-            _teamSelectInv.updateInventory(player)
+            join("white",player)
         }
         if (itemName == Component.text("Team #2", NamedTextColor.GOLD)) {
-            _teams.joinTeam(player, "orange")
-            _teamSelectInv.updateInventory(player)
+            join("orange",player)
         }
         if (itemName == Component.text("Team #3", NamedTextColor.LIGHT_PURPLE)) {
-            _teams.joinTeam(player, "magenta")
-            _teamSelectInv.updateInventory(player)
+            join("magenta",player)
         }
         if (itemName == Component.text("Team #4", NamedTextColor.AQUA)) {
-            _teams.joinTeam(player, "lightblue")
-            _teamSelectInv.updateInventory(player)
+            join("lightblue",player)
         }
         if (itemName == Component.text("Team #5", NamedTextColor.YELLOW)) {
-            _teams.joinTeam(player, "yellow")
-            _teamSelectInv.updateInventory(player)
+            join("yellow",player)
         }
         if (itemName == Component.text("Team #6", NamedTextColor.GREEN)) {
-            _teams.joinTeam(player, "lime")
-            _teamSelectInv.updateInventory(player)
+            join("lime",player)
         }
         if (itemName == Component.text("Team #7", NamedTextColor.RED)) {
-            _teams.joinTeam(player, "pink")
-            _teamSelectInv.updateInventory(player)
+            join("pink",player)
         }
         if (itemName == Component.text("Team #8", NamedTextColor.DARK_GRAY)) {
-            _teams.joinTeam(player, "gray")
-            _teamSelectInv.updateInventory(player)
+            join("gray",player)
         }
         if (itemName == Component.text("Team #9", NamedTextColor.GRAY)) {
-            _teams.joinTeam(player, "lightgray")
-            _teamSelectInv.updateInventory(player)
+            join("lightgray",player)
         }
         if (itemName == Component.text("Team #10", NamedTextColor.DARK_AQUA)) {
-            _teams.joinTeam(player, "cyan")
-            _teamSelectInv.updateInventory(player)
+            join("cyan",player)
         }
         if (itemName == Component.text("Team #11", NamedTextColor.DARK_PURPLE)) {
-            _teams.joinTeam(player, "purple")
-            _teamSelectInv.updateInventory(player)
+            join("purple",player)
         }
         if (itemName == Component.text("Team #12", NamedTextColor.BLUE)) {
-            _teams.joinTeam(player, "blue")
-            _teamSelectInv.updateInventory(player)
+            join("blue",player)
         }
         if (itemName == Component.text("Team #13", NamedTextColor.GOLD)) {
-            _teams.joinTeam(player, "brown")
-            _teamSelectInv.updateInventory(player)
+            join("brown",player)
         }
         if (itemName == Component.text("Team #14", NamedTextColor.DARK_GREEN)) {
-            _teams.joinTeam(player, "green")
-            _teamSelectInv.updateInventory(player)
+            join("green",player)
         }
         if (itemName == Component.text("Team #15", NamedTextColor.DARK_RED)) {
-            _teams.joinTeam(player, "red")
-            _teamSelectInv.updateInventory(player)
+            join("red",player)
         }
         if (itemName == Component.text("Team #16", NamedTextColor.DARK_GRAY)) {
-            _teams.joinTeam(player, "black")
-            _teamSelectInv.updateInventory(player)
+            join("black",player)
         }
         if (itemName == Component.text("Spectator", NamedTextColor.GRAY)) {
-            _teams.joinTeam(player, "spec")
-            _teamSelectInv.updateInventory(player)
+            join("spec",player)
         }
     }
+
+    private fun join(teamName: String, player: Player){
+        _teams.joinTeam(player, teamName)
+        _teamSelectInv.updateInventory(player)
+    }
+
+    private fun updateInv(player: Player){
+        _settingsInv.newInventory()
+        player.openInventory(_settingsInv.getInventory())
+    }
 }
+
+

@@ -26,7 +26,7 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
 
     override fun fillInventories() {
         _bingoTasks.fillList()
-        for (t in _teams.getTeams().values) {
+        for (t in _teams.getTeams().values){
             val inv = Bukkit.createInventory(null, 9 * _settings.getQuantity(), Component.text("Bingo", NamedTextColor.DARK_PURPLE))
             for((i, item) in _bingoTasks.getList().withIndex()){
                 inv.setItem(i, item.getItemStack())

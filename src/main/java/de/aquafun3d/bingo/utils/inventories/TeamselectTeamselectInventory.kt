@@ -1,6 +1,8 @@
 package de.aquafun3d.bingo.utils.inventories
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
+import de.aquafun3d.bingo.utils.helpers.ISettings
+import de.aquafun3d.bingo.utils.helpers.Mode
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
@@ -9,7 +11,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 
-class TeamselectTeamselectInventory(private val _helper: IHelpers) : ITeamselectInventory {
+class TeamselectTeamselectInventory(private val _helper: IHelpers, private val _settings: ISettings) : ITeamselectInventory {
     private val _inventory: Inventory = Bukkit.createInventory(null, 18, Component.text("Teamselect", NamedTextColor.DARK_PURPLE))
     private val _item: ItemStack = _helper.newItem(Material.EMERALD, Component.text("Select Team", NamedTextColor.DARK_AQUA))
 
@@ -36,24 +38,34 @@ class TeamselectTeamselectInventory(private val _helper: IHelpers) : ITeamselect
         val red = _helper.newItem(Material.RED_WOOL, Component.text("Team #15", NamedTextColor.DARK_RED))
         val black = _helper.newItem(Material.BLACK_WOOL, Component.text("Team #16", NamedTextColor.DARK_GRAY))
         val spec = _helper.newItem(Material.GLASS, Component.text("Spectator", NamedTextColor.GRAY))
-        _inventory.setItem(0, white)
-        _inventory.setItem(1, orange)
-        _inventory.setItem(2, magenta)
-        _inventory.setItem(3, lightblue)
-        _inventory.setItem(4, yellow)
-        _inventory.setItem(5, lime)
-        _inventory.setItem(6, pink)
-        _inventory.setItem(7, gray)
-        _inventory.setItem(8, lightgray)
-        _inventory.setItem(9, cyan)
-        _inventory.setItem(10, purple)
-        _inventory.setItem(11, blue)
-        _inventory.setItem(12, brown)
-        _inventory.setItem(13, green)
-        _inventory.setItem(14, red)
-        _inventory.setItem(15, black)
-        _inventory.setItem(16, spec)
-        _inventory.setItem(17, empty)
+
+        if(_settings.getMode().equals(Mode.LOCKOUT)){
+            for(i in 0..17){
+                _inventory.setItem(i,empty)
+            }
+            _inventory.setItem(4,red)
+            _inventory.setItem(13,blue)
+            _inventory.setItem(17, spec)
+        }else {
+            _inventory.setItem(0, white)
+            _inventory.setItem(1, orange)
+            _inventory.setItem(2, magenta)
+            _inventory.setItem(3, lightblue)
+            _inventory.setItem(4, yellow)
+            _inventory.setItem(5, lime)
+            _inventory.setItem(6, pink)
+            _inventory.setItem(7, gray)
+            _inventory.setItem(8, lightgray)
+            _inventory.setItem(9, cyan)
+            _inventory.setItem(10, purple)
+            _inventory.setItem(11, blue)
+            _inventory.setItem(12, brown)
+            _inventory.setItem(13, green)
+            _inventory.setItem(14, red)
+            _inventory.setItem(15, black)
+            _inventory.setItem(16, spec)
+            _inventory.setItem(17, empty)
+        }
     }
 
     override fun updateInventory(player: Player) {

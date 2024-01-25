@@ -19,6 +19,4 @@ Minecraft Bingo Plugin
 - 5x5 Reihen Bingo
 - Lockout
 
-
-
 ## Bugs/Improvements:

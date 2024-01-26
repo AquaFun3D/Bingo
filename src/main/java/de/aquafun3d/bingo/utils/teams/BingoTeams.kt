@@ -2,6 +2,7 @@ package de.aquafun3d.bingo.utils.teams
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
+import de.aquafun3d.bingo.utils.helpers.Mode
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
@@ -45,21 +46,21 @@ class BingoTeams(private val _boards: IScoreboards, private val _helper: IHelper
 
     private fun initTeamnames() {
         _teamnames["spec"] = Component.text("[Spec] ",NamedTextColor.GRAY)
-        _teamnames["white"] = Component.text("[#1] ",NamedTextColor.WHITE)
-        _teamnames["orange"] = Component.text("[#2] ", NamedTextColor.GOLD)
-        _teamnames["magenta"] = Component.text("[#3] ", NamedTextColor.LIGHT_PURPLE)
-        _teamnames["lightblue"] = Component.text("[#4] ", NamedTextColor.AQUA)
-        _teamnames["yellow"] = Component.text("[#5] ", NamedTextColor.YELLOW)
-        _teamnames["lime"] = Component.text("[#6] ",NamedTextColor.GREEN)
-        _teamnames["pink"] = Component.text("[#7] ", NamedTextColor.RED)
-        _teamnames["gray"] = Component.text("[#8] ", NamedTextColor.DARK_GRAY)
-        _teamnames["lightgray"] = Component.text("[#9] ", NamedTextColor.GRAY)
-        _teamnames["cyan"] = Component.text("[#10] ", NamedTextColor.DARK_AQUA)
-        _teamnames["purple"] = Component.text("[#11] ", NamedTextColor.DARK_PURPLE)
-        _teamnames["blue"] = Component.text("[#12] ", NamedTextColor.BLUE)
-        _teamnames["brown"] = Component.text("[#13] ", NamedTextColor.GOLD)
-        _teamnames["green"] = Component.text("[#14] ", NamedTextColor.DARK_GREEN)
-        _teamnames["red"] = Component.text("[#15] ", NamedTextColor.DARK_RED)
+        _teamnames["red"] = Component.text("[#1] ", NamedTextColor.DARK_RED)
+        _teamnames["blue"] = Component.text("[#2] ", NamedTextColor.BLUE)
+        _teamnames["white"] = Component.text("[#3] ",NamedTextColor.WHITE)
+        _teamnames["orange"] = Component.text("[#4] ", NamedTextColor.GOLD)
+        _teamnames["magenta"] = Component.text("[#5] ", NamedTextColor.LIGHT_PURPLE)
+        _teamnames["lightblue"] = Component.text("[#6] ", NamedTextColor.AQUA)
+        _teamnames["yellow"] = Component.text("[#7] ", NamedTextColor.YELLOW)
+        _teamnames["lime"] = Component.text("[#8] ",NamedTextColor.GREEN)
+        _teamnames["pink"] = Component.text("[#9] ", NamedTextColor.RED)
+        _teamnames["gray"] = Component.text("[#10] ", NamedTextColor.DARK_GRAY)
+        _teamnames["lightgray"] = Component.text("[#11] ", NamedTextColor.GRAY)
+        _teamnames["cyan"] = Component.text("[#12] ", NamedTextColor.DARK_AQUA)
+        _teamnames["purple"] = Component.text("[#13] ", NamedTextColor.DARK_PURPLE)
+        _teamnames["brown"] = Component.text("[#14] ", NamedTextColor.GOLD)
+        _teamnames["green"] = Component.text("[#15] ", NamedTextColor.DARK_GREEN)
         _teamnames["black"] = Component.text("[#16] ", NamedTextColor.DARK_GRAY)
     }
 
@@ -85,6 +86,17 @@ class BingoTeams(private val _boards: IScoreboards, private val _helper: IHelper
 
     override fun updateTeamSuffix(player: Player, itemCount: Int){
         if(_teams[player.uniqueId]!!.name == "spec") return
-        _teams[player.uniqueId]!!.suffix(Component.text(" (" + ((_settings.getQuantity() * 9) - itemCount) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW))
+        if(_settings.getMode() == Mode.LOCKOUT){
+            _teams[player.uniqueId]!!.suffix(Component.text(" (" + itemCount + "/" + (_settings.getQuantity() * 9 / 2 + 1) + ")", NamedTextColor.YELLOW))
+        }else{
+            _teams[player.uniqueId]!!.suffix(Component.text(" (" + ((_settings.getQuantity() * 9) - itemCount) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW))
+        }
+    }
+
+    override fun getSuffix(player: Player): Component{
+        if(_teams[player.uniqueId]!!.name != "spec"){
+            return _teams[player.uniqueId]!!.suffix()
+        }
+        return Component.text("Error")
     }
 }

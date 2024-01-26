@@ -1,6 +1,7 @@
 package de.aquafun3d.bingo.utils.tasks
 
 import de.aquafun3d.bingo.utils.helpers.ISettings
+import de.aquafun3d.bingo.utils.helpers.Mode
 import org.bukkit.Material
 
 class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
@@ -60,6 +61,10 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         var index = 0
         while (index < amount){
             val rdm = (0 until _list.size).random()
+            if(_settings.getMode() == Mode.LOCKOUT){
+                _list.remove(ItemTask(Material.BLUE_STAINED_GLASS_PANE))
+                _list.remove(ItemTask(Material.RED_STAINED_GLASS_PANE))
+            }
             _listReturn.add(_list[rdm])
             _list.removeAt(rdm)
             index++

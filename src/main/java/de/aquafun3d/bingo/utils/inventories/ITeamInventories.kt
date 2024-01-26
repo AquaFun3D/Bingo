@@ -9,6 +9,7 @@ import org.bukkit.scoreboard.Team
 interface ITeamInventories {
     fun fillInventories()
     fun removeItem(player: Player, item: ItemStack)
+    fun removeForAll(player: Player, item: Material)
     fun removeItem(player: Player, item: Material)
     fun removeItemIndex(index: Int, player: Player)
     fun getInventorybyPlayer(player: Player): Inventory

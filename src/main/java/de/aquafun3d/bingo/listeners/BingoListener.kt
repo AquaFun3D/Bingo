@@ -2,6 +2,7 @@ package de.aquafun3d.bingo.listeners
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
+import de.aquafun3d.bingo.utils.helpers.Mode
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.ITimer
@@ -13,6 +14,7 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -54,16 +56,22 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
 
     private fun checkItem(player: Player, item: ItemStack){
         if(_teams.getPlayerTeamName(player) == "spec") return
-            if(_teamInv.getInventorybyPlayer(player).contains(item.type)) {
-                _teamInv.removeItem(player, item.type)
-                _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(Component.text(" (" + ((_settings.getQuantity() * 9) - _teamInv.itemCount(player)) + "/" + _settings.getQuantity() * 9 + ")", NamedTextColor.YELLOW)))
+        if(_settings.getMode() == Mode.LOCKOUT && item.type == Material.RED_STAINED_GLASS_PANE || item.type == Material.BLUE_STAINED_GLASS_PANE) return
+        if(_teamInv.getInventorybyPlayer(player).contains(item.type)) {
+                if(_settings.getMode() == Mode.LOCKOUT){
+                    _teamInv.removeForAll(player, item.type)
+                }else{
+                    _teamInv.removeItem(player, item.type)
+                }
+                _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
+                _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))
                 for(p in Bukkit.getOnlinePlayers()){
                     if(_teams.getPlayerTeam(p) == _teams.getPlayerTeam(player))
                     sendTitle(p, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
                 }
-                _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
             }
         if(_teamInv.getInventorybyPlayer(player).isEmpty) winTask(player)
+        if(_settings.getMode() == Mode.LOCKOUT && _teamInv.itemCount(player) == _settings.getQuantity() * 9 / 2 + 1) winTask(player)
     }
 
 

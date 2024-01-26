@@ -54,6 +54,7 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                 if(p.isOp) p.inventory.setItem(8, _settingsInv.getItem())
                 p.inventory.setItem(4, _teamSelectInv.getItem())
             }
+            _teamSelectInv.newInventory()
             player.closeInventory()
         }
         if (itemName == Component.text("Bingo Difficulty ", NamedTextColor.GOLD).append(Component.text(_settings.getBingoDifficulty().toString()).color(NamedTextColor.AQUA))) {
@@ -272,7 +273,7 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                 when(_settings.getMode()){
                     Mode.NORMAL ->{
                         _settings.setMode(Mode.ROWS)
-                        _settings.setTeamsize(2)
+                        _settings.setTeamsize(1)
                     }
                     Mode.ROWS ->{
                         _settings.setMode(Mode.LOCKOUT)
@@ -280,7 +281,7 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                     }
                     Mode.LOCKOUT ->{
                         _settings.setMode(Mode.NORMAL)
-                        _settings.setTeamsize(2)
+                        _settings.setTeamsize(1)
                     }
                 }
             }else if(e.isRightClick){
@@ -291,11 +292,11 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
                     }
                     Mode.ROWS ->{
                         _settings.setMode(Mode.NORMAL)
-                        _settings.setTeamsize(2)
+                        _settings.setTeamsize(1)
                     }
                     Mode.LOCKOUT ->{
                         _settings.setMode(Mode.ROWS)
-                        _settings.setTeamsize(2)
+                        _settings.setTeamsize(1)
                     }
                 }
             }
@@ -303,50 +304,50 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
         }
 
         //TEAMSELECT
-        if (itemName == Component.text("Team #1", NamedTextColor.WHITE)) {
-            join("white",player)
+        if (itemName == Component.text("Team #1", NamedTextColor.DARK_RED)) {
+            join("red",player)
         }
-        if (itemName == Component.text("Team #2", NamedTextColor.GOLD)) {
-            join("orange",player)
-        }
-        if (itemName == Component.text("Team #3", NamedTextColor.LIGHT_PURPLE)) {
-            join("magenta",player)
-        }
-        if (itemName == Component.text("Team #4", NamedTextColor.AQUA)) {
-            join("lightblue",player)
-        }
-        if (itemName == Component.text("Team #5", NamedTextColor.YELLOW)) {
-            join("yellow",player)
-        }
-        if (itemName == Component.text("Team #6", NamedTextColor.GREEN)) {
-            join("lime",player)
-        }
-        if (itemName == Component.text("Team #7", NamedTextColor.RED)) {
-            join("pink",player)
-        }
-        if (itemName == Component.text("Team #8", NamedTextColor.DARK_GRAY)) {
-            join("gray",player)
-        }
-        if (itemName == Component.text("Team #9", NamedTextColor.GRAY)) {
-            join("lightgray",player)
-        }
-        if (itemName == Component.text("Team #10", NamedTextColor.DARK_AQUA)) {
-            join("cyan",player)
-        }
-        if (itemName == Component.text("Team #11", NamedTextColor.DARK_PURPLE)) {
-            join("purple",player)
-        }
-        if (itemName == Component.text("Team #12", NamedTextColor.BLUE)) {
+        if (itemName == Component.text("Team #2", NamedTextColor.BLUE)) {
             join("blue",player)
         }
-        if (itemName == Component.text("Team #13", NamedTextColor.GOLD)) {
+        if (itemName == Component.text("Team #3", NamedTextColor.WHITE)) {
+            join("white",player)
+        }
+        if (itemName == Component.text("Team #4", NamedTextColor.GOLD)) {
+            join("orange",player)
+        }
+        if (itemName == Component.text("Team #5", NamedTextColor.LIGHT_PURPLE)) {
+            join("magenta",player)
+        }
+        if (itemName == Component.text("Team #6", NamedTextColor.AQUA)) {
+            join("lightblue",player)
+        }
+        if (itemName == Component.text("Team #7", NamedTextColor.YELLOW)) {
+            join("yellow",player)
+        }
+        if (itemName == Component.text("Team #8", NamedTextColor.GREEN)) {
+            join("lime",player)
+        }
+        if (itemName == Component.text("Team #9", NamedTextColor.RED)) {
+            join("pink",player)
+        }
+        if (itemName == Component.text("Team #10", NamedTextColor.DARK_GRAY)) {
+            join("gray",player)
+        }
+        if (itemName == Component.text("Team #11", NamedTextColor.GRAY)) {
+            join("lightgray",player)
+        }
+        if (itemName == Component.text("Team #12", NamedTextColor.DARK_AQUA)) {
+            join("cyan",player)
+        }
+        if (itemName == Component.text("Team #13", NamedTextColor.DARK_PURPLE)) {
+            join("purple",player)
+        }
+        if (itemName == Component.text("Team #14", NamedTextColor.GOLD)) {
             join("brown",player)
         }
-        if (itemName == Component.text("Team #14", NamedTextColor.DARK_GREEN)) {
+        if (itemName == Component.text("Team #15", NamedTextColor.DARK_GREEN)) {
             join("green",player)
-        }
-        if (itemName == Component.text("Team #15", NamedTextColor.DARK_RED)) {
-            join("red",player)
         }
         if (itemName == Component.text("Team #16", NamedTextColor.DARK_GRAY)) {
             join("black",player)

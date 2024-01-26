@@ -2,18 +2,14 @@ package de.aquafun3d.bingo.utils.inventories
 
 import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
+import de.aquafun3d.bingo.utils.helpers.Mode
 import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
 import de.aquafun3d.bingo.utils.tasks.IItemTaskManager
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.ITimer
-import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.key.Key
-import net.kyori.adventure.sound.Sound
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
-import org.bukkit.GameMode
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
@@ -39,6 +35,17 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
 
     override fun removeItem(player: Player, item: ItemStack) {
         _inventories[_teams.getPlayerTeam(player)]!!.removeItem(item)
+    }
+
+    override fun removeForAll(player: Player, item: Material){
+        val replace = if(_teams.getPlayerTeamName(player) == "red"){
+            _helper.newItem(Material.RED_STAINED_GLASS_PANE, Component.text("Team #1", NamedTextColor.DARK_RED))
+        }else{
+            _helper.newItem(Material.BLUE_STAINED_GLASS_PANE, Component.text("Team #2", NamedTextColor.BLUE))
+        }
+        for(inv in _inventories){
+            inv.value.setItem(inv.value.first(item), replace)
+        }
     }
 
     override fun removeItemIndex(index: Int, player: Player){
@@ -69,8 +76,17 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
     override fun itemCount(player: Player): Int{
         var out = 0
         for(item in getInventorybyPlayer(player)){
-            if(item != null){
-                out++
+            if(_settings.getMode() == Mode.LOCKOUT){
+                if(_teams.getPlayerTeamName(player) == "red"){
+                    if(item.itemMeta.displayName() == Component.text("Team #1", NamedTextColor.DARK_RED)) out++
+                }
+                if(_teams.getPlayerTeamName(player) == "blue"){
+                    if(item.itemMeta.displayName() == Component.text("Team #2", NamedTextColor.BLUE)) out++
+                }
+            }else{
+                if(item != null){
+                    out++
+                }
             }
         }
         return out

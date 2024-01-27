@@ -18,7 +18,9 @@ import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.scoreboards.Scoreboards
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage
 import de.aquafun3d.bingo.utils.tasks.BingoTaskManager
+import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
 import de.aquafun3d.bingo.utils.tasks.ItemTaskManager
+import de.aquafun3d.bingo.utils.tasks.MobTaskManager
 import de.aquafun3d.bingo.utils.teams.BingoTeams
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.ITimer
@@ -41,11 +43,12 @@ class Main : JavaPlugin() {
         val teamSelectInv = TeamselectTeamselectInventory(helpers,settings)
         val settingsInv = SettingsInventory(helpers,settings)
         val itemTaskManager = ItemTaskManager(settings)
-        val bingoTaskManager = BingoTaskManager(itemTaskManager, settings)
+        val mobTaskManager = MobTaskManager(settings)
+        val bingoTaskManager = BingoTaskManager(itemTaskManager, settings, mobTaskManager)
         val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings, timer, itemTaskManager)
         val countdown = Countdown(this, cage, helpers, teamInventories, teams, settings)
         commandRegistration(helpers, config, teams, teamInventories, countdown, settings)
-        listenerRegistration(helpers, scoreboards, teams, config, teamSelectInv, settingsInv, teamInventories, settings, timer)
+        listenerRegistration(helpers, scoreboards, teams, config, teamSelectInv, settingsInv, teamInventories, settings, timer, bingoTaskManager)
     }
 
     override fun onDisable() {
@@ -63,11 +66,11 @@ class Main : JavaPlugin() {
         getCommand("skip")!!.setExecutor(SkipCommand(helpers, teamInv, settings))
     }
 
-    private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, config: IConfig, teamSelectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings, timer: ITimer) {
+    private fun listenerRegistration(helpers: IHelpers, scoreboards: IScoreboards, teams: ITeams, config: IConfig, teamSelectInv: ITeamselectInventory, settingsInv: ISettingsInventory, teamInv: ITeamInventories, settings: ISettings, timer: ITimer, manager: IBingoTaskManager) {
         val pluginManager = Bukkit.getPluginManager()
         pluginManager.registerEvents(DefaultListener(helpers, scoreboards, settingsInv, teamSelectInv, teams, teamInv, settings), this)
         pluginManager.registerEvents(TeamBackpackListener(config, teams, settings), this)
         pluginManager.registerEvents(InventoryListener(teams,helpers, settings, settingsInv, teamSelectInv), this)
-        pluginManager.registerEvents(BingoListener(helpers, teamInv, teams, settings, timer), this)
+        pluginManager.registerEvents(BingoListener(helpers, teamInv, teams, settings, timer, manager), this)
     }
 }

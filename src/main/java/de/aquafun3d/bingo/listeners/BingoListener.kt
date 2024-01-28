@@ -13,6 +13,7 @@ import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.TranslatableComponent
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
@@ -103,10 +104,12 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
     }
 
     private fun announce(player: Player, item: ItemStack){
-        _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(item.displayName().color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))
+        val trans = item.displayName() as TranslatableComponent
+        val name = trans.args()[0]
+        _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(name.color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))
         for(p in Bukkit.getOnlinePlayers()){
             if(_teams.getPlayerTeam(p) == _teams.getPlayerTeam(player))
-                sendTitle(p, item.displayName().color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+                sendTitle(p, name.color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
         }
         if(_teamInv.getInventorybyPlayer(player).isEmpty) winTask(player)
         if(_settings.getMode() == Mode.LOCKOUT && _teamInv.itemCount(player) == _settings.getQuantity() * 9 / 2 + 1) winTask(player)

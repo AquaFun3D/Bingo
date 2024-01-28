@@ -59,12 +59,10 @@ class ItemTaskManager(private val _settings: ISettings): IItemTaskManager {
         }
         _list.shuffle()
         var index = 0
-        while (index < amount){
+        while (_listReturn.size != amount){
             val rdm = (0 until _list.size).random()
-            if(_settings.getMode() == Mode.LOCKOUT){
-                _list.remove(ItemTask(Material.BLUE_STAINED_GLASS_PANE))
-                _list.remove(ItemTask(Material.RED_STAINED_GLASS_PANE))
-            }
+            if(_list[rdm].getItemStack().type == Material.BLUE_STAINED_GLASS_PANE && _settings.getMode() == Mode.LOCKOUT) continue
+            if(_list[rdm].getItemStack().type == Material.RED_STAINED_GLASS_PANE && _settings.getMode() == Mode.LOCKOUT) continue
             _listReturn.add(_list[rdm])
             _list.removeAt(rdm)
             index++

@@ -51,6 +51,7 @@ class MobTaskManager(private val _settings: ISettings): IMobTaskManager {
         _list.shuffle()
         var index = 0
         while (index < amount){
+            if(_list.isEmpty()) break
             val rdm = (0 until _list.size).random()
             _listReturn.add(_list[rdm])
             _list.removeAt(rdm)
@@ -64,7 +65,7 @@ class MobTaskManager(private val _settings: ISettings): IMobTaskManager {
         _list.add(MobTask(Material.CHICKEN_SPAWN_EGG, "Chicken", EntityType.CHICKEN))
         _list.add(MobTask(Material.COD_SPAWN_EGG, "Cod", EntityType.COD))
         _list.add(MobTask(Material.PIG_SPAWN_EGG, "Pig", EntityType.PIG))
-        _list.add(MobTask(Material.SALMON, "Salmon", EntityType.SALMON))
+        _list.add(MobTask(Material.SALMON_SPAWN_EGG, "Salmon", EntityType.SALMON))
         _list.add(MobTask(Material.SHEEP_SPAWN_EGG, "Sheep", EntityType.SHEEP))
         _list.add(MobTask(Material.SQUID_SPAWN_EGG, "Squid", EntityType.SQUID))
         _list.add(MobTask(Material.SPIDER_SPAWN_EGG, "Spider", EntityType.SPIDER))

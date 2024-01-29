@@ -17,10 +17,7 @@ import de.aquafun3d.bingo.utils.inventories.*
 import de.aquafun3d.bingo.utils.scoreboards.IScoreboards
 import de.aquafun3d.bingo.utils.scoreboards.Scoreboards
 import de.aquafun3d.bingo.utils.spawncage.SpawnCage
-import de.aquafun3d.bingo.utils.tasks.BingoTaskManager
-import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
-import de.aquafun3d.bingo.utils.tasks.ItemTaskManager
-import de.aquafun3d.bingo.utils.tasks.MobTaskManager
+import de.aquafun3d.bingo.utils.tasks.*
 import de.aquafun3d.bingo.utils.teams.BingoTeams
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.ITimer
@@ -44,7 +41,8 @@ class Main : JavaPlugin() {
         val settingsInv = SettingsInventory(helpers,settings)
         val itemTaskManager = ItemTaskManager(settings)
         val mobTaskManager = MobTaskManager(settings)
-        val bingoTaskManager = BingoTaskManager(itemTaskManager, settings, mobTaskManager)
+        val biomeTaskManager = BiomeTaskManager(settings)
+        val bingoTaskManager = BingoTaskManager(itemTaskManager, settings, mobTaskManager, biomeTaskManager)
         val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings, timer, itemTaskManager)
         val countdown = Countdown(this, cage, helpers, teamInventories, teams, settings)
         commandRegistration(helpers, config, teams, teamInventories, countdown, settings)

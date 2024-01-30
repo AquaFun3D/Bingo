@@ -4,6 +4,8 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
+import org.bukkit.advancement.Advancement
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
@@ -47,4 +49,7 @@ class Helpers : IHelpers {
         return item
     }
 
+    override fun parse(name: String): Advancement {
+        return Bukkit.getAdvancement(NamespacedKey("minecraft", name))!!
+    }
 }

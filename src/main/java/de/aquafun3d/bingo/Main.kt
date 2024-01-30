@@ -42,7 +42,7 @@ class Main : JavaPlugin() {
         val itemTaskManager = ItemTaskManager(settings)
         val mobTaskManager = MobTaskManager(settings)
         val biomeTaskManager = BiomeTaskManager(settings)
-        val advancementTaskManager = AdvancementTaskManager(settings)
+        val advancementTaskManager = AdvancementTaskManager(settings, helpers)
         val bingoTaskManager = BingoTaskManager(itemTaskManager, settings, mobTaskManager, biomeTaskManager, advancementTaskManager)
         val teamInventories = TeamInventories(teams, helpers, bingoTaskManager, settings, timer, itemTaskManager)
         val countdown = Countdown(this, cage, helpers, teamInventories, teams, settings)

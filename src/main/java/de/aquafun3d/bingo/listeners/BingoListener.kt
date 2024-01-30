@@ -71,6 +71,7 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
     fun onAdvancement(e: PlayerAdvancementDoneEvent){
         if(!_helper.isBingoRunning()) return
         checkAdvancement(e.player, e.advancement)
+        e.advancement
     }
 
     @EventHandler
@@ -98,8 +99,10 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
             if(task.getTaskType() == TaskType.MOB){
                 task as MobTask
                 if(task.getEntityType() == mob){
-                    _teamInv.removeItem(player, task.getItemStack())
-                    announceName(player, task.getName())
+                    if(_teamInv.getInventorybyPlayer(player).contains(task.getItemStack())){
+                        _teamInv.removeItem(player, task.getItemStack())
+                        announceName(player, task.getName())
+                    }
                 }
             }
         }
@@ -111,8 +114,10 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
             if(task.getTaskType() == TaskType.ACHIEVMENT){
                 task as AdvancementTask
                 if(task.getAdvancement() == advancement){
-                    _teamInv.removeItem(player, task.getItemStack())
-                    announceName(player, task.getName())
+                    if(_teamInv.getInventorybyPlayer(player).contains(task.getItemStack())){
+                        _teamInv.removeItem(player, task.getItemStack())
+                        announceName(player, task.getName())
+                    }
                 }
             }
         }
@@ -124,8 +129,10 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
             if(task.getTaskType() == TaskType.BIOME){
                 task as BiomeTask
                 if(task.getBiome() == biome){
-                    _teamInv.removeItem(player, task.getItemStack())
-                    announceName(player, task.getName())
+                    if(_teamInv.getInventorybyPlayer(player).contains(task.getItemStack())){
+                        _teamInv.removeItem(player, task.getItemStack())
+                        announceName(player, task.getName())
+                    }
                 }
             }
         }
@@ -146,6 +153,7 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
     }
 
     private fun announceName(player: Player, name: Component){
+        _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
         _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(name.color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))
         for(p in Bukkit.getOnlinePlayers()){
             if(_teams.getPlayerTeam(p) == _teams.getPlayerTeam(player))

@@ -6,16 +6,16 @@ import org.bukkit.Material
 import org.bukkit.block.Biome
 import org.bukkit.inventory.ItemStack
 
-class BiomeTask(material: Material, name: String, biome: Biome): IBingoTask {
+class BiomeTask(name: String, biome: Biome): IBingoTask {
 
-    private var _itemStack: ItemStack = ItemStack(material)
-    private var _type: TaskType = TaskType.MOB
+    private var _itemStack: ItemStack = ItemStack(Material.REINFORCED_DEEPSLATE)
+    private var _type: TaskType = TaskType.BIOME
     private var _name: Component = Component.text(name)
     private var _biome: Biome = biome
 
     init {
         val meta = _itemStack.itemMeta
-        meta.displayName(Component.text(name, NamedTextColor.YELLOW))
+        meta.displayName(Component.text(name, NamedTextColor.RED))
         _itemStack.setItemMeta(meta)
     }
 

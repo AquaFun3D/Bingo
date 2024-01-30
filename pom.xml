@@ -6,7 +6,7 @@
 
     <groupId>de.aquafun3d</groupId>
     <artifactId>bingo</artifactId>
-    <version>1.5</version>
+    <version>1.7</version>
     <packaging>jar</packaging>
 
     <name>Bingo</name>

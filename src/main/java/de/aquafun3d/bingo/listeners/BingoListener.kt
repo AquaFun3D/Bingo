@@ -4,10 +4,7 @@ import de.aquafun3d.bingo.utils.helpers.IHelpers
 import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.helpers.Mode
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories
-import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
-import de.aquafun3d.bingo.utils.tasks.ItemTask
-import de.aquafun3d.bingo.utils.tasks.MobTask
-import de.aquafun3d.bingo.utils.tasks.TaskType
+import de.aquafun3d.bingo.utils.tasks.*
 import de.aquafun3d.bingo.utils.teams.ITeams
 import de.aquafun3d.bingo.utils.timer.ITimer
 import net.kyori.adventure.audience.Audience
@@ -19,7 +16,8 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.title.Title
 import org.bukkit.Bukkit
 import org.bukkit.GameMode
-import org.bukkit.Material
+import org.bukkit.advancement.Advancement
+import org.bukkit.block.Biome
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -27,6 +25,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.event.player.PlayerAdvancementDoneEvent
+import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.inventory.ItemStack
 
 class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamInventories, private val _teams: ITeams, private val _settings: ISettings, private val _timer: ITimer, private val _taskManager: IBingoTaskManager) : Listener {
@@ -67,6 +67,20 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
         }
     }
 
+    @EventHandler
+    fun onAdvancement(e: PlayerAdvancementDoneEvent){
+        if(!_helper.isBingoRunning()) return
+        checkAdvancement(e.player, e.advancement)
+    }
+
+    @EventHandler
+    fun onBiome(e: PlayerMoveEvent){
+        if(e.hasChangedBlock()){
+            checkBiome(e.player, e.player.location.block.biome)
+        }
+    }
+
+
     private fun checkItem(player: Player, item: ItemStack){
         if(_teams.getPlayerTeamName(player) == "spec") return
         for(i in _teamInv.getInventorybyPlayer(player)){
@@ -85,7 +99,33 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
                 task as MobTask
                 if(task.getEntityType() == mob){
                     _teamInv.removeItem(player, task.getItemStack())
-                    announceMob(player, task.getName())
+                    announceName(player, task.getName())
+                }
+            }
+        }
+    }
+
+    private fun checkAdvancement(player: Player, advancement: Advancement){
+        if(_teams.getPlayerTeamName(player) == "spec") return
+        for(task in _taskManager.getList()){
+            if(task.getTaskType() == TaskType.ACHIEVMENT){
+                task as AdvancementTask
+                if(task.getAdvancement() == advancement){
+                    _teamInv.removeItem(player, task.getItemStack())
+                    announceName(player, task.getName())
+                }
+            }
+        }
+    }
+
+    private fun checkBiome(player: Player, biome: Biome){
+        if(_teams.getPlayerTeamName(player) == "spec") return
+        for(task in _taskManager.getList()){
+            if(task.getTaskType() == TaskType.BIOME){
+                task as BiomeTask
+                if(task.getBiome() == biome){
+                    _teamInv.removeItem(player, task.getItemStack())
+                    announceName(player, task.getName())
                 }
             }
         }
@@ -105,11 +145,11 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
 
     }
 
-    private fun announceMob(player: Player, mob: Component){
-        _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(mob.color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))
+    private fun announceName(player: Player, name: Component){
+        _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(name.color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))
         for(p in Bukkit.getOnlinePlayers()){
             if(_teams.getPlayerTeam(p) == _teams.getPlayerTeam(player))
-                sendTitle(p, mob.color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
+                sendTitle(p, name.color(NamedTextColor.LIGHT_PURPLE), Component.text("registered", NamedTextColor.GREEN))
         }
         if(_teamInv.getInventorybyPlayer(player).isEmpty) winTask(player)
         if(_settings.getMode() == Mode.LOCKOUT && _teamInv.itemCount(player) == _settings.getQuantity() * 9 / 2 + 1) winTask(player)

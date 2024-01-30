@@ -34,7 +34,11 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
     }
 
     override fun removeItem(player: Player, item: ItemStack){
-        _inventories[_teams.getPlayerTeam(player)]!!.removeItem(item)
+        if(_settings.getMode() == Mode.LOCKOUT){
+            removeForAll(player, item.type)
+        }else{
+            _inventories[_teams.getPlayerTeam(player)]!!.removeItem(item)
+        }
     }
 
     override fun removeItem(player: Player, item: Material){
@@ -81,6 +85,7 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
     override fun itemCount(player: Player): Int{
         var out = 0
         for(item in getInventorybyPlayer(player)){
+            if(item == null) continue
             if(_settings.getMode() == Mode.LOCKOUT){
                 if(_teams.getPlayerTeamName(player) == "red"){
                     if(item.itemMeta.displayName() == Component.text("Team #1", NamedTextColor.DARK_RED)) out++
@@ -89,9 +94,7 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
                     if(item.itemMeta.displayName() == Component.text("Team #2", NamedTextColor.BLUE)) out++
                 }
             }else{
-                if(item != null){
-                    out++
-                }
+                out++
             }
         }
         return out

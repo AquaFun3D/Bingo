@@ -4,7 +4,6 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
 import org.bukkit.advancement.Advancement
-import org.bukkit.block.Biome
 import org.bukkit.inventory.ItemStack
 
 class AdvancementTask(material: Material, name: String, advancement: Advancement): IBingoTask {

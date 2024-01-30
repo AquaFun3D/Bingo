@@ -31,12 +31,9 @@ class InventoryListener(private val _teams: ITeams, private val _helper: IHelper
         if (e.view.title() == Component.text("Teamselect", NamedTextColor.DARK_PURPLE)) {
             e.isCancelled = true
         }
-        if (item == null) {
-            return
-        }
-        if (item.itemMeta == null) {
-            return
-        }
+        if (item == null) return
+
+        if (item.itemMeta == null) return
 
         val itemName = item.itemMeta.displayName()
 

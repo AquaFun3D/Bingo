@@ -33,9 +33,18 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
         }
     }
 
-    override fun removeItem(player: Player, item: ItemStack) {
+    override fun removeItem(player: Player, item: ItemStack){
         _inventories[_teams.getPlayerTeam(player)]!!.removeItem(item)
     }
+
+    override fun removeItem(player: Player, item: Material){
+        if(_settings.getMode() == Mode.LOCKOUT){
+            removeForAll(player, item)
+        }else{
+            _inventories[_teams.getPlayerTeam(player)]!!.removeItem(ItemStack(item))
+        }
+    }
+
 
     override fun removeForAll(player: Player, item: Material){
         val replace = if(_teams.getPlayerTeamName(player) == "red"){
@@ -55,10 +64,6 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
             inv.setItem(index - 1, newItem)
         }
         _helper.atAll(item.displayName().color(NamedTextColor.LIGHT_PURPLE).append(Component.text(" replaced with ", NamedTextColor.GREEN)).append(newItem.displayName().color(NamedTextColor.LIGHT_PURPLE)))
-    }
-
-    override fun removeItem(player: Player, item: Material) {
-        _inventories[_teams.getPlayerTeam(player)]!!.removeItem(ItemStack(item))
     }
 
     override fun getInventorybyPlayer(player: Player): Inventory {

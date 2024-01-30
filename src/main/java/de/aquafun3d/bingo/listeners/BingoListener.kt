@@ -5,6 +5,7 @@ import de.aquafun3d.bingo.utils.helpers.ISettings
 import de.aquafun3d.bingo.utils.helpers.Mode
 import de.aquafun3d.bingo.utils.inventories.ITeamInventories
 import de.aquafun3d.bingo.utils.tasks.IBingoTaskManager
+import de.aquafun3d.bingo.utils.tasks.ItemTask
 import de.aquafun3d.bingo.utils.tasks.MobTask
 import de.aquafun3d.bingo.utils.tasks.TaskType
 import de.aquafun3d.bingo.utils.teams.ITeams
@@ -40,11 +41,9 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
             return
         }
         if (e.view.title() == Component.text("Bingo", NamedTextColor.DARK_PURPLE)) {
-            e.isCancelled = true
             return
         }
         if (item == null) return
-        if (item.itemMeta == null) return
         if(!_helper.isBingoRunning()) return
         checkItem(player, item)
     }
@@ -70,10 +69,12 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
 
     private fun checkItem(player: Player, item: ItemStack){
         if(_teams.getPlayerTeamName(player) == "spec") return
-        if(_settings.getMode() == Mode.LOCKOUT && item.type == Material.RED_STAINED_GLASS_PANE || item.type == Material.BLUE_STAINED_GLASS_PANE) return
-        if(_teamInv.getInventorybyPlayer(player).contains(item.type)) {
-            remove(player, item)
-            announce(player, item)
+        for(i in _teamInv.getInventorybyPlayer(player)){
+            if(i == null) continue
+            if(!item.hasItemMeta() && i.type == item.type){
+                _teamInv.removeItem(player, item.type)
+                announce(player, item)
+            }
         }
     }
 
@@ -83,27 +84,15 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
             if(task.getTaskType() == TaskType.MOB){
                 task as MobTask
                 if(task.getEntityType() == mob){
-                    remove(player, task.getItemStack())
+                    _teamInv.removeItem(player, task.getItemStack())
                     announceMob(player, task.getName())
                 }
             }
         }
     }
 
-    private fun remove(player: Player, item: ItemStack){
-        if(_settings.getMode() == Mode.LOCKOUT){
-            _teamInv.removeForAll(player, item.type)
-        }else{
-            if(_settings.getMobs()){
-                _teamInv.removeItem(player, item)
-            }else{
-                _teamInv.removeItem(player, item.type)
-            }
-        }
-        _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
-    }
-
     private fun announce(player: Player, item: ItemStack){
+        _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
         val trans = item.displayName() as TranslatableComponent
         val name = trans.args()[0]
         _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(name.color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))

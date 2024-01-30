@@ -4,12 +4,12 @@ import de.aquafun3d.bingo.utils.helpers.ISettings
 import org.bukkit.Material
 import org.bukkit.entity.EntityType
 
-class BiomeTaskManager(private val _settings: ISettings): IBiomeTaskManager {
+class AdvancementTaskManager(private val _settings: ISettings): IAdvancementTaskManager {
 
     private var _list = mutableListOf<IBingoTask>()
     private var _listReturn = mutableListOf<IBingoTask>()
 
-    override fun getBiomes(amount: Int): List<IBingoTask> {
+    override fun getAdvancements(amount: Int): List<IBingoTask> {
         _listReturn.clear()
         if(_list.isEmpty()) {
             when (_settings.getBingoDifficulty()) {

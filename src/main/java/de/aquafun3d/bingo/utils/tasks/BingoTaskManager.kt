@@ -2,7 +2,7 @@ package de.aquafun3d.bingo.utils.tasks
 
 import de.aquafun3d.bingo.utils.helpers.ISettings
 
-class BingoTaskManager(private val _itemTaskManager: IItemTaskManager, private val _settings: ISettings, private val _mobTaskManager: IMobTaskManager, private val _biomeTaskManager: IBiomeTaskManager): IBingoTaskManager {
+class BingoTaskManager(private val _itemTaskManager: IItemTaskManager, private val _settings: ISettings, private val _mobTaskManager: IMobTaskManager, private val _biomeTaskManager: IBiomeTaskManager, private val _advancementTaskManager: IAdvancementTaskManager): IBingoTaskManager {
 
     private var _list = mutableListOf<IBingoTask>()
 

@@ -86,7 +86,7 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
         if(_teams.getPlayerTeamName(player) == "spec") return
         for(i in _teamInv.getInventorybyPlayer(player)){
             if(i == null) continue
-            if(!item.hasItemMeta() && i.type == item.type){
+            if(!item.hasItemMeta() && !i.hasItemMeta() &&  i.type == item.type){
                 _teamInv.removeItem(player, item.type)
                 announce(player, item)
             }

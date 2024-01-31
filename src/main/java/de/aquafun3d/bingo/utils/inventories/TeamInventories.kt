@@ -62,12 +62,14 @@ class TeamInventories(private val _teams: ITeams,private val _helper: IHelpers, 
     }
 
     override fun removeItemIndex(index: Int, player: Player){
-        val item = _inventories[_teams.getPlayerTeam(player)]!!.getItem(index - 1) ?: return
-        val newItem = _itemManager.getItems(1)[0].getItemStack()
+        if(_bingoTasks.getList().isEmpty()) _bingoTasks.fillList()
+        val task = _bingoTasks.getList()[index - 1]
+        val newTask = _bingoTasks.getNewTask(task.getTaskType())
+        _bingoTasks.replace(index - 1, newTask)
         for(inv in _inventories.values){
-            inv.setItem(index - 1, newItem)
+            inv.setItem(index - 1, newTask.getItemStack())
         }
-        _helper.atAll(item.displayName().color(NamedTextColor.LIGHT_PURPLE).append(Component.text(" replaced with ", NamedTextColor.GREEN)).append(newItem.displayName().color(NamedTextColor.LIGHT_PURPLE)))
+        _helper.atAll(task.getItemStack().displayName().color(NamedTextColor.LIGHT_PURPLE).append(Component.text(" replaced with ", NamedTextColor.GREEN)).append(newTask.getItemStack().displayName().color(NamedTextColor.LIGHT_PURPLE)))
     }
 
     override fun getInventorybyPlayer(player: Player): Inventory {

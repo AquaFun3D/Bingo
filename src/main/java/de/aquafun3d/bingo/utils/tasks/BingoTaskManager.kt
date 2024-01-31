@@ -20,6 +20,21 @@ class BingoTaskManager(private val _itemTaskManager: IItemTaskManager, private v
         }
     }
 
+    override fun getNewTask(type: TaskType): IBingoTask{
+        return when(type){
+            TaskType.ITEM -> _itemTaskManager.getItems(1) as IBingoTask
+            TaskType.BIOME -> _biomeTaskManager.getBiomes(1) as IBingoTask
+            TaskType.ACHIEVMENT -> _advancementTaskManager.getAdvancements(1) as IBingoTask
+            TaskType.MOB -> _mobTaskManager.getMobs(1) as IBingoTask
+            TaskType.ENCHANTMENT -> _itemTaskManager.getItems(1) as IBingoTask
+        }
+    }
+
+    override fun replace(index: Int, task: IBingoTask){
+        _list.removeAt(index)
+        _list.add(index, task)
+    }
+
     override fun getList(): List<IBingoTask>{
         return _list
     }

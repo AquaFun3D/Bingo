@@ -141,7 +141,7 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
     private fun announce(player: Player, item: ItemStack){
         _teams.updateTeamSuffix(player, _teamInv.itemCount(player))
         val trans = item.displayName() as TranslatableComponent
-        val name = trans.args()[0]
+        val name = trans.arguments()[0] as Component
         _helper.atAll(Component.text("Team ", NamedTextColor.GOLD).append(_teams.getPlayerTeamPrefix(player)).append(Component.text(player.name, NamedTextColor.AQUA)).append(Component.text(" registered ", NamedTextColor.GREEN)).append(name.color(NamedTextColor.LIGHT_PURPLE)).append(_teams.getSuffix(player)))
         for(p in Bukkit.getOnlinePlayers()){
             if(_teams.getPlayerTeam(p) == _teams.getPlayerTeam(player))
@@ -149,7 +149,6 @@ class BingoListener(private val _helper: IHelpers, private val _teamInv: ITeamIn
         }
         if(_teamInv.getInventorybyPlayer(player).isEmpty) winTask(player)
         if(_settings.getMode() == Mode.LOCKOUT && _teamInv.itemCount(player) == _settings.getQuantity() * 9 / 2 + 1) winTask(player)
-
     }
 
     private fun announceName(player: Player, name: Component){

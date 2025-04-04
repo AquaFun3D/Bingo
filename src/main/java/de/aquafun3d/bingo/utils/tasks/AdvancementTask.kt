@@ -20,7 +20,7 @@ class AdvancementTask(material: Material, name: String, advancement: Advancement
     init {
         val meta = _itemStack.itemMeta
         meta.displayName(Component.text(name, NamedTextColor.LIGHT_PURPLE))
-        meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true)
+        meta.addEnchant(Enchantment.INFINITY, 1, true)
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS)
         _itemStack.setItemMeta(meta)
     }
